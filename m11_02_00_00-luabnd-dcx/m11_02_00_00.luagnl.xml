@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<luagnl>
+  <bigendian>False</bigendian>
+  <longformat>True</longformat>
+  <globals>
+    <global>GetWellSpace_Odds</global>
+    <global>Nanimosinai11000_Logic</global>
+    <global>Nanimosinai11000_Interupt</global>
+    <global>direction</global>
+  </globals>
+</luagnl>

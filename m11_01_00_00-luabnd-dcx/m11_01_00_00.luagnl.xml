@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<luagnl>
+  <bigendian>False</bigendian>
+  <longformat>True</longformat>
+  <globals>
+    <global>GetWellSpace_Odds</global>
+    <global>direction</global>
+    <global>Nanimosinai11000_Logic</global>
+    <global>Nanimosinai11000_Interupt</global>
+    <global>retval</global>
+    <global>stepType</global>
+    <global>d_direction</global>
+    <global>LOCAL_EzSetup</global>
+    <global>LOCAL_AddStateTransitionGoal</global>
+  </globals>
+</luagnl>

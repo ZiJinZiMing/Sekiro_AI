@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<luagnl>
+  <bigendian>False</bigendian>
+  <longformat>True</longformat>
+  <globals>
+    <global>GetWellSpace_Odds</global>
+    <global>retval</global>
+    <global>HakaisouPhantom500005_Act01</global>
+    <global>HakaisouPhantom500005_Act02</global>
+    <global>HakaisouPhantom500005_Act03</global>
+    <global>HakaisouPhantom500005_Act04</global>
+    <global>HakaisouPhantom500005_Act05</global>
+    <global>HakaisouPhantom500005_Act06</global>
+    <global>HakaisouPhantom500005_Act08</global>
+    <global>HakaisouPhantom500005_Act09</global>
+    <global>HakaisouPhantom500005_Act10</global>
+    <global>HakaisouPhantom500005_Act11</global>
+    <global>HakaisouPhantom500005_Act12</global>
+    <global>HakaisouPhantom500005_Act13</global>
+    <global>HakaisouPhantom500005_Act40</global>
+    <global>HakaisouPhantom500005_ActAfter_AdjustSpace</global>
+    <global>Waraningyou_504000_Logic</global>
+    <global>Waraningyou_504000_Interupt</global>
+    <global>attack0</global>
+    <global>attack1</global>
+    <global>Platoon000120_Activate</global>
+    <global>Platoon000120_Deactivate</global>
+    <global>Platoon000120_Update</global>
+    <global>LOCAL_EzSetup</global>
+    <global>LOCAL_AddStateTransitionGoal</global>
+    <global>d_direction</global>
+    <global>stepType</global>
+  </globals>
+</luagnl>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<luagnl>
+  <bigendian>False</bigendian>
+  <longformat>True</longformat>
+  <globals>
+    <global>GetWellSpace_Odds</global>
+    <global>kengekiId</global>
+    <global>retval</global>
+  </globals>
+</luagnl>

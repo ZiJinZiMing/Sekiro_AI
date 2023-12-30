@@ -1,0 +1,490 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<luainfo>
+  <bigendian>False</bigendian>
+  <longformat>True</longformat>
+  <goals>
+    <goal id="2000">
+      <name>Wait</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2">
+      <name>Stay</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2019">
+      <name>MoveToSomewhere</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2013">
+      <name>MoveToSomewhereSmooth</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2025">
+      <name>MoveToSomewhere_RouteMove</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2026">
+      <name>MoveToSomewhere_SwitchRouteMove</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2027">
+      <name>MoveToSomewhere_SpecifyMove</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2101">
+      <name>Guard</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2017">
+      <name>SidewayMove</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2030">
+      <name>SidewayMoveAng</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2036">
+      <name>SidewayMoveAvoidChr</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2018">
+      <name>KeepDist</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="4">
+      <name>BackToHome</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2020">
+      <name>SpinStep</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2016">
+      <name>LeaveTarget</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2107">
+      <name>ApproachStep</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2113">
+      <name>Parry</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2023">
+      <name>MoveTargetRelationPos</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2024">
+      <name>MoveFollowPathSpecifyPos</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2028">
+      <name>MoveFreeSpace</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2031">
+      <name>TeamCommand</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2032">
+      <name>TeamCommandManager</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2033">
+      <name>ActivateNoSubGoal</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2034">
+      <name>ExecAction</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2035">
+      <name>FollowPathExecAction</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2037">
+      <name>ToTargetWarp</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2500">
+      <name>CautionStateApproachTarget</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2502">
+      <name>CautionStateApproachTarget_WalkAround</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2503">
+      <name>CautionStateApproachTarget_WAEA</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2504">
+      <name>TargetStateBehavior</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="5000">
+      <name>WaitCancelTiming</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="5100">
+      <name>ConfirmCautionTarget</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2060">
+      <name>ApproachSettingDirection</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2015">
+      <name>ApproachTarget</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2100">
+      <name>Attack</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2220">
+      <name>AttackTunableSpin</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2102">
+      <name>ComboAttack</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2230">
+      <name>ComboAttack180</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2221">
+      <name>ComboAttackTunableSpin</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2211">
+      <name>ComboFinal</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2210">
+      <name>ComboRepeat</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2231">
+      <name>ComboRepeat_SuccessAngle180</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2253">
+      <name>ComboTunableSuccessAngle180</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2054">
+      <name>ComeDown</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2200">
+      <name>CommonAttack</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2105">
+      <name>ContinueAttack</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2056">
+      <name>DoorAct</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2021">
+      <name>Fall</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2103">
+      <name>GuardBreakAttack</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2254">
+      <name>GuardBreakTunable</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="1000">
+      <name>If</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2057">
+      <name>KeepDistYAxis</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2055">
+      <name>LadderAct</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2050">
+      <name>LiftOff</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2051">
+      <name>Landing</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2052">
+      <name>Landing_Move</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2053">
+      <name>Landing_Landing</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2022">
+      <name>MoveToMovePointAir</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2104">
+      <name>NonspinningAttack</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2250">
+      <name>NonspinningComboAttack</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2252">
+      <name>NonspinningComboFinal</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2251">
+      <name>NonspinningComboRepeat</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2109">
+      <name>DashAttack</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2110">
+      <name>DashAttack_Attack</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2115">
+      <name>ObjActTest</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2240">
+      <name>Pursuit</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2114">
+      <name>SpecialTurn</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2116">
+      <name>TeamCallHelp</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2117">
+      <name>TeamReplyHelp</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2001">
+      <name>Turn</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2002">
+      <name>TurnAround</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2108">
+      <name>UseItem</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="13000004">
+      <name>CallTeam</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2700">
+      <name>WaitOnFailedPath</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2701">
+      <name>ApproachOnFailedPath</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2702">
+      <name>WalkAroundOnFailedPath</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2703">
+      <name>BackToHomeOnFailedPath</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2070">
+      <name>RouteMove</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="0">
+      <name>TopGoal</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="3">
+      <name>WalkAround</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="5">
+      <name>NonBattleAct</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="1">
+      <name>Normal</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="200010">
+      <name>Attack3</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="200013">
+      <name>Step</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2014">
+      <name>ApproachTargetLifeSuccess</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2040">
+      <name>ApproachTarget_ParallelMov</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2260">
+      <name>EndureAttack</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2261">
+      <name>StabCounterAttack</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2262">
+      <name>AttackImmediateAction</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="1540">
+      <name>Wataa1540_Logic</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>True</logicinterrupt>
+      <logicinterruptname>Wataa1540_Interupt</logicinterruptname>
+    </goal>
+    <goal id="14000">
+      <name>DS2PGTest14000_Battle</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2005">
+      <name>WaitWithAnime</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="2263">
+      <name>AttackNonCancel</name>
+      <battleinterrupt>True</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="4020">
+      <name>ClearTarget</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>False</logicinterrupt>
+    </goal>
+    <goal id="10000">
+      <name>common10000_Logic</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>True</logicinterrupt>
+      <logicinterruptname>common10000_Interupt</logicinterruptname>
+    </goal>
+    <goal id="11000">
+      <name>Nanimosinai11000_Logic</name>
+      <battleinterrupt>False</battleinterrupt>
+      <logicinterrupt>True</logicinterrupt>
+      <logicinterruptname>Nanimosinai11000_Interupt</logicinterruptname>
+    </goal>
+  </goals>
+</luainfo>
