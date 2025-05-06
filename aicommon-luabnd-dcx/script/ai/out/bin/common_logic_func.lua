@@ -1,4 +1,4 @@
-﻿function COMMON_HiPrioritySetup(f1_arg0, f1_arg1)
+function COMMON_HiPrioritySetup(f1_arg0, f1_arg1)
     f1_arg0:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_DEAD)
     f1_arg0:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_RETURN)
     f1_arg0:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_NINSATSU)

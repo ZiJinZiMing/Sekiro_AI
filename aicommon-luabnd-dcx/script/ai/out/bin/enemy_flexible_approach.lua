@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_EnemyFlexibleApproach, "GOAL_EnemyFlexibleApproach")
+RegisterTableGoal(GOAL_EnemyFlexibleApproach, "GOAL_EnemyFlexibleApproach")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_EnemyFlexibleApproach, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyFlexibleApproach, 0, "対象", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyFlexibleApproach, 1, "旋回対象", 0)

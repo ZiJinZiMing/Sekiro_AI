@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_Busshi_Oni_702000_Battle, "GOAL_Busshi_Oni_702000_Battle")
+RegisterTableGoal(GOAL_Busshi_Oni_702000_Battle, "GOAL_Busshi_Oni_702000_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Busshi_Oni_702000_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)

@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_EnemyKeepDist, "GOAL_EnemyKeepDist")
+RegisterTableGoal(GOAL_EnemyKeepDist, "GOAL_EnemyKeepDist")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_EnemyKeepDist, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyKeepDist, 0, "対象", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyKeepDist, 1, "旋回対象", 1)

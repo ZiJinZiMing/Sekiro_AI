@@ -1,4 +1,4 @@
-﻿function WaitOnFailedPath_Activate(f1_arg0, f1_arg1)
+function WaitOnFailedPath_Activate(f1_arg0, f1_arg1)
     f1_arg1:AddSubGoal(GOAL_COMMON_Wait, 1, 0, 0, 0, 0)
     
 end

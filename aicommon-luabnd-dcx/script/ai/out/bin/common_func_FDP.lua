@@ -1,4 +1,4 @@
-﻿function Approach_Act_Flex(f1_arg0, f1_arg1, f1_arg2, f1_arg3, f1_arg4, f1_arg5, f1_arg6, f1_arg7, f1_arg8, f1_arg9)
+function Approach_Act_Flex(f1_arg0, f1_arg1, f1_arg2, f1_arg3, f1_arg4, f1_arg5, f1_arg6, f1_arg7, f1_arg8, f1_arg9)
     if f1_arg7 == nil then
         f1_arg7 = 3
     end

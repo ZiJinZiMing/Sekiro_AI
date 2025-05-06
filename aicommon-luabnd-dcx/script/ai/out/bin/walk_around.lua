@@ -1,4 +1,4 @@
-﻿REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 0, "移動する円の半径", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 0, "移動する円の半径", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 1, "歩くか", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 2, "敵に反応する距離", 0)
 

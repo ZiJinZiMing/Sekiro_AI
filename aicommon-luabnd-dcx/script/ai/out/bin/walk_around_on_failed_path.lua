@@ -1,4 +1,4 @@
-﻿function WalkAroundOnFailedPath_Activate(f1_arg0, f1_arg1)
+function WalkAroundOnFailedPath_Activate(f1_arg0, f1_arg1)
     local f1_local0 = f1_arg1:GetParam(0)
     f1_arg1:SetTimer(0, f1_local0)
     f1_arg1:AddSubGoal(GOAL_COMMON_Wait, 1, 0, 0, 0, 0)

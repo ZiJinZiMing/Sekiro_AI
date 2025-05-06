@@ -1,4 +1,4 @@
-﻿AI_EVENT_None = -1
+AI_EVENT_None = -1
 AI_EVENT_Phalanx_Gattai = 10
 AI_EVENT_Phalanx_Bousui = 20
 AI_EVENT_Phalanx_Bousui_Attack = 21

@@ -1,4 +1,4 @@
-﻿REGISTER_GOAL_USE_AVOID_CHR(GOAL_COMMON_SidewayMoveAvoidChr, true)
+REGISTER_GOAL_USE_AVOID_CHR(GOAL_COMMON_SidewayMoveAvoidChr, true)
 
 function _COMMON_GetEzStateAnimId(f1_arg0, f1_arg1)
     ret = {}

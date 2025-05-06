@@ -1,4 +1,4 @@
-﻿REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ContinueAttack, 0, "EzState番号", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ContinueAttack, 0, "EzState番号", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ContinueAttack, 1, "攻撃対象【Type】", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ContinueAttack, 2, "成功距離【ｍ】", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ContinueAttack, 3, "命中したら成功？", 0)

@@ -1,4 +1,4 @@
-﻿function TeamReplyHelp_Activate(f1_arg0, f1_arg1)
+function TeamReplyHelp_Activate(f1_arg0, f1_arg1)
     local f1_local0 = f1_arg0:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__callHelp_MinWaitTime)
     local f1_local1 = f1_arg0:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__callHelp_MaxWaitTime)
     local f1_local2 = f1_arg0:GetRandam_Float(f1_local0, f1_local1)

@@ -1,4 +1,4 @@
-﻿REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WaitWithAnime, 0, "アニメID", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WaitWithAnime, 0, "アニメID", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WaitWithAnime, 1, "旋回対象", 1)
 
 function WaitWithAnime_Activate(f1_arg0, f1_arg1)

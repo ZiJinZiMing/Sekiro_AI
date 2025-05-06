@@ -1,4 +1,4 @@
-﻿function CommonNPC_ChangeWepL1(f1_arg0, f1_arg1)
+function CommonNPC_ChangeWepL1(f1_arg0, f1_arg1)
     local f1_local0 = f1_arg0:GetEquipWeaponIndex(ARM_L)
     if WEP_Primary ~= f1_local0 then
         f1_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_L1, TARGET_NONE, DIST_None)

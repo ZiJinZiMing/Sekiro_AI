@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_MurabitoZombie_syujin_150060_Battle, "GOAL_MurabitoZombie_syujin_150060_Battle")
+RegisterTableGoal(GOAL_MurabitoZombie_syujin_150060_Battle, "GOAL_MurabitoZombie_syujin_150060_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_MurabitoZombie_syujin_150060_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)

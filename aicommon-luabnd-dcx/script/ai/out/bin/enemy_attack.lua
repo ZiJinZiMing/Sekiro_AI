@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_EnemyTunableAttack, "GOAL_EnemyTunableAttack")
+RegisterTableGoal(GOAL_EnemyTunableAttack, "GOAL_EnemyTunableAttack")
 ENABLE_COMBO_ATK_CANCEL(GOAL_EnemyTunableAttack)
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_EnemyTunableAttack, true)
 

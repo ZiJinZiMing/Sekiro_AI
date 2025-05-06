@@ -1,4 +1,4 @@
-﻿local f0_local0 = 50
+local f0_local0 = 50
 
 function Common_Clear_Param(f1_arg0, f1_arg1, f1_arg2)
     local f1_local0 = 1

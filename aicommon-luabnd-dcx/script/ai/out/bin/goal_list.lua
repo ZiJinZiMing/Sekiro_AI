@@ -1,4 +1,4 @@
-﻿GOAL_COMMON_TopGoal = 0
+GOAL_COMMON_TopGoal = 0
 GOAL_COMMON_Normal = 1
 GOAL_COMMON_Stay = 2
 GOAL_COMMON_WalkAround = 3

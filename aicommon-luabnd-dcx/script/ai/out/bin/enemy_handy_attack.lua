@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_EnemyHandyAttack, "GOAL_EnemyHandyAttack")
+RegisterTableGoal(GOAL_EnemyHandyAttack, "GOAL_EnemyHandyAttack")
 ENABLE_COMBO_ATK_CANCEL(GOAL_EnemyHandyAttack)
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_EnemyHandyAttack, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyHandyAttack, 0, "対象", 0)

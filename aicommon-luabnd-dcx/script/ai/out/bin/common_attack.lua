@@ -1,4 +1,4 @@
-﻿function CommonAttack_Activate(f1_arg0, f1_arg1)
+function CommonAttack_Activate(f1_arg0, f1_arg1)
     
 end
 

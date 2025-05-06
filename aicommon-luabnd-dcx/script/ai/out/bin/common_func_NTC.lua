@@ -1,4 +1,4 @@
-﻿function GetKengekiSpecialEffect(f1_arg0, f1_arg1, f1_arg2)
+function GetKengekiSpecialEffect(f1_arg0, f1_arg1, f1_arg2)
     if f1_arg2 == 200200 or f1_arg2 == 200201 or f1_arg2 == 200205 or f1_arg2 == 200206 or f1_arg2 == 200210 or f1_arg2 == 200211 or f1_arg2 == 200215 or f1_arg2 == 200216 or f1_arg2 == 200225 or f1_arg2 == 200226 or f1_arg2 == 200227 or f1_arg2 == 200228 or f1_arg2 == 200229 then
         return true
     end

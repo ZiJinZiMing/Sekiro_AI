@@ -1,4 +1,4 @@
-﻿g_LogicTable = {}
+g_LogicTable = {}
 g_GoalTable = {}
 Logic = nil
 Goal = nil

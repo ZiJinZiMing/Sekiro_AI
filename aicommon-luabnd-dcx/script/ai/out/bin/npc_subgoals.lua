@@ -1,4 +1,4 @@
-﻿REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_DashAttack, 0, "移動対象【Type】", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_DashAttack, 0, "移動対象【Type】", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_DashAttack, 1, "攻撃開始距離【m】", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_DashAttack, 2, "攻撃EzState番号", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_DashAttack, 3, "ガードEzState番号", 0)

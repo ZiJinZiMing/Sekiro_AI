@@ -1,4 +1,4 @@
-﻿LOGIC_ID_Default = 0
+LOGIC_ID_Default = 0
 LOGIC_ID_Wataa1540 = 1540
 LOGIC_ID_Common10000 = 10000
 LOGIC_ID_Nanimosinai11000 = 11000

@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_COMMON_BackToHome_With_Parry, "BackToHomeWithParry")
+RegisterTableGoal(GOAL_COMMON_BackToHome_With_Parry, "BackToHomeWithParry")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_BackToHome_With_Parry, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2)

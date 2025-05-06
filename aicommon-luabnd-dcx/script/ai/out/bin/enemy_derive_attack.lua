@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_EnemyDeriveAttack, "GOAL_EnemyDeriveAttack")
+RegisterTableGoal(GOAL_EnemyDeriveAttack, "GOAL_EnemyDeriveAttack")
 ENABLE_COMBO_ATK_CANCEL(GOAL_EnemyDeriveAttack)
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_EnemyDeriveAttack, true)
 Goal.Update = Update_FinishOnNoSubGoal

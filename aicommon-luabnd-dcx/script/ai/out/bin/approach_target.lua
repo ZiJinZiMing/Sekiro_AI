@@ -1,4 +1,4 @@
-﻿REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ApproachTarget, 0, "移動対象", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ApproachTarget, 0, "移動対象", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ApproachTarget, 1, "到達判定距離", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ApproachTarget, 2, "旋回対象", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ApproachTarget, 3, "歩く?", 0)

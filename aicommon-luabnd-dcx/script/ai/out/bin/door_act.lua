@@ -1,4 +1,4 @@
-﻿REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_DoorAct, 0.2, 0.3)
+REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_DoorAct, 0.2, 0.3)
 
 function DoorAct_Activate(f1_arg0, f1_arg1)
     f1_arg0:PrintText("[DoorAct_Activate]Notice ObjAct")

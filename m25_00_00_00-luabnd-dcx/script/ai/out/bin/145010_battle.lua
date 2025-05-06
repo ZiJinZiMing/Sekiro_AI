@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_Yotakashu_Shuriken_145010_Battle, "GOAL_Yotakashu_Shuriken_145010_Battle")
+RegisterTableGoal(GOAL_Yotakashu_Shuriken_145010_Battle, "GOAL_Yotakashu_Shuriken_145010_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Yotakashu_Shuriken_145010_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)

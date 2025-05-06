@@ -1,4 +1,4 @@
-﻿function Normal_Activate(f1_arg0, f1_arg1)
+function Normal_Activate(f1_arg0, f1_arg1)
     local f1_local0 = f1_arg0:GetDist(TARGET_ENE_0)
     local f1_local1 = f1_arg0:GetRandam_Int(1, 100)
     local f1_local2 = f1_arg0:GetRandam_Int(1, 100)

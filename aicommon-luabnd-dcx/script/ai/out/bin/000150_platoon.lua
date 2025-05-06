@@ -1,4 +1,4 @@
-﻿function Platoon000150_Activate(f1_arg0)
+function Platoon000150_Activate(f1_arg0)
     f1_arg0:SetEnablePlatoonMove(true)
     f1_arg0:SetFormationType(0, 2)
     f1_arg0:SetFormationParam(0, 0, 0)

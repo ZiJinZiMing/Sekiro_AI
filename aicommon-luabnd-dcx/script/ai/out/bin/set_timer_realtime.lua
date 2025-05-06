@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_COMMON_SetTimerRealtime, "SetTimerRealtime")
+RegisterTableGoal(GOAL_COMMON_SetTimerRealtime, "SetTimerRealtime")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_SetTimerRealtime, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_SetTimerRealtime, 0, "タイマーインデックス", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_SetTimerRealtime, 1, "時間", 0)

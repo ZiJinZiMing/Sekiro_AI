@@ -1,4 +1,4 @@
-﻿function common10000_Logic(f1_arg0)
+function common10000_Logic(f1_arg0)
     if COMMON_HiPrioritySetup(f1_arg0, COMMON_FLAG_EXPERIMENT) then
         return true
     end

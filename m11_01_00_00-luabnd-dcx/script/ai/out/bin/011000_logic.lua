@@ -1,4 +1,4 @@
-﻿function Nanimosinai11000_Logic(f1_arg0)
+function Nanimosinai11000_Logic(f1_arg0)
     f1_arg0:AddTopGoal(GOAL_COMMON_Wait, 5, TARGET_NONE, 0, 0, 0)
     
 end

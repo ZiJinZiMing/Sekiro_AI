@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_EnemyMultiAttack, "GOAL_EnemyMultiAttack")
+RegisterTableGoal(GOAL_EnemyMultiAttack, "GOAL_EnemyMultiAttack")
 ENABLE_COMBO_ATK_CANCEL(GOAL_EnemyMultiAttack)
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_EnemyMultiAttack, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyMultiAttack, 0, "対象", 0)

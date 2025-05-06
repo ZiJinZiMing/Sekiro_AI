@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_EnemyChainAttack, "GOAL_EnemyChainAttack")
+RegisterTableGoal(GOAL_EnemyChainAttack, "GOAL_EnemyChainAttack")
 ENABLE_COMBO_ATK_CANCEL(GOAL_EnemyChainAttack)
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_EnemyChainAttack, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyChainAttack, 0, "対象", 0)

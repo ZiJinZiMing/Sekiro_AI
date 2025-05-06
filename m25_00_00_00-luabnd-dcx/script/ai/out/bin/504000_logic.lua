@@ -1,4 +1,4 @@
-﻿function Waraningyou_504000_Logic(f1_arg0)
+function Waraningyou_504000_Logic(f1_arg0)
     if COMMON_HiPrioritySetup(f1_arg0, COMMON_FLAG_BOSS) then
         return true
     end

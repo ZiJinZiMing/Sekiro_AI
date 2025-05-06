@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_EnemyBeforeAttack, "GOAL_EnemyBeforeAttack")
+RegisterTableGoal(GOAL_EnemyBeforeAttack, "GOAL_EnemyBeforeAttack")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_EnemyBeforeAttack, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyBeforeAttack, 0, "対象", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyBeforeAttack, 1, "旋回対象", 0)

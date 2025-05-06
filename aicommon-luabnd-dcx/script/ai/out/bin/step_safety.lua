@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_COMMON_StepSafety, "StepSafety")
+RegisterTableGoal(GOAL_COMMON_StepSafety, "StepSafety")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_StepSafety, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_StepSafety, 0, "前ステップ優先度", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_StepSafety, 1, "後ステップ優先度", 0)

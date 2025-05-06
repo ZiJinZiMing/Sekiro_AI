@@ -1,4 +1,4 @@
-﻿RegisterTableGoal(GOAL_COMMON_MoveToPoint, "MoveToPoint")
+RegisterTableGoal(GOAL_COMMON_MoveToPoint, "MoveToPoint")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_MoveToPoint, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_MoveToPoint, 0, "ポイントエンティティID", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_MoveToPoint, 1, "到達判定距離", 0)

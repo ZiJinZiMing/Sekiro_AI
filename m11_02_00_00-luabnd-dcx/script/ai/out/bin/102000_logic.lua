@@ -1,4 +1,4 @@
-﻿RegisterTableLogic(102000)
+RegisterTableLogic(102000)
 
 Logic.Main = function (f1_arg0, f1_arg1)
     f1_arg1:AddObserveRegion(30, TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_0)

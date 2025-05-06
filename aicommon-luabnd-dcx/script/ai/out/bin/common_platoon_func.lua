@@ -1,4 +1,4 @@
-﻿function Platoon_Common_Act(f1_arg0)
+function Platoon_Common_Act(f1_arg0)
     local f1_local0 = 5
     local f1_local1 = 10
     local f1_local2 = 5

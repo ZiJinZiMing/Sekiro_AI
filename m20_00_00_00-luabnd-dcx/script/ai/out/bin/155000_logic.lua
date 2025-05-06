@@ -1,4 +1,4 @@
-﻿RegisterTableLogic(155000)
+RegisterTableLogic(155000)
 
 Logic.Main = function (f1_arg0, f1_arg1)
     if COMMON_HiPrioritySetup(f1_arg1) then
