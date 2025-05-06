@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<bnd4>
+  <filename>m25_01_00_00.luabnd.dcx</filename>
+  <compression>SekiroKRAK</compression>
+  <timestamp>07D7R6</timestamp>
+  <format>0x74</format>
+  <bigendian>False</bigendian>
+  <flag1>False</flag1>
+  <flag2>False</flag2>
+  <unicode>True</unicode>
+  <extended>0x04</extended>
+  <files>
+    <file>
+      <flags>0x40</flags>
+      <id>2002</id>
+      <root>N:\NTC\data\Target\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\500000_logic.lua</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>2003</id>
+      <root>N:\NTC\data\Target\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\500000_battle.lua</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>2004</id>
+      <root>N:\NTC\data\Target\INTERROOT_win64\</root>
+      <path>script\ai\out\bin\500005_battle.lua</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>1000000</id>
+      <root>N:\NTC\data\Target\INTERROOT_win64\</root>
+      <path>script\ai\m25_00_00_00.luagnl</path>
+    </file>
+    <file>
+      <flags>0x40</flags>
+      <id>1000001</id>
+      <root>N:\NTC\data\Target\INTERROOT_win64\</root>
+      <path>script\ai\m25_00_00_00.luainfo</path>
+    </file>
+  </files>
+</bnd4>

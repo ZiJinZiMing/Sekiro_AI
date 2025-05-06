@@ -1,0 +1,1 @@
+.\luajit\luajit.exe -b "D:\zjm_occupation\工作\只狼分析\Sekiro_AI\m11_01_00_00-luabnd-dcx\script\ai\out\bin\740000_battle.lua" "D:\zjm_occupation\工作\只狼分析\Sekiro_AI\740000_battle.lua"
