@@ -1,4 +1,4 @@
-REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_Fall, 0.1, 0.2)
+﻿REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_Fall, 0.1, 0.2)
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_Fall, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_Fall, 0, "ターゲット【Type】", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_Fall, 1, "落下開始EzState番号", 0)
@@ -18,7 +18,7 @@ end
 function Fall_Update(f2_arg0, f2_arg1)
     local f2_local0 = f2_arg1:GetParam(0)
     local f2_local1 = f2_arg1:GetParam(1)
-    local f2_local2 = f2_arg1:GetParam(3)--Landing判定高度
+    local f2_local2 = f2_arg1:GetParam(3)
     local f2_local3 = f2_arg0:GetDistYSigned(f2_local0)
     if f2_local2 < f2_local3 then
         return GOAL_RESULT_Success

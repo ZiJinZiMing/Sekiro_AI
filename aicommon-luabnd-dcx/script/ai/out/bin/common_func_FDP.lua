@@ -1,13 +1,4 @@
----
----@param f1_arg2 number 成功距离
----@param f1_arg3 number 概率执行run的距离
----@param f1_arg4 number 一定执行run的距离
----@param f1_arg5 number 大于f1_arg3时执行run的概率
----@param f1_arg6 number 防御概率
----@param f1_arg7 number walk的lifetime
----@param f1_arg8 number run的lifetime
----@param f1_arg9 boolean flag，强制添加goal，默认为false
-function Approach_Act_Flex(f1_arg0, f1_arg1, f1_arg2 --[[成功距离]], f1_arg3 --[[概率run的距离，中等距离]], f1_arg4 --[[一定会run的距离，远距离]], f1_arg5 --[[中等距离执行run的概率]], f1_arg6 --[[防御概率]], f1_arg7 --[[walk的lifetime]], f1_arg8 --[[run的lifetime]], f1_arg9 --[[flag，强制添加goal]])
+﻿function Approach_Act_Flex(f1_arg0, f1_arg1, f1_arg2, f1_arg3, f1_arg4, f1_arg5, f1_arg6, f1_arg7, f1_arg8, f1_arg9)
     if f1_arg7 == nil then
         f1_arg7 = 3
     end
@@ -19,18 +10,18 @@ function Approach_Act_Flex(f1_arg0, f1_arg1, f1_arg2 --[[成功距离]], f1_arg3
     end
     local f1_local0 = f1_arg0:GetDist(TARGET_ENE_0)
     local f1_local1 = f1_arg0:GetRandam_Int(1, 100)
-    local f1_local2 = true --[[是否行走]]
-    if f1_arg4 <= f1_local0 then --[[当前距离超过f1_arg4，则一定run]]
+    local f1_local2 = true
+    if f1_arg4 <= f1_local0 then
         f1_local2 = false
-    elseif f1_arg3 <= f1_local0 and f1_local1 <= f1_arg5 then --[[当前距离超过f1_arg3,有f1_arg5的概率执行run]]
+    elseif f1_arg3 <= f1_local0 and f1_local1 <= f1_arg5 then
         f1_local2 = false
     end
     if f1_arg0:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_0) or f1_arg0:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_1) then
-        f1_local2 = true --[[强制walk的区域]]
+        f1_local2 = true
     end
     local f1_local3 = -1
     local f1_local4 = f1_arg0:GetRandam_Int(1, 100)
-    if f1_local4 <= f1_arg6 then --[[防御的概率]]
+    if f1_local4 <= f1_arg6 then
         f1_local3 = 9910
     end
     if f1_local2 == true then
@@ -38,13 +29,13 @@ function Approach_Act_Flex(f1_arg0, f1_arg1, f1_arg2 --[[成功距离]], f1_arg3
     else
         life = f1_arg8
     end
-    if f1_arg2 <= f1_local0 or f1_arg9 > 0 then --[[当前距离超过成功距离，或者f1_arg9强制标记，]]
+    if f1_arg2 <= f1_local0 or f1_arg9 > 0 then
         if f1_local2 == true then
             f1_arg2 = f1_arg2 + f1_arg0:GetStringIndexedNumber("AddDistWalk")
         else
             f1_arg2 = f1_arg2 + f1_arg0:GetStringIndexedNumber("AddDistRun")
         end
-        f1_arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, life, TARGET_ENE_0 --[[移动目标]], f1_arg2 --[[成功距离]], TARGET_SELF --[[旋回目标]], f1_local2 --[[是否步行]], f1_local3 --[[防御ID]])
+        f1_arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, life, TARGET_ENE_0, f1_arg2, TARGET_SELF, f1_local2, f1_local3)
     end
     
 end
@@ -233,18 +224,15 @@ function GuardGoalSubFunc_Activate(f13_arg0, f13_arg1, f13_arg2)
 end
 
 function GuardGoalSubFunc_Update(f14_arg0, f14_arg1, f14_arg2, f14_arg3, f14_arg4)
-    if 0 < f14_arg2 then--防御EzStateID
+    if 0 < f14_arg2 then
         if f14_arg1:GetNumber(0) ~= 0 then
             return GOAL_RESULT_Failed
-        elseif f14_arg1:GetNumber(1) ~= 0 then --
-            return f14_arg3--防御目束型
+        elseif f14_arg1:GetNumber(1) ~= 0 then
+            return f14_arg3
         end
     end
-
-
-
     if f14_arg1:GetLife() <= 0 then
-        if f14_arg4 then --如果寿命耗尽成功
+        if f14_arg4 then
             return GOAL_RESULT_Success
         else
             return GOAL_RESULT_Failed
@@ -266,15 +254,4 @@ function GuardGoalSubFunc_Interrupt(f15_arg0, f15_arg1, f15_arg2, f15_arg3)
     
 end
 
-function log(message)
-    local file_path = "SDT.log"
-    local file = io.open(file_path, "a") -- "a" 表示追加模式
-    if file then
-        file:write(os.date("[%Y-%m-%d %H:%M:%S] "), message, "\n") -- 添加时间戳
-        file:flush()
-        file:close()
-    end
-end
-
-log("SDT log coming")
 

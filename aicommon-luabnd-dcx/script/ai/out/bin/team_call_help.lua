@@ -1,4 +1,4 @@
-function TeamCallHelp_Activate(f1_arg0, f1_arg1)
+﻿function TeamCallHelp_Activate(f1_arg0, f1_arg1)
     local f1_local0 = f1_arg0:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__callHelp_CallActionId)
     local f1_local1 = f1_arg1:GetParam(0)
     f1_arg0:TeamHelp_ReserveCall()

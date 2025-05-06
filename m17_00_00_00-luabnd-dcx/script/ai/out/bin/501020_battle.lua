@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_Orochi_hebidani_501020_Battle, "GOAL_Orochi_hebidani_501020_Battle")
+﻿RegisterTableGoal(GOAL_Orochi_hebidani_501020_Battle, "GOAL_Orochi_hebidani_501020_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Orochi_hebidani_501020_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)

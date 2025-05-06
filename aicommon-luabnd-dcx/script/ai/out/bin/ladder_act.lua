@@ -1,4 +1,4 @@
-REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_LadderAct, true)
+﻿REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_LadderAct, true)
 
 function _GetId(f1_arg0, f1_arg1)
     local f1_local0 = false

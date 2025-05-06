@@ -1,4 +1,4 @@
-function EmagencyEscapeStep(f1_arg0, f1_arg1, f1_arg2)
+﻿function EmagencyEscapeStep(f1_arg0, f1_arg1, f1_arg2)
     if (f1_arg1:IsActiveGoal(GOAL_EnemyBeforeAttack) or f1_arg1:IsActiveGoal(GOAL_EnemyAfterAttack) or f1_arg1:IsActiveGoal(GOAL_EnemyAfterAction)) and (f1_arg0.FindAttackDist == nil or f1_arg0.FindAttackDist ~= nil and f1_arg1:GetDist(TARGET_ENE_0) <= f1_arg0.FindAttackDist) then
         f1_arg2:ClearSubGoal()
         f1_arg2:AddSubGoal(GOAL_EnemyStepBLR, 2, 6)

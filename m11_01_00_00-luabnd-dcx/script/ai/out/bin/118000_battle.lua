@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_Genan_118000_Battle, "GOAL_Genan_118000_Battle")
+﻿RegisterTableGoal(GOAL_Genan_118000_Battle, "GOAL_Genan_118000_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Genan_118000_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
@@ -178,7 +178,6 @@ Goal.Activate = function (f2_arg0, f2_arg1, f2_arg2)
 end
 
 Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
-    --[[
     local f3_local0 = 5.4 - f3_arg0:GetMapHitRadius(TARGET_SELF)
     local f3_local1 = 5.4 - f3_arg0:GetMapHitRadius(TARGET_SELF) + 999
     local f3_local2 = 5.4 - f3_arg0:GetMapHitRadius(TARGET_SELF) + 999
@@ -205,13 +204,6 @@ Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
         f3_arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, f3_local9, TARGET_ENE_0, f3_local10, 0)
         f3_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, f3_local8, TARGET_ENE_0, 9999, 0, 0):TimingSetNumber(0, 1, AI_TIMING_SET__ACTIVATE)
     end
-    ]]
-
-
-
-
-
-
     GetWellSpace_Odds = 100
     return GetWellSpace_Odds
     

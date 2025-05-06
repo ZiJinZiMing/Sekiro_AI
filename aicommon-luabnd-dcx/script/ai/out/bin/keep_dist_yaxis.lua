@@ -1,4 +1,4 @@
-REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_KeepDistYAxis, 0.5, 0.6)
+﻿REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_KeepDistYAxis, 0.5, 0.6)
 
 function KeepDistYAxis_Activate(f1_arg0, f1_arg1)
     f1_arg1:SetNumber(0, 0)

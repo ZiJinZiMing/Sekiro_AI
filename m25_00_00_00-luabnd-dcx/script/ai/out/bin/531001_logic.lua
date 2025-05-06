@@ -1,4 +1,4 @@
-RegisterTableLogic(LOGIC_ID_Syokusyu_531001)
+﻿RegisterTableLogic(LOGIC_ID_Syokusyu_531001)
 
 Logic.Main = function (f1_arg0, f1_arg1)
     f1_arg1:AddTopGoal(GOAL_COMMON_Wait, 10, TARGET_SELF, 0, 0, 0)

@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_COMMON_AfterAttackAct, "AfterAttackAct")
+﻿RegisterTableGoal(GOAL_COMMON_AfterAttackAct, "AfterAttackAct")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_AfterAttackAct, true)
 
 Goal.Activate = function (f1_arg0, f1_arg1, f1_arg2)

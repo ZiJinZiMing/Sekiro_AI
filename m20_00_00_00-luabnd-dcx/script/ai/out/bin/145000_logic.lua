@@ -1,4 +1,4 @@
-RegisterTableLogic(145000)
+﻿RegisterTableLogic(145000)
 
 Logic.Main = function (f1_arg0, f1_arg1)
     local f1_local0 = f1_arg1:GetEventRequest()

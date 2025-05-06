@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_Ochimusha_katate_101000_Battle, "Ochimusha_katate_101000_Battle")
+﻿RegisterTableGoal(GOAL_Ochimusha_katate_101000_Battle, "Ochimusha_katate_101000_Battle")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_Ochimusha_katate_101000_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
@@ -270,9 +270,9 @@ Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
     local f3_local5 = 0
     local f3_local6 = 1.5
     local f3_local7 = 3
-    if f3_local1 < f3_local0 then --距，Approach靠近
+    if f3_local1 < f3_local0 then
         Approach_Act_Flex(f3_arg0, f3_arg1, f3_local1, f3_local2, f3_local3, f3_local4, f3_local5, f3_local6, f3_local7)
-    elseif f3_arg0:GetStringIndexedNumber("targetWhich") == TARGET_SELF then -- ？？？
+    elseif f3_arg0:GetStringIndexedNumber("targetWhich") == TARGET_SELF then
         f3_arg1:AddSubGoal(GOAL_COMMON_Turn, 2, TARGET_ENE_0, 20, -1, GOAL_RESULT_Success, true)
     end
     local f3_local8 = 3000

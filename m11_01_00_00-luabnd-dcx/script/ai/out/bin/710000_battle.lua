@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_Rival_710000_Battle, "GOAL_Rival_710000_Battle")
+﻿RegisterTableGoal(GOAL_Rival_710000_Battle, "GOAL_Rival_710000_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Rival_710000_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
@@ -193,9 +193,6 @@ Goal.Activate = function (f2_arg0, f2_arg1, f2_arg2)
 end
 
 Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
-
-    --[[
-
     local f3_local0 = 3.6 - f3_arg0:GetMapHitRadius(TARGET_SELF)
     local f3_local1 = 3.6 - f3_arg0:GetMapHitRadius(TARGET_SELF) + 2
     local f3_local2 = 3.6 - f3_arg0:GetMapHitRadius(TARGET_SELF) + 3
@@ -221,32 +218,6 @@ Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
         f3_arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3010, TARGET_ENE_0, 5, 0)
         f3_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3025, TARGET_ENE_0, 9999, 0, 0)
     end
-    ]]
-
-    --local f3_local1 = 3 - f3_arg0:GetMapHitRadius(TARGET_SELF)
-
-    --f3_arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 10, TARGET_ENE_0, f3_local1, --[[TARGET_SELF]] TARGET_ENE_0, false, -1)
-
-    f3_arg1:AddSubGoal(GOAL_COMMON_Wait, 2, --[[TARGET_ENE_0]] TARGET_SELF, 0, 0, 0)
-
-    --f3_arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 999, TARGET_ENE_0, true, 90, false, true, -1)
-
-
-    f3_arg1:AddSubGoal(GOAL_COMMON_Wait, 1, TARGET_ENE_0 --[[TARGET_SELF]], 0, 0, 0)
-
-    --f3_arg1:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
-
-
---[[
-    f3_arg1:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
-
-    f3_arg1:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5202, TARGET_ENE_0, 0, AI_DIR_TYPE_L, 0)
-
-    f3_arg1:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5203, TARGET_ENE_0, 0, AI_DIR_TYPE_R, 0)
-]]
-
-
-
     GetWellSpace_Odds = 100
     return GetWellSpace_Odds
     
@@ -575,8 +546,8 @@ Goal.Act28 = function (f21_arg0, f21_arg1, f21_arg2)
 end
 
 Goal.Act30 = function (f22_arg0, f22_arg1, f22_arg2)
-    f22_arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 99999, 3009, TARGET_ENE_0, 9999, TurnTime, FrontAngle, 0, 0)
-    f22_arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 99999, 3044, TARGET_ENE_0, DistToAtt1, TurnTime, FrontAngle, 0, 0)
+    f22_arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3009, TARGET_ENE_0, 9999, TurnTime, FrontAngle, 0, 0)
+    f22_arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3044, TARGET_ENE_0, DistToAtt1, TurnTime, FrontAngle, 0, 0)
     GetWellSpace_Odds = 100
     return GetWellSpace_Odds
     

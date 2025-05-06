@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_Kensei_540010_Battle, "GOAL_Kensei_540010_Battle")
+﻿RegisterTableGoal(GOAL_Kensei_540010_Battle, "GOAL_Kensei_540010_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Kensei_540010_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
@@ -225,7 +225,6 @@ Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
         f3_arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3001, TARGET_ENE_0, f3_local10, 0, 0)
         f3_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3003, TARGET_ENE_0, 9999, 0, 0)
     end
-
     GetWellSpace_Odds = 100
     return GetWellSpace_Odds
     
@@ -466,13 +465,13 @@ Goal.Act12 = function (f14_arg0, f14_arg1, f14_arg2)
     local f14_local5 = 1.5
     local f14_local6 = 3
     local f14_local7 = f14_arg0:GetRandam_Int(1, 100)
-    Approach_Act_Flex(f14_arg0, f14_arg1, f14_local0 + 3, f14_local1, f14_local2, f14_local3, f14_local4, f14_local5, f14_local6)
+    Approach_Act_Flex(f14_arg0, f14_arg1, f14_local0, f14_local1, f14_local2, f14_local3, f14_local4, f14_local5, f14_local6)
     local f14_local8 = 0
     local f14_local9 = 0
     if f14_local7 <= 0 then
         f14_arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3024, TARGET_ENE_0, 9999, f14_local8, f14_local9, 0, 0)
     else
-        --f14_arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3024, TARGET_ENE_0, 10.5 - f14_arg0:GetMapHitRadius(TARGET_SELF), f14_local8, f14_local9, 0, 0)
+        f14_arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3024, TARGET_ENE_0, 10.5 - f14_arg0:GetMapHitRadius(TARGET_SELF), f14_local8, f14_local9, 0, 0)
         f14_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3016, TARGET_ENE_0, DistToAtt2, f14_local8, f14_local9, 0, 0)
     end
     GetWellSpace_Odds = 100
@@ -997,7 +996,7 @@ Goal.Interrupt = function (f41_arg0, f41_arg1, f41_arg2)
             f41_arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 5, 3013, TARGET_ENE_0, 9999, 0, 0)
             f41_arg1:SetTimer(5, 7)
             return true
-        elseif f41_local0 == 5027 and f41_local2 <= 100 then
+        elseif f41_local0 == 5027 and f41_local2 <= 50 then
             if f41_local1 <= 5 then
                 f41_arg2:ClearSubGoal()
                 f41_arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 3, 3015, TARGET_ENE_0, 9999, 0, 0)

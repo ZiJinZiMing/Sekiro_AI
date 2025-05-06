@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_Kensei_540000_Battle, "GOAL_Kensei_540000_Battle")
+﻿RegisterTableGoal(GOAL_Kensei_540000_Battle, "GOAL_Kensei_540000_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Kensei_540000_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
@@ -221,7 +221,6 @@ Goal.Activate = function (f2_arg0, f2_arg1, f2_arg2)
 end
 
 Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
-    --[[
     local f3_local0 = 4.5 - f3_arg0:GetMapHitRadius(TARGET_SELF)
     local f3_local1 = 4.5 - f3_arg0:GetMapHitRadius(TARGET_SELF)
     local f3_local2 = 4.5 - f3_arg0:GetMapHitRadius(TARGET_SELF) + 100
@@ -240,36 +239,6 @@ Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
     f3_arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3001, TARGET_ENE_0, f3_local9, f3_local10, f3_local11, 0, 0)
     f3_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3002, TARGET_ENE_0, 9999, 0, 0)
     f3_arg0:SetNumber(3, 1)
-]]
-    local f3_local1 = 3 - f3_arg0:GetMapHitRadius(TARGET_SELF)
-
-    local f3_local8 = 2.8 - f3_arg0:GetMapHitRadius(TARGET_SELF)
-    local f3_local9 = 3.8 - f3_arg0:GetMapHitRadius(TARGET_SELF)
-    local f3_local10 = 0
-    local f3_local11 = 0
-
-
-    --f3_arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 10, TARGET_ENE_0, f3_local1, --[[TARGET_SELF]] TARGET_ENE_0, false, -1)
-
-    Approach_Act_Flex(f3_arg0, f3_arg1, f3_local1, 0, 0, 0, 0, 10, 10)
-
-    --f3_arg1:AddSubGoal(GOAL_COMMON_Wait, 4, TARGET_ENE_0 --[[TARGET_SELF]], 0, 0, 0)
-    f3_arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3003, TARGET_ENE_0, f3_local8, f3_local10, f3_local11, 0, 0)
-
-    --f3_arg1:AddSubGoal(GOAL_COMMON_WaitWithAnime, 2, 20110, TARGET_ENE_0 --[[TARGET_SELF]])
-
-    --f3_arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 999, TARGET_ENE_0, true, 90, true, true, -1)
-    --f3_arg1:AddSubGoal(GOAL_COMMON_SpinStep, 999, 5202, TARGET_ENE_0, 0, AI_DIR_TYPE_L, 0)
-    --f3_arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 999, TARGET_ENE_0, 0, 45, false, true, -1)
-    --f3_arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3027, TARGET_ENE_0, 999, 0, 0, 0, 0)
-    --f3_arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3028, TARGET_ENE_0, 4.4, 0, 0, 0, 0)
-
-
-
-    f3_arg1:AddSubGoal(GOAL_COMMON_Wait, 3, TARGET_ENE_0 --[[TARGET_SELF]], 0, 0, 0)
-    --f3_arg1:AddSubGoal(GOAL_COMMON_WaitWithAnime, 2, 20001, --[[TARGET_ENE_0]] TARGET_SELF)
-
-
     GetWellSpace_Odds = 100
     return GetWellSpace_Odds
     
@@ -400,7 +369,7 @@ Goal.Act08 = function (f10_arg0, f10_arg1, f10_arg2)
     Approach_Act_Flex(f10_arg0, f10_arg1, f10_local0, f10_local1, f10_local2, f10_local3, f10_local4, f10_local5, f10_local6)
     local f10_local8 = f10_arg0:GetDist(TARGET_ENE_0)
     local f10_local9 = f10_arg0:GetRandam_Int(1, 100)
-    local f10_local10 = 100
+    local f10_local10 = 10
     local f10_local11 = -1
     local f10_local12 = f10_arg0:GetRandam_Int(30, 60)
     f10_arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f10_local10, TARGET_ENE_0, 0, 45, false, true, f10_local11)

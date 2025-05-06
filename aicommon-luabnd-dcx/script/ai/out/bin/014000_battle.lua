@@ -1,4 +1,4 @@
-guardId = 0
+﻿guardId = 0
 
 function DS2PGTest14000_Battle_Activate(f1_arg0, f1_arg1)
     if f1_arg0:GetDist(TARGET_ENE_0) < 1 then

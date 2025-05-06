@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_COMMON_WeaponChange, "WeaponChange")
+﻿RegisterTableGoal(GOAL_COMMON_WeaponChange, "WeaponChange")
 
 Goal.Activate = function (f1_arg0, f1_arg1, f1_arg2)
     local f1_local0 = f1_arg2:GetParam(0)

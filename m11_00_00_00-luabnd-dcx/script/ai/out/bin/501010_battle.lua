@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_Orochi_jouka_501010_Battle, "GOAL_Orochi_jouka_501010_Battle")
+﻿RegisterTableGoal(GOAL_Orochi_jouka_501010_Battle, "GOAL_Orochi_jouka_501010_Battle")
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
     

@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_COMMON_StepSafety, "StepSafety")
+﻿RegisterTableGoal(GOAL_COMMON_StepSafety, "StepSafety")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_StepSafety, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_StepSafety, 0, "前ステップ優先度", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_StepSafety, 1, "後ステップ優先度", 0)
@@ -16,10 +16,10 @@ Goal.Activate = function (f1_arg0, f1_arg1, f1_arg2)
     local f1_local3 = {AI_DIR_TYPE_F, AI_DIR_TYPE_B, AI_DIR_TYPE_L, AI_DIR_TYPE_R}
     local f1_local4 = {0, 180, -90, 90}
     local f1_local5 = table.getn(f1_local2)
-    local f1_local6 = f1_arg2:GetParam(f1_local5)--旋目
-    local f1_local7 = f1_arg2:GetParam(f1_local5 + 1)--安全距
-    local f1_local8 = f1_arg2:GetParam(f1_local5 + 2)--行前旋
-    local f1_local9 = f1_arg2:GetParam(f1_local5 + 3)--无法行是否成功
+    local f1_local6 = f1_arg2:GetParam(f1_local5)
+    local f1_local7 = f1_arg2:GetParam(f1_local5 + 1)
+    local f1_local8 = f1_arg2:GetParam(f1_local5 + 2)
+    local f1_local9 = f1_arg2:GetParam(f1_local5 + 3)
     for f1_local10 = 0, f1_local5 - 1, 1 do
         if f1_arg2:GetParam(f1_local10) >= 0 then
             local f1_local13 = table.getn(f1_local0) + 1

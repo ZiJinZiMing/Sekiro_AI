@@ -1,4 +1,4 @@
-function TopGoal_Activate(f1_arg0, f1_arg1)
+﻿function TopGoal_Activate(f1_arg0, f1_arg1)
     
 end
 

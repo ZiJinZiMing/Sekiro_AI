@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_Syamo_124000_Battle, "GOAL_Syamo_124000_Battle")
+﻿RegisterTableGoal(GOAL_Syamo_124000_Battle, "GOAL_Syamo_124000_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Syamo_124000_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
@@ -165,7 +165,7 @@ Goal.Act03 = function (f5_arg0, f5_arg1, f5_arg2)
     local f5_local8 = 0
     local f5_local9 = 0
     local f5_local10 = f5_arg0:GetRandam_Int(1, 100)
-    f5_arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 999999, f5_local7, TARGET_ENE_0, 9999, f5_local8, f5_local9, 0, 0)
+    f5_arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, f5_local7, TARGET_ENE_0, 9999, f5_local8, f5_local9, 0, 0)
     f5_arg0:SetNumber(5, 1)
     GetWellSpace_Odds = 100
     return GetWellSpace_Odds

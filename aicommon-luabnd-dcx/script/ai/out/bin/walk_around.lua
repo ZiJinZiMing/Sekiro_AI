@@ -1,12 +1,12 @@
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 0, "移動する円の半径", 0)
+﻿REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 0, "移動する円の半径", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 1, "歩くか", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 2, "敵に反応する距離", 0)
 
 function WalkAround_Activate(f1_arg0, f1_arg1)
-    local f1_local0 = f1_arg1:GetParam(0)--移的半径
-    local f1_local1 = f1_arg1:GetParam(1)--是否行
-    local f1_local2 = f1_arg1:GetParam(2)--人反的距
-    local f1_local3 = not (f1_arg1:GetParam(3) == 0) --false
+    local f1_local0 = f1_arg1:GetParam(0)
+    local f1_local1 = f1_arg1:GetParam(1)
+    local f1_local2 = f1_arg1:GetParam(2)
+    local f1_local3 = not (f1_arg1:GetParam(3) == 0)
     local f1_local4 = 30
     local f1_local5 = POINT_WalkAroundPosition_Home
     if f1_local3 then

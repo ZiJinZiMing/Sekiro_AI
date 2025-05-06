@@ -1,4 +1,4 @@
-local f0_local0 = 50
+﻿local f0_local0 = 50
 
 function Common_Clear_Param(f1_arg0, f1_arg1, f1_arg2)
     local f1_local0 = 1
@@ -11,12 +11,11 @@ function Common_Clear_Param(f1_arg0, f1_arg1, f1_arg2)
 
 end
 
-function Common_Battle_Activate(f2_arg0, f2_arg1, f2_arg2 --[[Act权重数组]], f2_arg3 --[[Act函数数组]], f2_arg4 --[[ActAfter_AdjustSpace]], f2_arg5 --[[payload数组]])
-    local f2_local0 = {}--有效的Act函数数组
-    local f2_local1 = {}--有效的Act权重数组
-    local f2_local2 = 0 --所有ACT权重总和
+function Common_Battle_Activate(f2_arg0, f2_arg1, f2_arg2, f2_arg3, f2_arg4, f2_arg5)
+    local f2_local0 = {}
+    local f2_local1 = {}
+    local f2_local2 = 0
 
-    --f2_local3 默Act
     local f2_local3 = {function ()
         return defAct01(f2_arg0, f2_arg1, f2_arg5[1])
         
@@ -170,19 +169,15 @@ function Common_Battle_Activate(f2_arg0, f2_arg1, f2_arg2 --[[Act权重数组]],
     end}
 
     local f2_local4 = 1
-    --置有效的Act函数到local0，并且Act重到local1
     for f2_local5 = 1, f0_local0, 1 do
         if f2_arg3[f2_local5] ~= nil then
-            --有override函数，则使用override数组
             f2_local0[f2_local5] = f2_arg3[f2_local5]
-        else --否则使用通用逻辑
+        else
             f2_local0[f2_local5] = f2_local3[f2_local5]
         end
         f2_local1[f2_local5] = f2_arg2[f2_local5]
         f2_local2 = f2_local2 + f2_local1[f2_local5]
     end
-
-    --设置AdjustSpace函数
     local f2_local5 = nil
     if f2_arg4 ~= nil then
         f2_local5 = f2_arg4
@@ -197,19 +192,18 @@ function Common_Battle_Activate(f2_arg0, f2_arg1, f2_arg2 --[[Act权重数组]],
         kengekiId = 0
     end
     local f2_local7 = 0
-    f2_local7 = f2_arg0:DbgGetForceActIdx()--？？？兼容DebugMenu
+    f2_local7 = f2_arg0:DbgGetForceActIdx()
     if 0 < f2_local7 and f2_local7 <= f0_local0 then
         f2_local6 = f2_local0[f2_local7]()
         f2_arg0:DbgSetLastActIdx(f2_local7)
     else
-        --从权重总和进行随机，选取ACT
         local f2_local8 = f2_arg0:GetRandam_Int(1, f2_local2)
         local f2_local9 = 0
         local f2_local10 = 1
         for f2_local11 = 1, f0_local0, 1 do
             f2_local9 = f2_local9 + f2_local1[f2_local11]
             if f2_local8 <= f2_local9 then
-                f2_local6 = f2_local0[f2_local11]()--执行ACT，返回ACT所需要AdjustSpace的概率
+                f2_local6 = f2_local0[f2_local11]()
                 f2_arg0:DbgSetLastActIdx(f2_local11)
                 f2_local11 = f0_local0
             end
@@ -436,7 +430,6 @@ function Common_Kengeki_Activate(f54_arg0, f54_arg1, f54_arg2, f54_arg3, f54_arg
 
 end
 
---Approach_and_Attack
 function defAct01(f106_arg0, f106_arg1, f106_arg2)
     local f106_local0 = {1.5, 0, 3000, DIST_Middle, nil}
     if f106_arg2[1] ~= nil then
@@ -453,7 +446,6 @@ function defAct01(f106_arg0, f106_arg1, f106_arg2)
     
 end
 
---Approach_and_ComboAtk
 function defAct02(f107_arg0, f107_arg1, f107_arg2)
     local f107_local0 = {1.5, 0, 10, 40, nil, nil, nil, nil}
     if f107_arg2[1] ~= nil then
@@ -463,7 +455,6 @@ function defAct02(f107_arg0, f107_arg1, f107_arg2)
     
 end
 
---Approach_and_Attack
 function defAct03(f108_arg0, f108_arg1, f108_arg2)
     local f108_local0 = {1.5, 0, 3005, DIST_Middle, nil}
     if f108_arg2[1] ~= nil then
@@ -480,7 +471,6 @@ function defAct03(f108_arg0, f108_arg1, f108_arg2)
     
 end
 
---Approach_and_GuardBreak 可能是用于破防的重攻
 function defAct04(f109_arg0, f109_arg1, f109_arg2)
     local f109_local0 = {5, 0, 3007, DIST_Middle, 3005, DIST_Middle, nil}
     if f109_arg2[1] ~= nil then
@@ -499,7 +489,6 @@ function defAct04(f109_arg0, f109_arg1, f109_arg2)
     
 end
 
---KeepDist_and_ThrowSomething 用于对峙
 function defAct05(f110_arg0, f110_arg1, f110_arg2)
     local f110_local0 = {4, 6, 0, 3008, DIST_None, nil}
     if f110_arg2[1] ~= nil then

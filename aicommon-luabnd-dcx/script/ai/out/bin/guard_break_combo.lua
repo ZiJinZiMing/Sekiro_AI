@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_COMMON_GuardBreakCombo, "GuardBreakCombo")
+﻿RegisterTableGoal(GOAL_COMMON_GuardBreakCombo, "GuardBreakCombo")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_GuardBreakCombo, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_GuardBreakCombo, 0, "１段目の攻撃番号", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_GuardBreakCombo, 1, "２段目の攻撃番号", 0)

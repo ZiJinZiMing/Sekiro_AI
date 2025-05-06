@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_Taniteki_Sniper_119010_Battle, "GOAL_Taniteki_Sniper_119010_Battle")
+﻿RegisterTableGoal(GOAL_Taniteki_Sniper_119010_Battle, "GOAL_Taniteki_Sniper_119010_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Taniteki_Sniper_119010_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
@@ -118,9 +118,6 @@ Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
     local f3_local1 = 0
     local f3_local2 = 0
     f3_arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, f3_local0, TARGET_ENE_0, 9999, f3_local1, f3_local2, 0, 0)
-
-    f3_arg1:AddSubGoal(GOAL_COMMON_Wait, 5, TARGET_ENE_0 --[[TARGET_SELF]], 0, 0, 0)
-
     GetWellSpace_Odds = 100
     return GetWellSpace_Odds
     

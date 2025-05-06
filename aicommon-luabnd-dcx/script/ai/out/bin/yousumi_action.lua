@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_COMMON_YousumiAct, "YousumiAct")
+﻿RegisterTableGoal(GOAL_COMMON_YousumiAct, "YousumiAct")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_YousumiAct, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 0, "歩くか", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 1, "最大角度", 0)

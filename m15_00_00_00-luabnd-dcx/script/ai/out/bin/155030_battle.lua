@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_Yatou_katanaTate_155030_Battle, "GOAL_Yatou_katanaTate_155030_Battle")
+﻿RegisterTableGoal(GOAL_Yatou_katanaTate_155030_Battle, "GOAL_Yatou_katanaTate_155030_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Yatou_katanaTate_155030_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)

@@ -1,4 +1,4 @@
-REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_ObjActTest, 0.5, 0.6)
+﻿REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_ObjActTest, 0.5, 0.6)
 
 function ObjActTest_Activate(f1_arg0, f1_arg1)
     local f1_local0 = f1_arg1:GetParam(0)

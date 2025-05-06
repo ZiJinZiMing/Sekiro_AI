@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_Okinaryuu_Dummy_530010_Battle, "GOAL_Okinaryuu_Dummy_530010_Battle")
+﻿RegisterTableGoal(GOAL_Okinaryuu_Dummy_530010_Battle, "GOAL_Okinaryuu_Dummy_530010_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Okinaryuu_Dummy_530010_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)

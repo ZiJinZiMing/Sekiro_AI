@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_SyuraSamurai_107000_Battle, "GOAL_SyuraSamurai_107000_Battle")
+﻿RegisterTableGoal(GOAL_SyuraSamurai_107000_Battle, "GOAL_SyuraSamurai_107000_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_SyuraSamurai_107000_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
@@ -56,7 +56,7 @@ Goal.Activate = function (f2_arg0, f2_arg1, f2_arg2)
         end
     elseif f2_arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) and f2_local3 <= 5 then
         f2_local0[21] = 100
-    elseif not f2_arg1:IsExistMeshOnLine(TARGET_ENE_0, AI_DIR_TYPE_ToB, f2_local3) then --和目标的间距
+    elseif not f2_arg1:IsExistMeshOnLine(TARGET_ENE_0, AI_DIR_TYPE_ToB, f2_local3) then
         f2_local0[30] = 100
         f2_local0[31] = 100
     elseif f2_arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK) then

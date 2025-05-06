@@ -1,4 +1,4 @@
-GOAL_RESULT_Failed = -1
+﻿GOAL_RESULT_Failed = -1
 GOAL_RESULT_Continue = 0
 GOAL_RESULT_Success = 1
 AI_DIR_TYPE_CENTER = 0

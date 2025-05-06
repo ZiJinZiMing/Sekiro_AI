@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_NewInu_115000_Battle, "GOAL_NewInu_115000_Battle")
+﻿RegisterTableGoal(GOAL_NewInu_115000_Battle, "GOAL_NewInu_115000_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_NewInu_115000_Battle, true)
 
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
@@ -332,7 +332,6 @@ Goal.Activate = function (f2_arg0, f2_arg1, f2_arg2)
 end
 
 Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
-    --[[
     local f3_local0 = 5.8 - f3_arg0:GetMapHitRadius(TARGET_SELF)
     local f3_local1 = 5.8 - f3_arg0:GetMapHitRadius(TARGET_SELF) + 0
     local f3_local2 = 5.8 - f3_arg0:GetMapHitRadius(TARGET_SELF) + 1
@@ -362,45 +361,6 @@ Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
     else
     end
     f3_arg0:SetTimer(0, 5)
-    ]]
-
-
-
-    local f3_local0 = 5.8 - f3_arg0:GetMapHitRadius(TARGET_SELF)
-    local f3_local1 = 5.8 - f3_arg0:GetMapHitRadius(TARGET_SELF) + 0
-    local f3_local2 = 5.8 - f3_arg0:GetMapHitRadius(TARGET_SELF) + 1
-    local f3_local3 = 100
-    local f3_local4 = 0
-    local f3_local5 = 1.5
-    local f3_local6 = 4
-    local f3_local7 = f3_arg0:GetDist(TARGET_ENE_0)
-    Approach_Act_Flex(f3_arg0, f3_arg1, f3_local0, f3_local1, f3_local2, f3_local3, f3_local4, f3_local5, f3_local6)
-    local f3_local8 = 3000
-    local f3_local9 = 3001
-    local f3_local10 = 9999 - f3_arg0:GetMapHitRadius(TARGET_SELF)
-    local f3_local11 = 0
-    local f3_local12 = 0
-    local f3_local13 = f3_arg0:GetRandam_Int(1, 100)
-    local f3_local14 = 5202
-
-
-    if f3_local13 <= 50 then
-        f3_arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, f3_local8, TARGET_ENE_0, f3_local10, f3_local11, f3_local12, 0, 0):TimingSetNumber(4, 0, AI_TIMING_SET__UPDATE_SUCCESS):TimingSetNumber(2, 1, AI_TIMING_SET__ACTIVATE)
-        f3_local14 = 5203
-    else
-        f3_arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, f3_local9, TARGET_ENE_0, f3_local10, f3_local11, f3_local12, 0, 0):TimingSetNumber(4, 0, AI_TIMING_SET__UPDATE_SUCCESS):TimingSetNumber(2, 1, AI_TIMING_SET__ACTIVATE)
-    end
-    local f3_local15 = f3_arg0:GetRandam_Float(1.2, 2)
-    local f3_local16 = 3
-    if f3_arg0:IsExistMeshOnLine(TARGET_ENE_0, AI_DIR_TYPE_ToF, 3) then
-        f3_arg1:AddSubGoal(GOAL_COMMON_ApproachSettingDirection, 0.5, TARGET_SELF, 0, TARGET_SELF, false, -1, AI_DIR_TYPE_F, 5):TimingSetNumber(6, 1, AI_TIMING_SET__ACTIVATE)
-    else
-    end
-    f3_arg0:SetTimer(0, 5)
-
-    f3_arg1:AddSubGoal(GOAL_COMMON_Wait, 3, --[[TARGET_ENE_0]] TARGET_SELF, 0, 0, 0)
-
-
     GetWellSpace_Odds = 0
     return GetWellSpace_Odds
     

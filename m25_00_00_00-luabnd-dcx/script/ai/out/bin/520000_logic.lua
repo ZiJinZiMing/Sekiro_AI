@@ -1,4 +1,4 @@
-RegisterTableLogic(520000)
+﻿RegisterTableLogic(520000)
 
 Logic.Main = function (f1_arg0, f1_arg1)
     if f1_arg1:IsBattleState() then

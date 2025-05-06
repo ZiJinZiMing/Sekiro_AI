@@ -1,4 +1,4 @@
-RegisterTableLogic(LOGIC_ID_Orochi_Dummy_501001)
+﻿RegisterTableLogic(LOGIC_ID_Orochi_Dummy_501001)
 
 Logic.Main = function (f1_arg0, f1_arg1)
     f1_arg1:AddObserveRegion(0, TARGET_LOCALPLAYER, 1702623)

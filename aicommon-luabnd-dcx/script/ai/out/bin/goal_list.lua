@@ -1,4 +1,4 @@
-GOAL_COMMON_TopGoal = 0
+﻿GOAL_COMMON_TopGoal = 0
 GOAL_COMMON_Normal = 1
 GOAL_COMMON_Stay = 2
 GOAL_COMMON_WalkAround = 3
@@ -422,23 +422,11 @@ GOAL_COMMON_MoveToSomewhereSmooth = 2013
 GOAL_COMMON_ApproachTarget_LifeSuccess = 2014
 GOAL_COMMON_ApproachTarget = 2015
 GOAL_COMMON_LeaveTarget = 2016
----@field arg1 number 移动目标
----@field arg2 boolean 是否向右移动
----@field arg3 number 本次侧移的最大角度
----@field arg4 boolean 是否步行
----@field arg5 boolean 超时是否成功
----@field arg6 number 防御标记
----@field arg7 number 防御成功的返回结果
 GOAL_COMMON_SidewayMove = 2017
 GOAL_COMMON_SidewayMoveAng = 2030
 GOAL_COMMON_SidewayMoveAvoidChr = 2036
 GOAL_COMMON_KeepDist = 2018
 GOAL_COMMON_MoveToSomewhere = 2019
----@field arg1 number AnimID
----@field arg2 number 旋回对象
----@field arg3 number 旋转时间
----@field arg4 number 移动方向
----@field arg5 number 安全距离
 GOAL_COMMON_SpinStep = 2020
 GOAL_COMMON_Fall = 2021
 GOAL_COMMON_MoveToMovePointAir = 2022
@@ -484,11 +472,6 @@ GOAL_COMMON_CommonAttack = 2200
 GOAL_COMMON_ComboRepeat = 2210
 GOAL_COMMON_ComboFinal = 2211
 GOAL_COMMON_AttackTunableSpin = 2220
----@field arg1 number AnimID
----@field arg2 number TARGET_ENE_0
----@field arg3 number 成功距离
----@field arg4 number 攻击前旋回时间
----@field arg5 number 正面判定角度
 GOAL_COMMON_ComboAttackTunableSpin = 2221
 GOAL_COMMON_ComboAttack_SuccessAngle180 = 2230
 GOAL_COMMON_ComboRepeat_SuccessAngle180 = 2231
@@ -530,83 +513,3 @@ GOAL_COMMON_ClearTarget = 4020
 GOAL_COMMON_WaitCancelTiming = 5000
 GOAL_COMMON_ConfirmCautionTarget = 5100
 
-logID = nil
-
-function trance_log(arg)
-
-    if logID == nil then
-        local cud_time = os.date("%Y-%m-%d_%H_%M_%S")
-        MyPrint(cud_time)
-        logID = cud_time
-    end
-    --local cud_date = os.date("%Y-%m-%d %H:%M:%S")
-    -- 打开文件
-    local file = io.open("log\\".."["..logID.."]--".."lua_log.txt", "a")
-
-    if nil == file then
-        print("open file lua_log.txt fail")
-    end
-
-    --local ntime = os.time()
-
-    local tt= os.date("%Y--%m--%d %X clock:")..tostring(os.clock() )
-    -- 输入字符串
-    local words = "["..tt.."]------"..arg.." \n"
-    file:write(words);
-    file:close()
-end
-
-function MyPrint(arg)
-    local tt=os.date("%Y--%m--%d %X")..tostring(os.clock() )
-    io.write("["..tt.."]    "..arg.." \n")
-end
-
-
-function MyTranceLogAndPrint(arg)
-    trance_log(arg)
-    MyPrint(arg)
-end
-
-function MyTraceback()
-    local tt=os.date("%Y--%m--%d %X")
-    io.write("["..tt.."]")
-    io.write(debug.traceback(""))
-    io.write("\n")
-end
-
-function printCallStack()
-    local startLevel = 2 --0表示getinfo本身,1表示调用getinfo的函数(printCallStack),2表示调用printCallStack的函数,可以想象一个getinfo(0级)在顶的栈.
-    local maxLevel = 10	--最大递归10层
-
-    for level = startLevel, maxLevel do
-        -- 打印堆栈每一层
-        local info = debug.getinfo( level, "nSl")
-        if info == nil then break end
-        trance_log( string.format("[ line : %-4d]  %-20s :: %s", info.currentline, info.name or "", info.source or "" ) )
-
-        -- 打印该层的参数与局部变量
-        local index = 1 --1表示第一个参数或局部变量, 依次类推
-        while true do
-            local name, value = debug.getlocal( level, index )
-            if name == nil then break end
-
-            local valueType = type( value )
-            local valueStr
-            if valueType == 'string' then
-                valueStr = value
-            elseif valueType == "number" then
-                valueStr = string.format("%.2f", value)
-            end
-
-            if valueStr ~= nil then
-                trance_log( string.format( "\t%s = %s\n", name, value ) )
-            end
-            index = index + 1
-        end
-    end
-end
-
---test
-g_count = 0
-
-MyTranceLogAndPrint(debug.traceback("-----------------------"))

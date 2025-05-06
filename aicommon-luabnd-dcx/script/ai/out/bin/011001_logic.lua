@@ -1,4 +1,4 @@
-RegisterTableLogic(LOGIC_ID_Nanimosinai11001)
+﻿RegisterTableLogic(LOGIC_ID_Nanimosinai11001)
 
 Logic.Main = function (f1_arg0, f1_arg1)
     f1_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, COMMON_SP_EFFECT_QUICK_TURN_TO_PC)

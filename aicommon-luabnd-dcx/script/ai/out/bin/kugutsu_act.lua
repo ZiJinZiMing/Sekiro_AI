@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_KugutsuAct_20000_Battle, "GOAL_KugutsuAct_20000_Battle")
+﻿RegisterTableGoal(GOAL_KugutsuAct_20000_Battle, "GOAL_KugutsuAct_20000_Battle")
 REGISTER_DBG_GOAL_PARAM(GOAL_KugutsuAct_20000_Battle, 0, "後退不可", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_KugutsuAct_20000_Battle, 1, "走行不可", 0)
 REGISTER_GOAL_NO_UPDATE(GOAL_KugutsuAct_20000_Battle, true)

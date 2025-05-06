@@ -1,4 +1,4 @@
-RegisterTableLogic(711300)
+﻿RegisterTableLogic(711300)
 
 Logic.Main = function (f1_arg0, f1_arg1)
     f1_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 220010)

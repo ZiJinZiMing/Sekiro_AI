@@ -1,4 +1,4 @@
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_Step, 0, "EzState番号", 0)
+﻿REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_Step, 0, "EzState番号", 0)
 REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_Step, 0, 0)
 
 function Step_Activate(f1_arg0, f1_arg1)

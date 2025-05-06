@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_COMMON_ContinueKeepDist, "GOAL_COMMON_ContinueKeepDist")
+﻿RegisterTableGoal(GOAL_COMMON_ContinueKeepDist, "GOAL_COMMON_ContinueKeepDist")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_ContinueKeepDist, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ContinueKeepDist, 0, "ターゲット", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ContinueKeepDist, 1, "最低距離", 1)

@@ -1,4 +1,4 @@
-function CommonNPC_ChangeWepL1(f1_arg0, f1_arg1)
+﻿function CommonNPC_ChangeWepL1(f1_arg0, f1_arg1)
     local f1_local0 = f1_arg0:GetEquipWeaponIndex(ARM_L)
     if WEP_Primary ~= f1_local0 then
         f1_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_L1, TARGET_NONE, DIST_None)
@@ -590,7 +590,7 @@ function Approach_and_GuardBreak_Act(f39_arg0, f39_arg1, f39_arg2, f39_arg3, f39
     
 end
 
-function GetWellSpace_Act(f40_arg0, f40_arg1, f40_arg2 --[[招架概率]], f40_arg3 --[[Idle概率]], f40_arg4, f40_arg5, f40_arg6, f40_arg7)
+function GetWellSpace_Act(f40_arg0, f40_arg1, f40_arg2, f40_arg3, f40_arg4, f40_arg5, f40_arg6, f40_arg7)
     local f40_local0 = -1
     local f40_local1 = f40_arg0:GetRandam_Int(1, 100)
     if f40_local1 <= f40_arg2 then

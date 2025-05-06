@@ -1,4 +1,4 @@
-RegisterTableGoal(GOAL_COMMON_FlexibleSideWayMove, "FlexibleSideWayMove")
+﻿RegisterTableGoal(GOAL_COMMON_FlexibleSideWayMove, "FlexibleSideWayMove")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_FlexibleSideWayMove, true)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_FlexibleSideWayMove, 0, "左優先度", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_FlexibleSideWayMove, 1, "右優先度", 1)

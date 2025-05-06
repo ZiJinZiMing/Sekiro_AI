@@ -1,16 +1,12 @@
-RegisterTableGoal(GOAL_EnemyTunableAttack, "GOAL_EnemyTunableAttack")
+﻿RegisterTableGoal(GOAL_EnemyTunableAttack, "GOAL_EnemyTunableAttack")
 ENABLE_COMBO_ATK_CANCEL(GOAL_EnemyTunableAttack)
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_EnemyTunableAttack, true)
 
 Goal.Activate = function (f1_arg0, f1_arg1, f1_arg2)
     local f1_local0 = f1_arg2:GetParam(0)
     local f1_local1 = f1_arg2:GetParam(1)
-    f1_arg2:AddSubGoal(GOAL_COMMON_AttackTunableSpin, f1_arg2:GetLife(), f1_local1, f1_local0,
-            f1_arg1:GetAIAttackParam(f1_local1, AI_ATTACK_PARAM_TYPE__SUCCESS_DISTANCE),
-            f1_arg1:GetAIAttackParam(f1_local1, AI_ATTACK_PARAM_TYPE__TURN_TIME_BEFORE_ATTACK),
-            f1_arg1:GetAIAttackParam(f1_local1, AI_ATTACK_PARAM_TYPE__FRONT_ANGLE_RANGE),
-            f1_arg1:GetAIAttackParam(f1_local1, AI_ATTACK_PARAM_TYPE__UP_ANGLE_THRESHOLD),
-            f1_arg1:GetAIAttackParam(f1_local1, AI_ATTACK_PARAM_TYPE__DOWN_ANGLE_THRESHOLD))
+    f1_arg2:AddSubGoal(GOAL_COMMON_AttackTunableSpin, f1_arg2:GetLife(), f1_local1, f1_local0, f1_arg1:GetAIAttackParam(f1_local1, AI_ATTACK_PARAM_TYPE__SUCCESS_DISTANCE), f1_arg1:GetAIAttackParam(f1_local1, AI_ATTACK_PARAM_TYPE__TURN_TIME_BEFORE_ATTACK), f1_arg1:GetAIAttackParam(f1_local1, AI_ATTACK_PARAM_TYPE__FRONT_ANGLE_RANGE), f1_arg1:GetAIAttackParam(f1_local1, AI_ATTACK_PARAM_TYPE__UP_ANGLE_THRESHOLD), f1_arg1:GetAIAttackParam(f1_local1, AI_ATTACK_PARAM_TYPE__DOWN_ANGLE_THRESHOLD))
+    
 end
 
 RegisterTableGoal(GOAL_EnemyTunableComboAttack, "GOAL_EnemyTunableComboAttack")

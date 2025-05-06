@@ -1,4 +1,4 @@
-REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_LiftOff, true)
+﻿REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_LiftOff, true)
 
 function LiftOff_Activate(f1_arg0, f1_arg1)
     f1_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, 9520, TARGET_NONE, DIST_None)

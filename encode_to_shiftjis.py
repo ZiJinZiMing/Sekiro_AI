@@ -38,6 +38,11 @@ def convert_file(file_path, target_encoding='shift_jis'):
         with codecs.open(file_path, 'r', encoding=current_encoding) as f:
             content = f.read()
         
+        # 移除UTF-8 BOM标记（如果存在）
+        if content.startswith('\ufeff'):
+            content = content[1:]
+            print(f"从文件 {file_path} 中移除了BOM标记")
+        
         # 写入新编码
         with codecs.open(file_path, 'w', encoding=target_encoding) as f:
             f.write(content)
@@ -51,14 +56,24 @@ def convert_file(file_path, target_encoding='shift_jis'):
 def copy_directory(src_dir, dst_dir):
     """将源目录复制到目标目录"""
     try:
-        # 如果目标目录已存在，先删除
-        if os.path.exists(dst_dir):
-            shutil.rmtree(dst_dir)
+        # 获取源目录的名称
+        src_dir_name = os.path.basename(os.path.normpath(src_dir))
         
-        # 复制整个目录
-        shutil.copytree(src_dir, dst_dir)
-        print(f"成功将 {src_dir} 复制到 {dst_dir}")
-        return True
+        # 创建输出目录（如果不存在）
+        if not os.path.exists(dst_dir):
+            os.makedirs(dst_dir)
+        
+        # 构建目标子目录路径
+        target_subdir = os.path.join(dst_dir, src_dir_name)
+        
+        # 如果目标子目录已存在，先删除
+        if os.path.exists(target_subdir):
+            shutil.rmtree(target_subdir)
+        
+        # 复制整个目录到目标子目录
+        shutil.copytree(src_dir, target_subdir)
+        print(f"成功将 {src_dir} 复制到 {target_subdir}")
+        return target_subdir
     except Exception as e:
         print(f"复制目录时出错: {str(e)}")
         return False
@@ -66,7 +81,7 @@ def copy_directory(src_dir, dst_dir):
 def process_directory(directory_path, target_encoding='shift_jis', file_extensions=None):
     """处理目录中的所有文件"""
     if file_extensions is None:
-        file_extensions = ['.txt','.lua', '.csv', '.html', '.xml', '.json', '.js', '.css', '.py']
+        file_extensions = ['.lua']
     
     count_success = 0
     count_failed = 0
@@ -109,9 +124,10 @@ def main():
         # 如果output_directory不是绝对路径，则将其视为相对于当前工作目录的路径
         output_directory = os.path.join(os.getcwd(), output_directory)
     
-    # 复制源目录到输出目录
+    # 复制源目录到输出目录，包括顶级目录
     print(f"正在复制源目录 {source_directory} 到输出目录 {output_directory}...")
-    if not copy_directory(source_directory, output_directory):
+    copied_dir = copy_directory(source_directory, output_directory)
+    if not copied_dir:
         print("复制目录失败，程序退出")
         return 1
     
@@ -121,12 +137,12 @@ def main():
     if args.extensions:
         file_extensions = args.extensions.split(',')
     
-    print(f"\n开始处理输出目录: {output_directory}")
+    print(f"\n开始处理输出目录: {copied_dir}")
     print(f"目标编码: {target_encoding}")
     if file_extensions:
         print(f"处理文件类型: {', '.join(file_extensions)}")
     
-    success, failed, skipped = process_directory(output_directory, target_encoding, file_extensions)
+    success, failed, skipped = process_directory(copied_dir, target_encoding, file_extensions)
     
     print("\n转换完成:")
     print(f"- 成功: {success} 个文件")
@@ -136,4 +152,4 @@ def main():
     return 0
 
 if __name__ == "__main__":
-    sys.exit(ma
+    sys.exit(main())

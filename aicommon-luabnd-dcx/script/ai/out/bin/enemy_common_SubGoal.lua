@@ -1,4 +1,4 @@
-local f0_local0 = {4, 5, 15}
+﻿local f0_local0 = {4, 5, 15}
 local f0_local1 = {10, 4, 15}
 local f0_local2 = {}
 local f0_local3 = -1
