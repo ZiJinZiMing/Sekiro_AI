@@ -1,18 +1,21 @@
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 0, "EzStateID", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 1, "攻撃対象", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 2, "成功距離", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 3, "上攻撃角度", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 4, "下攻撃角度", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 5, "成功角度", 0)
+-- 注册连击攻击行为的调试参数 (Register debug parameters for combo attack behavior)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 0, "EzStateID", 0)     -- 动画状态ID (Animation state ID)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 1, "攻撃対象", 0)        -- 攻击目标 (Attack target)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 2, "成功距離", 0)        -- 攻击成功距离 (Attack success distance)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 3, "上攻撃角度", 0)       -- 上攻击角度 (Upper attack angle)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 4, "下攻撃角度", 0)       -- 下攻击角度 (Lower attack angle)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ComboAttack, 5, "成功角度", 0)        -- 连击成功角度 (Combo success angle)
 
+-- 连击攻击行为激活函数 (Combo attack behavior activation function)
+-- 执行连击序列的起始段，为后续连击做准备 (Execute the initial segment of combo sequence, preparing for subsequent combo)
 function ComboAttack_Activate(f1_arg0, f1_arg1)
-    local f1_local0 = f1_arg1:GetLife()
-    local f1_local1 = f1_arg1:GetParam(0)
-    local f1_local2 = f1_arg1:GetParam(1)
-    local f1_local3 = f1_arg1:GetParam(2)
-    local f1_local4 = f1_arg1:GetParam(5)
+    local f1_local0 = f1_arg1:GetLife()        -- 获取生命周期 (Get life cycle)
+    local f1_local1 = f1_arg1:GetParam(0)      -- 动画状态ID (Animation state ID)
+    local f1_local2 = f1_arg1:GetParam(1)      -- 攻击目标 (Attack target)
+    local f1_local3 = f1_arg1:GetParam(2)      -- 成功距离 (Success distance)
+    local f1_local4 = f1_arg1:GetParam(5)      -- 连击成功角度 (Combo success angle)
     if f1_local4 == nil then
-        f1_local4 = 90
+        f1_local4 = 90                          -- 默认连击成功角度90度 (Default combo success angle 90 degrees)
     end
     local f1_local5 = 1.5
     local f1_local6 = 20

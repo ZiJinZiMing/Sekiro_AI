@@ -1,33 +1,50 @@
+-- 最大支持的AI行为数量 (Maximum number of AI behaviors supported)
 local f0_local0 = 50
 
+-- 清理AI行为参数数组
+-- Clear AI behavior parameter arrays
+-- f1_arg0: 行为权重数组 (behavior weight array)
+-- f1_arg1: 行为函数数组 (behavior function array)
+-- f1_arg2: 行为子目标配置数组 (behavior sub-goal configuration array)
 function Common_Clear_Param(f1_arg0, f1_arg1, f1_arg2)
     local f1_local0 = 1
+    -- 初始化所有50个行为槽位 (Initialize all 50 behavior slots)
     for f1_local1 = 1, f0_local0, 1 do
-        f1_arg0[f1_local1] = 0
-        f1_arg1[f1_local1] = nil
-        f1_arg2[f1_local1] = {}
+        f1_arg0[f1_local1] = 0        -- 权重设为0 (set weight to 0)
+        f1_arg1[f1_local1] = nil      -- 函数指针清空 (clear function pointer)
+        f1_arg2[f1_local1] = {}       -- 子目标配置清空 (clear sub-goal config)
     end
-    
+
 
 end
 
+-- 战斗行为激活器 - 根据权重表选择并执行AI行为
+-- Battle behavior activator - select and execute AI behaviors based on weight table
+-- f2_arg0: AI实体 (AI entity)
+-- f2_arg1: 目标对象 (target object)
+-- f2_arg2: 行为权重数组 (behavior weight array)
+-- f2_arg3: 行为函数数组 (behavior function array)
+-- f2_arg4: 随机种子 (random seed)
+-- f2_arg5: 行为子目标配置数组 (behavior sub-goal configuration array)
 function Common_Battle_Activate(f2_arg0, f2_arg1, f2_arg2, f2_arg3, f2_arg4, f2_arg5)
-    local f2_local0 = {}
-    local f2_local1 = {}
-    local f2_local2 = 0
+    local f2_local0 = {}  -- 临时权重表 (temporary weight table)
+    local f2_local1 = {}  -- 临时函数表 (temporary function table)
+    local f2_local2 = 0   -- 计数器 (counter)
 
+    -- 定义默认行为函数映射表 (Define default behavior function mapping table)
+    -- 每个函数对应一个具体的AI行为实现 (Each function corresponds to a specific AI behavior implementation)
     local f2_local3 = {function ()
-        return defAct01(f2_arg0, f2_arg1, f2_arg5[1])
-        
+        return defAct01(f2_arg0, f2_arg1, f2_arg5[1])  -- 默认行为01 (Default behavior 01)
+
     end, function ()
-        return defAct02(f2_arg0, f2_arg1, f2_arg5[2])
-        
+        return defAct02(f2_arg0, f2_arg1, f2_arg5[2])  -- 默认行为02 (Default behavior 02)
+
     end, function ()
-        return defAct03(f2_arg0, f2_arg1, f2_arg5[3])
-        
+        return defAct03(f2_arg0, f2_arg1, f2_arg5[3])  -- 默认行为03 (Default behavior 03)
+
     end, function ()
-        return defAct04(f2_arg0, f2_arg1, f2_arg5[4])
-        
+        return defAct04(f2_arg0, f2_arg1, f2_arg5[4])  -- 默认行为04 (Default behavior 04)
+
     end, function ()
         return defAct05(f2_arg0, f2_arg1, f2_arg5[5])
         

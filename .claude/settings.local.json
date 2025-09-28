@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir)",
+      "Bash(python:*)",
+      "Bash(fc:*)",
+      "Bash(for goal in \"GOAL_COMMON_AttackTunableSpin\" \"GOAL_COMMON_ComboRepeat_SuccessAngle180\" \"GOAL_COMMON_ComboFinal\" \"GOAL_COMMON_ComboTunable_SuccessAngle180\" \"GOAL_COMMON_ApproachSettingDirection\" \"GOAL_COMMON_ApproachTarget\" \"GOAL_COMMON_EndureAttack\" \"GOAL_COMMON_LeaveTarget\" \"GOAL_COMMON_SidewayMove\" \"GOAL_COMMON_Wait\" \"GOAL_COMMON_Turn\" \"GOAL_COMMON_SpinStep\" \"GOAL_COMMON_ComboAttackTunableSpin\")",
+      "Bash(do echo \"=== $goal ===\")",
+      "Bash(grep:*)",
+      "Bash(done)",
+      "Bash(find:*)",
+      "Bash(xargs ls:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

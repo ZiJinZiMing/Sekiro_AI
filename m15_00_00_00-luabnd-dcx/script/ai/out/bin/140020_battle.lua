@@ -1,67 +1,98 @@
+-- ==============================================
+-- 140020 - 剑客·居合 AI 战斗脚本
+-- Kenkaku Iai (Samurai Swordsman with Iai technique)
+-- ==============================================
+-- 特点：专精居合斩技的高级剑客AI，拥有复杂的距离判断和连击系统
+-- 共享函数调用：132次，主要依赖GOAL_COMMON系列进行战斗行为组织
+-- ==============================================
+
 RegisterTableGoal(GOAL_Kenkaku_iai_140020_Battle, "GOAL_Kenkaku_iai_140020_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Kenkaku_iai_140020_Battle, true)
 
+-- 初始化函数 (Initialization function)
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
-    
+
 end
 
+-- 主要激活函数 - AI行为的核心逻辑入口
+-- Main activation function - Core logic entry point for AI behavior
 Goal.Activate = function (f2_arg0, f2_arg1, f2_arg2)
-    Init_Pseudo_Global(f2_arg1, f2_arg2)
-    local f2_local0 = {}
-    local f2_local1 = {}
-    local f2_local2 = {}
-    Common_Clear_Param(f2_local0, f2_local1, f2_local2)
-    local f2_local3 = f2_arg1:GetDist(TARGET_ENE_0)
-    local f2_local4 = f2_arg1:GetDistYSigned(TARGET_ENE_0)
-    local f2_local5 = f2_arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
-    local f2_local6 = f2_arg1:GetHpRate(TARGET_SELF)
-    local f2_local7 = f2_arg1:GetSp(TARGET_SELF)
-    local f2_local8 = f2_arg1:GetDist(TARGET_ENE_0)
-    local f2_local9 = f2_arg1:GetSp(TARGET_ENE_0)
-    local f2_local10 = f2_arg1:GetRandam_Int(1, 100)
-    local f2_local11 = f2_arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
-    local f2_local12 = Check_ReachAttack(f2_arg1, 0)
-    local f2_local13 = f2_arg1:GetRandam_Int(3, 5)
-    Set_ConsecutiveGuardCount_Interrupt(f2_arg1)
-    f2_arg1:SetNumber(5, 0)
-    f2_arg1:SetNumber(11, 0)
-    f2_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)
-    f2_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5027)
-    f2_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5029)
-    f2_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200030)
-    f2_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200031)
-    local f2_local14 = 60
-    local f2_local15 = 4.6 - f2_arg1:GetMapHitRadius(TARGET_SELF) + 1
-    local f2_local16 = 2.5
+    Init_Pseudo_Global(f2_arg1, f2_arg2)  -- 初始化伪全局变量 (Initialize pseudo-global variables)
+    local f2_local0 = {}  -- 行为权重数组 (Behavior weight array)
+    local f2_local1 = {}  -- 行为函数数组 (Behavior function array)
+    local f2_local2 = {}  -- 子目标配置数组 (Sub-goal configuration array)
+    Common_Clear_Param(f2_local0, f2_local1, f2_local2)  -- 清理通用参数 (Clear common parameters)
+    -- 获取战斗状态参数 (Get combat state parameters)
+    local f2_local3 = f2_arg1:GetDist(TARGET_ENE_0)              -- 与敌人的距离 (Distance to enemy)
+    local f2_local4 = f2_arg1:GetDistYSigned(TARGET_ENE_0)       -- Y轴高度差 (Y-axis height difference)
+    local f2_local5 = f2_arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer) -- AI思考参数
+    local f2_local6 = f2_arg1:GetHpRate(TARGET_SELF)             -- 自身血量比例 (Self HP ratio)
+    local f2_local7 = f2_arg1:GetSp(TARGET_SELF)                 -- 自身SP值 (Self SP value)
+    local f2_local8 = f2_arg1:GetDist(TARGET_ENE_0)              -- 与敌人距离(重复获取) (Distance to enemy - duplicate)
+    local f2_local9 = f2_arg1:GetSp(TARGET_ENE_0)                -- 敌人SP值 (Enemy SP value)
+    local f2_local10 = f2_arg1:GetRandam_Int(1, 100)             -- 随机数1-100 (Random number 1-100)
+    local f2_local11 = f2_arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer) -- AI思考参数(重复)
+    local f2_local12 = Check_ReachAttack(f2_arg1, 0)             -- 检查攻击可达性 (Check attack reachability)
+    local f2_local13 = f2_arg1:GetRandam_Int(3, 5)               -- 随机数3-5 (Random number 3-5)
+    -- 设置战斗系统参数 (Set combat system parameters)
+    Set_ConsecutiveGuardCount_Interrupt(f2_arg1)  -- 设置连续防御计数中断 (Set consecutive guard count interrupt)
+    f2_arg1:SetNumber(5, 0)   -- 重置计数器5 (Reset counter 5)
+    f2_arg1:SetNumber(11, 0)  -- 重置计数器11 (Reset counter 11)
+
+    -- 添加特殊效果观察 (Add special effect observations)
+    f2_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)   -- 观察自身状态：攻击后 (Observe self state: after attack)
+    f2_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5027)   -- 观察自身状态：被攻击后 (Observe self state: after being attacked)
+    f2_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5029)   -- 观察自身状态：特殊动作 (Observe self state: special action)
+    f2_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200030) -- 观察自身状态：居合预备 (Observe self state: Iai preparation)
+    f2_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200031) -- 观察自身状态：居合可用 (Observe self state: Iai available)
+    -- 设置观察区域参数 (Set observation area parameters)
+    local f2_local14 = 60     -- 观察角度：60度 (Observation angle: 60 degrees)
+    local f2_local15 = 4.6 - f2_arg1:GetMapHitRadius(TARGET_SELF) + 1  -- 居合攻击距离 (Iai attack distance)
+    local f2_local16 = 2.5    -- 近距离观察范围 (Close-range observation range)
+
+    -- 初始化观察区域（仅执行一次）(Initialize observation areas - execute only once)
     if f2_arg1:GetNumber(3) == 0 then
-        f2_arg1:SetNumber(3, 1)
+        f2_arg1:SetNumber(3, 1)  -- 标记已初始化 (Mark as initialized)
+        -- 添加前方攻击范围观察 (Add forward attack range observation)
         f2_arg1:AddObserveArea(0, TARGET_SELF, TARGET_ENE_0, AI_DIR_TYPE_F, f2_local14, f2_local15)
+        -- 添加前方近距离观察 (Add forward close-range observation)
         f2_arg1:AddObserveArea(1, TARGET_SELF, TARGET_ENE_0, AI_DIR_TYPE_F, 200, f2_local16)
     end
+    -- 检查是否激活见切系统 (Check if Kengeki system should be activated)
     if f2_arg0.Kengeki_Activate(f2_arg0, f2_arg1, f2_arg2) then
-        return
+        return  -- 见切激活时直接返回，优先处理见切行为 (Return directly when Kengeki is active)
     end
+    -- ========== 核心行为决策逻辑 (Core Behavior Decision Logic) ==========
+    -- 居合预备状态 - 最高优先级 (Iai preparation state - highest priority)
     if f2_arg1:HasSpecialEffectId(TARGET_SELF, 200030) then
-        f2_local0[15] = 100
+        f2_local0[15] = 100  -- 执行居合斩 (Execute Iai slash)
         if f2_arg1:HasSpecialEffectId(TARGET_SELF, 5027) then
-            f2_local0[22] = 100
+            f2_local0[22] = 100  -- 同时可以执行闪避反击 (Can also execute dodge counter)
         end
+    -- 通用行为激活检查 (Common behavior activation check)
     elseif Common_ActivateAct(f2_arg1, f2_arg2) then
+        -- 使用共享的通用激活逻辑 (Use shared common activation logic)
+    -- 攻击不可达状态处理 (Handle unreachable attack states)
     elseif f2_local12 ~= POSSIBLE_ATTACK then
+        -- 团队角色：观众模式 (Team role: Spectator mode)
         if f2_local11 == 1 and f2_arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Kankyaku then
-            f2_local0[27] = 100
+            f2_local0[27] = 100  -- 执行接近行为 (Execute approach behavior)
+        -- 团队角色：跟随模式 (Team role: Follow mode)
         elseif f2_local11 == 1 and f2_arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Torimaki then
-            f2_local0[27] = 100
+            f2_local0[27] = 100  -- 执行接近行为 (Execute approach behavior)
+        -- 攻击完全无法到达 (Attack completely unreachable)
         elseif f2_local12 == UNREACH_ATTACK then
-            f2_local0[27] = 100
+            f2_local0[27] = 100  -- 接近目标 (Approach target)
+        -- 目标位置过高 (Target position too high)
         elseif f2_local12 == REACH_ATTACK_TARGET_HIGH_POSITION then
-            f2_local0[10] = 50
-            f2_local0[27] = 100
+            f2_local0[10] = 50   -- 尝试跳跃攻击 (Try jump attack)
+            f2_local0[27] = 100  -- 同时准备接近 (Also prepare to approach)
+        -- 目标位置过低 (Target position too low)
         elseif f2_local12 == REACH_ATTACK_TARGET_LOW_POSITION then
-            f2_local0[10] = 50
-            f2_local0[27] = 100
+            f2_local0[10] = 50   -- 尝试下劈攻击 (Try downward attack)
+            f2_local0[27] = 100  -- 同时准备接近 (Also prepare to approach)
         else
-            f2_local0[27] = 100
+            f2_local0[27] = 100  -- 默认接近行为 (Default approach behavior)
         end
     elseif f2_local11 == 1 and f2_arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Kankyaku then
         KankyakuAct(f2_arg1, f2_arg2)

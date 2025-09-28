@@ -1,0 +1,138 @@
+剑圣一心(710000) - Kengeki系列函数注释补充
+
+以下是为选中的Kengeki函数添加的中文注释内容：
+
+=== Kengeki17-21 简单反击系列 ===
+
+-- ========== 剑戟反应17：精准斩击 (Kengeki Reaction 17: Precise Strike) ==========
+Goal.Kengeki17 = function (f41_arg0, f41_arg1, f41_arg2)
+    f41_arg1:ClearSubGoal()  -- 清除当前子目标 (Clear current sub-goals)
+    -- 执行精准终结攻击3071 (Execute precise final attack 3071)
+    f41_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3071, TARGET_ENE_0, 9999, 0, 0)
+end
+
+-- ========== 剑戟反应18：基础反击 (Kengeki Reaction 18: Basic Counter) ==========
+Goal.Kengeki18 = function (f42_arg0, f42_arg1, f42_arg2)
+    f42_arg1:ClearSubGoal()  -- 清除当前子目标 (Clear current sub-goals)
+    -- 执行基础反击攻击3004 (Execute basic counter attack 3004)
+    f42_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3004, TARGET_ENE_0, 9999, 0, 0)
+end
+
+-- ========== 剑戟反应19：快速反击 (Kengeki Reaction 19: Quick Counter) ==========
+Goal.Kengeki19 = function (f43_arg0, f43_arg1, f43_arg2)
+    f43_arg1:ClearSubGoal()  -- 清除当前子目标 (Clear current sub-goals)
+    -- 执行快速反击攻击3044 (Execute quick counter attack 3044)
+    f43_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3044, TARGET_ENE_0, 9999, 0, 0)
+end
+
+=== Kengeki20 复杂空间检查反击 ===
+
+-- ========== 剑戟反应20：空间感知后退反击 (Kengeki Reaction 20: Spatial Awareness Retreat Counter) ==========
+Goal.Kengeki20 = function (f44_arg0, f44_arg1, f44_arg2)
+    local f44_local0 = f44_arg0:GetDist(TARGET_ENE_0)  -- 与玩家距离 (Distance to player)
+    local f44_local1 = 3      -- 后退步法持续时间 (Retreat step duration)
+    local f44_local2 = 0      -- 移动方向标志 (Movement direction flag)
+
+    -- 复杂的空间检查逻辑 (Complex spatial check logic)
+    if SpaceCheck(f44_arg0, f44_arg1, -135, 1) == true then
+        -- 检查-135度方向空间 (Check -135 degree direction space)
+        if SpaceCheck(f44_arg0, f44_arg1, 135, 1) == true then
+            -- 检查135度方向空间 (Check 135 degree direction space)
+            if f44_arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
+                f44_local2 = 1  -- 玩家在右侧，向右移动 (Player on right, move right)
+            else
+                f44_local2 = 0  -- 玩家在左侧，向左移动 (Player on left, move left)
+            end
+        else
+            f44_local2 = 0      -- 135度方向受阻，向左移动 (135 degree blocked, move left)
+        end
+    elseif SpaceCheck(f44_arg0, f44_arg1, 90, 1) == true then
+        -- 90度方向有空间，向右移动 (90 degree space available, move right)
+        f44_local2 = 1
+    end
+
+    f44_arg1:ClearSubGoal()  -- 清除当前子目标 (Clear current sub-goals)
+    -- 执行后退旋转步法5202 (Execute retreat spin step 5202)
+    f44_arg1:AddSubGoal(GOAL_COMMON_SpinStep, f44_local1, 5202, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
+    -- 执行终结攻击3007 (Execute final attack 3007)
+    f44_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3007, TARGET_ENE_0, 9999, 0, 0)
+    return GETWELLSPACE_ODDS  -- 返回空间检查权重 (Return space check weight)
+end
+
+-- ========== 剑戟反应21：标准反击 (Kengeki Reaction 21: Standard Counter) ==========
+Goal.Kengeki21 = function (f45_arg0, f45_arg1, f45_arg2)
+    f45_arg1:ClearSubGoal()  -- 清除当前子目标 (Clear current sub-goals)
+    -- 执行标准反击攻击3010 (Execute standard counter attack 3010)
+    f45_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3010, TARGET_ENE_0, 9999, 0, 0)
+end
+
+=== Kengeki30-31 计时器管理反击 ===
+
+-- ========== 剑戟反应30：定时反击A (Kengeki Reaction 30: Timed Counter A) ==========
+Goal.Kengeki30 = function (f46_arg0, f46_arg1, f46_arg2)
+    f46_arg1:ClearSubGoal()  -- 清除当前子目标 (Clear current sub-goals)
+    -- 执行定时终结攻击3063，设置10秒计时器 (Execute timed final attack 3063 with 10-second timer)
+    f46_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3063, TARGET_ENE_0, 9999, 0, 0):TimingSetTimer(1, 10, AI_TIMING_SET__UPDATE_SUCCESS)
+    f46_arg0:SetNumber(5, 0)  -- 重置计数器5 (Reset counter 5)
+end
+
+-- ========== 剑戟反应31：定时反击B (Kengeki Reaction 31: Timed Counter B) ==========
+Goal.Kengeki31 = function (f47_arg0, f47_arg1, f47_arg2)
+    f47_arg1:ClearSubGoal()  -- 清除当前子目标 (Clear current sub-goals)
+    -- 执行定时终结攻击3068，设置10秒计时器 (Execute timed final attack 3068 with 10-second timer)
+    f47_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3068, TARGET_ENE_0, 9999, 0, 0):TimingSetTimer(1, 10, AI_TIMING_SET__UPDATE_SUCCESS)
+    f47_arg0:SetNumber(5, 0)  -- 重置计数器5 (Reset counter 5)
+end
+
+=== Kengeki32-33 距离适应连击 ===
+
+-- ========== 剑戟反应32：远距离连击 (Kengeki Reaction 32: Long Range Combo) ==========
+Goal.Kengeki32 = function (f48_arg0, f48_arg1, f48_arg2)
+    local f48_local0 = 0  -- 转向时间 (Turn time)
+    local f48_local1 = 0  -- 正面角度 (Front angle)
+    -- 计算最大攻击距离：999减去自身碰撞半径 (Calculate max attack distance: 999 minus self hit radius)
+    local f48_local2 = 999 - f48_arg0:GetMapHitRadius(TARGET_SELF)
+    local f48_local3 = 7 - f48_arg0:GetMapHitRadius(TARGET_SELF)  -- 终结攻击距离 (Final attack distance)
+
+    f48_arg1:ClearSubGoal()  -- 清除当前子目标 (Clear current sub-goals)
+    -- 执行连击起手攻击3018 (Execute combo starter attack 3018)
+    f48_arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3018, TARGET_ENE_0, f48_local2, f48_local0, f48_local1, 0, 0)
+    -- 执行终结攻击3015 (Execute final attack 3015)
+    f48_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3015, TARGET_ENE_0, 9999, 0, 0)
+    f48_arg0:SetNumber(6, 1)  -- 设置状态计数器6 (Set state counter 6)
+end
+
+-- ========== 剑戟反应33：适应性连击 (Kengeki Reaction 33: Adaptive Combo) ==========
+Goal.Kengeki33 = function (f49_arg0, f49_arg1, f49_arg2)
+    local f49_local0 = 0  -- 转向时间 (Turn time)
+    local f49_local1 = 0  -- 正面角度 (Front angle)
+    local f49_local2 = 999 - f49_arg0:GetMapHitRadius(TARGET_SELF)   -- 起手攻击距离 (Starter attack distance)
+    local f49_local3 = 7.8 - f49_arg0:GetMapHitRadius(TARGET_SELF)  -- 连击重复距离 (Combo repeat distance)
+    local f49_local4 = 2.5 - f49_arg0:GetMapHitRadius(TARGET_SELF)  -- 备用距离 (Backup distance)
+    local f49_local5 = f49_arg0:GetRandam_Int(1, 100)  -- 随机数决定连击分支 (Random number for combo branch)
+
+    f49_arg1:ClearSubGoal()  -- 清除当前子目标 (Clear current sub-goals)
+    -- 执行连击起手攻击3018 (Execute combo starter attack 3018)
+    f49_arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3018, TARGET_ENE_0, f49_local2, f49_local0, f49_local1, 0, 0)
+
+    if f49_local5 <= 50 then
+        -- 50%概率：执行完整连击序列 (50% chance: Execute full combo sequence)
+        f49_arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3019, TARGET_ENE_0, f49_local3, 0)     -- 连击重复3019
+        f49_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3029, TARGET_ENE_0, 9999, 0, 0)         -- 终结攻击3029
+    else
+        -- 50%概率：执行单一终结攻击 (50% chance: Execute single final attack)
+        f49_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3019, TARGET_ENE_0, 9999, 0, 0)         -- 终结攻击3019
+    end
+    f49_arg0:SetNumber(6, 0)  -- 重置状态计数器6 (Reset state counter 6)
+end
+
+=== 其他重要函数摘要 ===
+
+这些Kengeki函数展现了剑圣一心AI的高级剑戟反应机制：
+1. **简单反击类**：Kengeki17-19,21 - 直接执行单一终结攻击
+2. **空间感知类**：Kengeki20 - 复杂的空间检查和位移
+3. **定时管理类**：Kengeki30-31 - 带计时器的反击攻击
+4. **距离适应类**：Kengeki32-33 - 根据距离调整连击策略
+5. **条件分支类**：Kengeki15,38,39等 - 基于随机数或状态的复杂分支逻辑
+
+每种反应都针对特定的剑戟情况，体现了只狼战斗系统中剑戟对抗的深度和复杂性。
