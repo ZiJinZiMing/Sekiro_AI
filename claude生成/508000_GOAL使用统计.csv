@@ -1,0 +1,33 @@
+排名,GOAL名称,使用次数,主要用途描述,使用的Act函数示例,功能分类
+1,GOAL_COMMON_AttackTunableSpin,57,可调节旋转的攻击动作是最常用的攻击类型,"Act01, Act02, Act04, Act06, Act07-Act20, Act22等",攻击类
+2,GOAL_COMMON_ComboRepeat_SuccessAngle180,51,180度成功角度的连击重复动作用于连续攻击,"Act03, Act12, Act14, Act25, Act37-Act48等",连击类
+3,GOAL_COMMON_ComboFinal,29,连击的终结动作用于完成攻击序列,"Act14, Act25, Act29, Act35等多个Act函数",连击类
+4,GOAL_COMMON_ComboTunable_SuccessAngle180,17,180度成功角度的可调节连击动作,"Act03, Act05, Act12, Act14, Act16, Act29等",连击类
+5,GOAL_COMMON_ApproachSettingDirection,17,设置方向的接近目标动作用于定位和移动,"Act01, Act05, Act06, Act28, Act30, Act33等",移动类
+6,GOAL_COMMON_ApproachTarget,13,直接接近目标的动作用于缩短与敌人的距离,"Act17, Act18, Act22, Act28, Act43, Act44等",移动类
+7,GOAL_COMMON_EndureAttack,6,承受攻击的防御动作用于格挡或抵抗,Act30 (多次使用),控制类
+8,GOAL_COMMON_LeaveTarget,4,离开目标的动作用于战术撤退,"Act25, Act27, Act60等",移动类
+9,GOAL_COMMON_SidewayMove,2,侧向移动动作用于回避和重新定位,"Act23, Act27",移动类
+10,GOAL_COMMON_Wait,1,等待动作用于暂停或延迟,Act26,控制类
+11,GOAL_COMMON_Turn,1,转向动作用于调整朝向,Act21,控制类
+12,GOAL_COMMON_SpinStep,1,旋转步伐动作用于快速移动,Act24,移动类
+13,GOAL_COMMON_ComboAttackTunableSpin,1,可调节旋转的连击攻击动作,Act48,攻击类
+,,,,,
+,,,总使用次数统计,,
+,攻击类GOAL,58,占总数的29%,,攻击类
+,连击类GOAL,97,占总数的48.5%,,连击类
+,移动类GOAL,37,占总数的18.5%,,移动类
+,控制类GOAL,8,占总数的4%,,控制类
+,总计,200,100%,,
+,,,,,
+,,,功能模块分析,,
+,基础攻击模块,57,GOAL_COMMON_AttackTunableSpin为主要攻击手段,,
+,连击系统模块,97,连击重复+连击终结构成完整攻击序列,,
+,移动定位模块,37,包含接近撤退侧移等多种移动方式,,
+,状态控制模块,8,提供防御等待转向等控制能力,,
+,,,,,
+,,,使用特点分析,,
+,攻击导向,高,57次AttackTunableSpin体现攻击性,,
+,连击复杂度,极高,97次连击相关GOAL构建复杂攻击模式,,
+,移动灵活性,高,37次移动相关GOAL提供战术机动性,,
+,防御能力,中等,6次EndureAttack提供基础防御,,

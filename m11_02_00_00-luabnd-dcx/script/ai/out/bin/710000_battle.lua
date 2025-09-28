@@ -1601,54 +1601,82 @@ Goal.Kengeki39 = function (f53_arg0, f53_arg1, f53_arg2)
 
 end
 
+-- 剑击40 - 终结攻击技能 (Sword Strike 40 - Finishing Attack Skill)
+-- 参数: f54_arg0=AI实体, f54_arg1=目标管理器, f54_arg2=状态参数
+-- 功能: 执行攻击动作3028的终结攻击，设置50帧冷却时间
 Goal.Kengeki40 = function (f54_arg0, f54_arg1, f54_arg2)
-    f54_arg1:ClearSubGoal()
+    f54_arg1:ClearSubGoal()  -- 清除当前所有子目标 (Clear all current sub-goals)
+    -- 执行终结攻击3028，最大距离9999 (Execute final attack 3028 with max distance 9999)
     f54_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3028, TARGET_ENE_0, 9999, 0, 0)
-    f54_arg0:SetTimer(6, 50)
-    
+    f54_arg0:SetTimer(6, 50)  -- 设置计时器6为50帧冷却 (Set timer 6 for 50 frames cooldown)
+
 end
 
+-- 剑击43 - 强力终结攻击 (Sword Strike 43 - Powerful Finishing Attack)
+-- 参数: f55_arg0=AI实体, f55_arg1=目标管理器, f55_arg2=状态参数
+-- 功能: 执行攻击动作3062的终结攻击，设置状态标记为激活状态
 Goal.Kengeki43 = function (f55_arg0, f55_arg1, f55_arg2)
-    f55_arg1:ClearSubGoal()
+    f55_arg1:ClearSubGoal()  -- 清除当前所有子目标 (Clear all current sub-goals)
+    -- 执行终结攻击3062，最大距离9999 (Execute final attack 3062 with max distance 9999)
     f55_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3062, TARGET_ENE_0, 9999, 0, 0)
-    f55_arg0:SetNumber(2, 1)
-    
+    f55_arg0:SetNumber(2, 1)  -- 设置数值变量2为1，标记状态激活 (Set number variable 2 to 1, mark state as active)
+
 end
 
+-- 剑击44 - 高级终结攻击 (Sword Strike 44 - Advanced Finishing Attack)
+-- 参数: f56_arg0=AI实体, f56_arg1=目标管理器, f56_arg2=状态参数
+-- 功能: 执行攻击动作3067的终结攻击，设置状态标记为激活状态
 Goal.Kengeki44 = function (f56_arg0, f56_arg1, f56_arg2)
-    f56_arg1:ClearSubGoal()
+    f56_arg1:ClearSubGoal()  -- 清除当前所有子目标 (Clear all current sub-goals)
+    -- 执行终结攻击3067，最大距离9999 (Execute final attack 3067 with max distance 9999)
     f56_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3067, TARGET_ENE_0, 9999, 0, 0)
-    f56_arg0:SetNumber(2, 1)
-    
+    f56_arg0:SetNumber(2, 1)  -- 设置数值变量2为1，标记状态激活 (Set number variable 2 to 1, mark state as active)
+
 end
 
+-- 剑击45 - 重置型终结攻击 (Sword Strike 45 - Reset Type Finishing Attack)
+-- 参数: f57_arg0=AI实体, f57_arg1=目标管理器, f57_arg2=状态参数
+-- 功能: 执行攻击动作3045的终结攻击，重置状态计数器为0
 Goal.Kengeki45 = function (f57_arg0, f57_arg1, f57_arg2)
-    f57_arg1:ClearSubGoal()
+    f57_arg1:ClearSubGoal()  -- 清除当前所有子目标 (Clear all current sub-goals)
+    -- 执行终结攻击3045，最大距离9999 (Execute final attack 3045 with max distance 9999)
     f57_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3045, TARGET_ENE_0, 9999, 0, 0)
-    f57_arg0:SetNumber(0, 0)
-    
+    f57_arg0:SetNumber(0, 0)  -- 重置数值变量0为0，清零状态计数器 (Reset number variable 0 to 0, clear state counter)
+
 end
 
+-- 剑击46 - 组合攻击加侧移 (Sword Strike 46 - Combo Attack with Sidestep)
+-- 参数: f58_arg0=AI实体, f58_arg1=目标管理器, f58_arg2=状态参数
+-- 功能: 执行终结攻击后立即进行侧移，适用于攻击后的位置调整
 Goal.Kengeki46 = function (f58_arg0, f58_arg1, f58_arg2)
-    local f58_local0 = 0
-    local f58_local1 = 0
+    local f58_local0 = 0  -- 转向时间 (Turn time)
+    local f58_local1 = 0  -- 正面角度 (Front angle)
+    -- 计算有效攻击距离：基础距离7.8减去自身碰撞半径再加2 (Calculate effective attack distance)
     local f58_local2 = 7.8 - f58_arg0:GetMapHitRadius(TARGET_SELF) + 2
-    local f58_local3 = 0
-    local f58_local4 = f58_arg0
+    local f58_local3 = 0  -- 随机数存储变量 (Random number storage variable)
+    local f58_local4 = f58_arg0  -- AI实体引用 (AI entity reference)
+    -- 获取1-100的随机数 (Get random number between 1-100)
     f58_local3 = f58_arg0.GetRandam_Int
     f58_local3 = f58_local3(f58_local4, 1, 100)
-    f58_local4 = f58_arg0:GetSp(TARGET_SELF)
+    f58_local4 = f58_arg0:GetSp(TARGET_SELF)  -- 获取自身SP值 (Get self SP value)
+    -- 随机侧移角度30-45度 (Random sidestep angle 30-45 degrees)
     local f58_local5 = f58_arg0:GetRandam_Int(30, 45)
-    f58_arg1:ClearSubGoal()
+    f58_arg1:ClearSubGoal()  -- 清除当前所有子目标 (Clear all current sub-goals)
+    -- 执行终结攻击3039，成功时设置计时器4为10帧 (Execute final attack 3039, set timer 4 to 10 frames on success)
     f58_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3039, TARGET_ENE_0, 9999, 0, 0):TimingSetTimer(4, 10, AI_TIMING_SET__UPDATE_SUCCESS)
+    -- 攻击后执行2.5秒侧移，角度为随机值 (Execute 2.5s sidestep after attack with random angle)
     f58_arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 2.5, TARGET_ENE_0, 0, f58_local5, true, true, -1)
-    
+
 end
 
+-- 剑击47 - 快速终结攻击 (Sword Strike 47 - Quick Finishing Attack)
+-- 参数: f59_arg0=AI实体, f59_arg1=目标管理器, f59_arg2=状态参数
+-- 功能: 执行快速终结攻击3038，成功时设置短暂计时器，适用于快速连击场景
 Goal.Kengeki47 = function (f59_arg0, f59_arg1, f59_arg2)
-    f59_arg1:ClearSubGoal()
+    f59_arg1:ClearSubGoal()  -- 清除当前所有子目标 (Clear all current sub-goals)
+    -- 执行快速终结攻击3038，成功时设置计时器4为10帧 (Execute quick final attack 3038, set timer 4 to 10 frames on success)
     f59_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3038, TARGET_ENE_0, 9999, 0, 0):TimingSetTimer(4, 10, AI_TIMING_SET__UPDATE_SUCCESS)
-    
+
 end
 
 -- ========== 辅助函数 (Auxiliary Functions) ==========

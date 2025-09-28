@@ -1,0 +1,62 @@
+Function Category,Function Name,Line Numbers,Attack IDs Used,Purpose Description,Conditions Triggers,Common AI Functions Called,Distance Range,Cooldown,Special Effects
+Basic Attacks,Act01,225-246,3000,Thrust attack with repositioning,Distance 3.5m left/back positioning check,"GOAL_COMMON_AttackTunableSpin, GOAL_COMMON_ApproachSettingDirection",Close-Mid,5s,None
+Basic Attacks,Act02,248-257,3070,Quick overhead strike,Direct execution,GOAL_COMMON_AttackTunableSpin,Close,None,None
+Combo Attacks,Act03,259-278,"3024,3082,3083,3084",4-hit chain combo,Distance 8m approach,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180",Mid-Long,None,None
+Side Attacks,Act04,280-295,3003,Side sweep attack,Distance 5.9m,GOAL_COMMON_AttackTunableSpin,Mid,None,None
+Power Attacks,Act05,297-316,"3004,3005",Combo starter with jump follow-up,Distance 4.6m,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180",Mid,None,None
+Jump Attacks,Act06,318-344,3005,Aerial strike,Variable distance,GOAL_COMMON_AttackTunableSpin,Variable,None,None
+Spinning Attacks,Act07,346-361,3006,Spinning slash,Variable distance,GOAL_COMMON_AttackTunableSpin,Variable,40s,None
+Dash Attacks,Act08,363-380,3007,Dash attack,Variable distance,GOAL_COMMON_AttackTunableSpin,Variable,10s,None
+Quick Strikes,Act09,382-399,3008,Quick strike,Variable distance,GOAL_COMMON_AttackTunableSpin,Mid,5s,None
+Power Attacks,Act10,401-422,3009,Power attack,Distance 4.5m,GOAL_COMMON_AttackTunableSpin,Mid,60s,None
+Heavy Combos,Act11,424-451,3010,Heavy combo,Distance 4.5m,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180",Mid,60s,None
+Multi-Hit Combos,Act12,435-464,"3011,3012,3013,3030,3032,3033",Heavy multi-hit combo,Running state check distance/angle based,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180",Variable,20s,3508000 check
+Emergency Counters,Act13,466-472,3089,Quick reposition,Short-range maneuver,GOAL_COMMON_AttackTunableSpin,Close,None,None
+Rapid Combos,Act14,474-502,"3015,3016,3017",Rapid strike combo,Distance-based execution,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,None
+Long-Range Thrust,Act15,504-523,3018,Long-range thrust,30m approach distance,"GOAL_COMMON_ApproachSettingDirection, GOAL_COMMON_AttackTunableSpin",Long,None,None
+Directional Strikes,Act16,525-542,3001,Directional strike,Variable conditions,GOAL_COMMON_AttackTunableSpin,Variable,None,None
+Jump Attacks,Act17,544-563,3005,Jump attack variant,Variable distance,"GOAL_COMMON_AttackTunableSpin, GOAL_COMMON_ApproachSettingDirection",Variable,None,None
+Counter Attacks,Act18,565-582,3002,Counter attack,Variable conditions,GOAL_COMMON_AttackTunableSpin,Variable,30s,None
+Counter Stance,Act19,584-605,3019,Counter stance,Reactive behavior,GOAL_COMMON_AttackTunableSpin,Variable,None,None
+Movement Setup,Act30,607-640,"3030,3032,3033,3014",Movement with setup attacks,Running state and distance checks,"GOAL_COMMON_ApproachTarget, GOAL_COMMON_AttackTunableSpin, GOAL_COMMON_EndureAttack",Variable,None,3508000 state
+Rush Patterns,Act31,642-687,"3032,3033",Rush patterns with directional variants,Direction and distance based,"GOAL_COMMON_ApproachTarget, GOAL_COMMON_AttackTunableSpin",Long,None,None
+Special Techniques,Act32,689-708,3027,Special technique,Situational attack,GOAL_COMMON_AttackTunableSpin,Variable,None,None
+Setup Moves,Act33,710-729,3014,Setup move,Special state trigger,GOAL_COMMON_AttackTunableSpin,Variable,None,3508090
+Advanced Combos,Act34,731-758,"3025,3026",Advanced combo sequence,Complex conditions,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180",Variable,None,None
+Directional Attacks,Act35,760-787,3029,Directional attack based on player position,Player direction check,"GOAL_COMMON_AttackTunableSpin, GOAL_COMMON_ApproachSettingDirection",Mid,None,None
+Chain Combos,Act36,789-816,"3021,3043",Chain combo sequence,Multi-hit extension,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180",Variable,None,None
+Chain Sequence,Act37,818-845,3084,Chain combo sequence,Multi-hit extension,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180",Close,None,None
+Advanced Patterns,Act38,847-874,"3095,3096",Advanced attack patterns,Complex condition triggers,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180",Variable,None,None
+Power Mode,Act39,876-903,"3031,3034",Power mode attacks,When in effect 3508000,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180",Variable,None,3508000
+Spacing Control,Act42,934-961,3039,Spacing control,Mid-range positioning,"GOAL_COMMON_AttackTunableSpin, GOAL_COMMON_ApproachSettingDirection",Mid,None,None
+Ultimate Attacks,Act43,963-987,3097,Ultimate attack,Complex condition triggers,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,None
+Ultimate Attacks,Act44,1015-1048,3095,Ultimate attack variant,Complex condition triggers,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,None
+Ultimate Combo,Act25,989-1013,"3041,3042,3015,3016,3021,3017",Ultimate combo sequence,Complex directional logic,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,None
+Grab Attacks,Act46,905-932,3045,Grab attack,When Ninsatsu ≤1,"GOAL_COMMON_AttackTunableSpin, GOAL_COMMON_ApproachTarget",Close,None,Ninsatsu check
+Evasive Movement,Act28,1050-1065,None,Evasive repositioning,Random movement pattern,GOAL_COMMON_ApproachSettingDirection,Variable,None,None
+Sword Clash System,Kengeki_Activate,1211-1317,3060-3096 range,Sword clash responses,Based on player sword clash type,Common_Kengeki_Activate,Variable,None,Multiple clash states
+Clash Counter 01,Kengeki01,1319-1325,3060,Basic clash counter,Clash type 0 detection,GOAL_COMMON_ComboFinal,Variable,None,Clash response
+Clash Counter 02,Kengeki02,1327-1333,3061,Slash clash counter,Clash type 1 detection,GOAL_COMMON_ComboFinal,Variable,None,Clash response
+Clash Counter 03,Kengeki03,1335-1341,3062,Thrust clash counter,Clash type 2 detection,GOAL_COMMON_ComboFinal,Variable,None,Clash response
+Clash Counter 04,Kengeki04,1343-1349,3063,Heavy clash counter,Clash type 3 detection,GOAL_COMMON_ComboFinal,Variable,None,Clash response
+Clash Counter 05,Kengeki05,1351-1357,3004,Power clash counter,Clash type 4 detection,GOAL_COMMON_ComboFinal,Variable,None,Clash response
+Clash Combo 06,Kengeki06,1359-1367,"3064,3065",Combo clash counter,Clash type 5 detection,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,Clash response
+Clash Combo 07,Kengeki07,1369-1377,"3066,3067",Multi-hit clash counter,Clash type 6 detection,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,Clash response
+Clash Combo 08,Kengeki08,1379-1387,"3068,3069",Chain clash counter,Clash type 7 detection,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,Clash response
+Advanced Clash 09,Kengeki09,1389-1399,"3070,3071,3072",Advanced clash sequence,Clash type 8 detection,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,Clash response
+Power Clash 10,Kengeki10,1401-1409,"3000,3073",Power clash response,Clash type 9 detection,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,Clash response
+Ultimate Clash 11,Kengeki11,1411-1421,"3074,3075,3076",Ultimate clash sequence,Clash type 10 detection,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,Clash response
+Master Clash 12,Kengeki12,1423-1433,"3077,3078,3079",Master clash combo,Clash type 11 detection,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,Clash response
+Legendary Clash 13,Kengeki13,1435-1445,"3000,3080,3081",Legendary clash response,Clash type 12 detection,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180, GOAL_COMMON_ComboFinal",Variable,None,Clash response
+Perfect Clash 37,Kengeki37,1537-1542,3096,Perfect clash counter,Perfect timing clash,GOAL_COMMON_ComboFinal,Variable,None,Perfect clash
+Interrupt Handler,Interrupt,1067-1194,Various reactive attacks,Reactive behavior system,Special effect triggers area observation,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_EndureAttack",Variable,None,Multiple triggers
+Damage Response,Damaged,1196-1209,3090,Damage reaction,Close range damage (≤5m),GOAL_COMMON_ComboFinal,Close,None,Damage trigger
+Core AI Controller,Goal.Activate,49-223,Various,Main AI controller,Distance and state based,"Common_Clear_Param, Common_Battle_Activate",All ranges,None,Multiple states
+Setup Functions,Init_Pseudo_Global,9-47,None,Initialize AI parameters,Game start,None,None,None,Parameter setup
+Distance Interrupt,5026 Trigger,1077-1108,"3005,3097",Distance-based interrupt,Distance ≥12m or close range,"GOAL_COMMON_AttackTunableSpin, GOAL_COMMON_ComboFinal",Variable,None,Distance check
+Counter Interrupt,5031 Trigger,1111-1114,3090,Counter interrupt,Ninsatsu check,GOAL_COMMON_ComboFinal,Close,None,Ninsatsu state
+Special Range Interrupt,5032 Trigger,1115-1120,3046,Special range attack,Distance 6-13m,GOAL_COMMON_AttackTunableSpin,Mid,None,Range check
+Long Range Interrupt,5034 Trigger,1121-1126,3018,Long range power attack,Long range trigger,GOAL_COMMON_AttackTunableSpin,Long,None,Range trigger
+Area Observation,Observe Area 0,Various,3005,Area trigger attack,Area observation,GOAL_COMMON_AttackTunableSpin,Variable,None,Area trigger
+Combo Area Trigger,Observe Area 1,Various,3024,Combo area trigger,Area observation,"GOAL_COMMON_ComboTunable_SuccessAngle180, GOAL_COMMON_ComboRepeat_SuccessAngle180",Variable,None,Area trigger
+Defensive Sequence,Observe Area 4,Various,"3019,3042",Defensive sequence,Area observation,"GOAL_COMMON_AttackTunableSpin, GOAL_COMMON_ComboRepeat_SuccessAngle180",Variable,None,Defensive trigger
