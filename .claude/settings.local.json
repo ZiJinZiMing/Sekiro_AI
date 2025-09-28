@@ -9,7 +9,9 @@
       "Bash(grep:*)",
       "Bash(done)",
       "Bash(find:*)",
-      "Bash(xargs ls:*)"
+      "Bash(xargs ls:*)",
+      "Bash(for file in \"common_func.lua\" \"common_enemy.lua\" \"common_battle_func.lua\" \"attack.lua\" \"goal_list.lua\")",
+      "Bash(do echo \"=== $file ===\")"
     ],
     "deny": [],
     "ask": []

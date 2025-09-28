@@ -1,20 +1,35 @@
-g_LogicTable = {}
-g_GoalTable = {}
-Logic = nil
-Goal = nil
+-- ■ AI通用数据表系统 - 表格式AI架构核心模块
+-- 描述：管理基于表格的AI逻辑和目标系统，提供动态AI行为注册机制
+-- 功能：实现AI逻辑和目标的表格化管理，支持动态注册和查找
+-- 架构：采用全局表格存储，支持逻辑函数和目标函数的统一管理
 
+-- ■ 全局数据表定义
+g_LogicTable = {}  -- 全局逻辑表：存储所有注册的AI逻辑函数
+g_GoalTable = {}   -- 全局目标表：存储所有注册的AI目标函数
+Logic = nil        -- 当前逻辑对象引用
+Goal = nil         -- 当前目标对象引用
+
+-- ■ 表格逻辑注册函数
+-- 描述：注册基于表格的AI逻辑系统
+-- 参数：f1_arg0 - 逻辑ID标识符
+-- 功能：创建逻辑函数映射，建立逻辑对象与全局表的关联
 function RegisterTableLogic(f1_arg0)
+    -- 注册逻辑函数，包括主函数和中断函数
     REGISTER_LOGIC_FUNC(f1_arg0, "TableLogic_" .. f1_arg0, "TableLogic_" .. f1_arg0 .. "_Interrupt")
-    Logic = {}
-    g_LogicTable[f1_arg0] = Logic
-    
+    Logic = {}  -- 创建新的逻辑对象
+    g_LogicTable[f1_arg0] = Logic  -- 将逻辑对象存储到全局表中
+
 end
 
+-- ■ 表格目标注册函数
+-- 描述：注册基于表格的AI目标系统
+-- 参数：f2_arg0 - 目标ID标识符, f2_arg1 - 目标名称字符串
+-- 功能：创建目标函数映射，建立目标对象与全局表的关联
 function RegisterTableGoal(f2_arg0, f2_arg1)
-    REGISTER_GOAL(f2_arg0, f2_arg1)
-    Goal = {}
-    g_GoalTable[f2_arg0] = Goal
-    
+    REGISTER_GOAL(f2_arg0, f2_arg1)  -- 注册目标到AI系统
+    Goal = {}  -- 创建新的目标对象
+    g_GoalTable[f2_arg0] = Goal  -- 将目标对象存储到全局表中
+
 end
 
 function SetupScriptLogicInfo(f3_arg0, f3_arg1)

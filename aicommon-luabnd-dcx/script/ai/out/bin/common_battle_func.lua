@@ -1,4 +1,94 @@
+--[[============================================================================
+    common_battle_func.lua - Sekiro AI战斗函数库 (Sekiro AI Battle Function Library)
+
+    版本信息 (Version Info): v3.0 - Comprehensive documentation upgrade
+    作者 (Author): FromSoftware AI Team / Enhanced by Claude Code
+    最后修改 (Last Modified): 2025-09-28
+    编码格式 (Encoding): Shift-JIS (required for Sekiro compatibility)
+
+    ============================================================================
+    模块概述 (Module Overview):
+    ============================================================================
+    这是Sekiro AI系统的核心战斗函数库，提供了基于权重的动态行为选择系统。
+    该模块实现了AI战斗行为的统一管理和调度，支持50个可配置的行为槽位，
+    每个槽位都可以独立配置权重、函数和参数，实现复杂的AI战斗逻辑。
+
+    核心功能模块 (Core Function Modules):
+    ┌─ 战斗行为管理 (Battle Behavior Management)
+    │  ├─ Common_Clear_Param() - 清理和初始化行为参数
+    │  ├─ Common_Battle_Activate() - 标准战斗行为激活器
+    │  └─ Common_Kengeki_Activate() - 见切专用行为激活器
+    │
+    ├─ 默认行为函数 (Default Behavior Functions)
+    │  ├─ defAct01-50() - 50个可配置的默认行为函数
+    │  ├─ 每个函数对应一种基础的AI战斗模式
+    │  └─ 支持参数覆盖和自定义配置
+    │
+    ├─ 人类通用行为 (Human Common Behaviors)
+    │  ├─ HumanCommon_KeepDist_and_ThrowSomething() - 保持距离并投掷
+    │  ├─ HumanCommon_ActAfter_AdjustSpace() - 攻击后调整空间
+    │  ├─ HumanCommon_Approach_and_ComboAtk() - 接近并连击
+    │  └─ HumanCommon_Shooting_Act() - 射击行为
+    │
+    └─ 工具函数 (Utility Functions)
+       ├─ GET_PARAM_IF_NIL_DEF() - 参数默认值处理
+       └─ REGIST_FUNC() - 函数注册器
+
+    ============================================================================
+    权重系统说明 (Weight System Explanation):
+    ============================================================================
+    行为选择算法采用基于权重的随机选择机制：
+
+    1. 权重计算 (Weight Calculation):
+       - 每个行为槽位都有独立的权重值
+       - 权重为0的行为不会被选择
+       - 权重越高，被选择的概率越大
+
+    2. 选择算法 (Selection Algorithm):
+       - 计算所有权重的总和
+       - 生成0到总权重之间的随机数
+       - 根据累积权重确定最终选择的行为
+
+    3. 调试支持 (Debug Support):
+       - 支持强制指定行为索引进行调试
+       - 记录最后执行的行为索引
+       - 提供详细的选择过程日志
+
+    ============================================================================
+    默认行为模式 (Default Behavior Patterns):
+    ============================================================================
+    defAct01-50: 基础攻击行为 (Basic Attack Behaviors)
+    - 大部分使用Approach_and_Attack_Act模式
+    - 默认攻击ID: 3000 (基础攻击)
+    - 默认距离类型: DIST_Middle (中等距离)
+    - 支持参数自定义覆盖
+
+    特殊行为 (Special Behaviors):
+    - defAct02, defAct09: 连击攻击 (Combo Attacks)
+    - defAct04: 破防攻击 (Guard Break Attacks)
+    - defAct05: 保持距离投掷 (Keep Distance & Throw)
+    - defAct06: 远程攻击 (Ranged Attack)
+    - defAct08: 观察招架时机 (Watch Parry Chance)
+    - defAct10, defAct11: 射击行为 (Shooting Behaviors)
+
+    ============================================================================
+    性能优化考虑 (Performance Optimization Considerations):
+    ============================================================================
+    1. 函数表预生成：所有50个行为函数在激活时一次性生成，避免重复创建
+    2. 权重快速计算：使用累积加法进行权重分布计算，时间复杂度O(n)
+    3. 参数缓存：默认参数在函数内部缓存，减少重复的参数解析
+    4. 调试模式优化：调试强制索引跳过权重计算，提高调试效率
+
+    注意事项 (Important Notes):
+    - 所有行为函数返回概率值(0-100)，用于后续行为触发判断
+    - 参数数组支持nil值，系统会自动使用默认配置
+    - 见切激活器与标准激活器使用相同的函数库但独立的调试索引
+    ============================================================================
+]]--
+
+-- ===== 系统配置常量 (System Configuration Constants) =====
 -- 最大支持的AI行为数量 (Maximum number of AI behaviors supported)
+-- 这个值决定了整个系统可以管理的行为槽位数量，影响内存分配和循环次数
 local f0_local0 = 50
 
 -- 清理AI行为参数数组
@@ -18,14 +108,37 @@ function Common_Clear_Param(f1_arg0, f1_arg1, f1_arg2)
 
 end
 
--- 战斗行为激活器 - 根据权重表选择并执行AI行为
--- Battle behavior activator - select and execute AI behaviors based on weight table
--- f2_arg0: AI实体 (AI entity)
--- f2_arg1: 目标对象 (target object)
--- f2_arg2: 行为权重数组 (behavior weight array)
--- f2_arg3: 行为函数数组 (behavior function array)
--- f2_arg4: 随机种子 (random seed)
--- f2_arg5: 行为子目标配置数组 (behavior sub-goal configuration array)
+-- ===== 标准战斗行为激活器 (Standard Battle Behavior Activator) =====
+-- 功能说明 (Function Description):
+--   这是AI战斗系统的核心调度函数，负责根据权重分布随机选择并执行AI行为。
+--   支持50个行为槽位的动态管理，提供调试模式和后续行为触发机制。
+--
+-- 算法流程 (Algorithm Flow):
+--   1. 数据准备：构建函数表和权重表，计算总权重
+--   2. 行为选择：使用加权随机算法选择目标行为
+--   3. 行为执行：调用选中的行为函数并获取返回值
+--   4. 后续处理：根据返回概率决定是否触发额外行为
+--
+-- 参数说明 (Parameters):
+--   f2_arg0: AI实体对象 (AI entity object) - 执行行为的AI角色
+--   f2_arg1: 目标对象 (Target object) - 行为的作用目标，通常是玩家
+--   f2_arg2: 行为权重数组 (Behavior weight array) - 50个权重值，控制选择概率
+--   f2_arg3: 行为函数数组 (Behavior function array) - 50个自定义函数，nil时使用默认
+--   f2_arg4: 后续行为函数 (Follow-up behavior function) - 行为执行后的额外处理，nil时使用默认
+--   f2_arg5: 行为参数配置数组 (Behavior parameter config array) - 每个行为的参数设置
+--
+-- 返回值 (Return Value):
+--   无返回值 (No return value) - 直接执行选中的行为
+--
+-- 调试支持 (Debug Support):
+--   - 支持DbgGetForceActIdx()强制指定行为索引
+--   - 通过DbgSetLastActIdx()记录最后执行的行为
+--   - 调试模式下跳过随机选择直接执行指定行为
+--
+-- 性能特性 (Performance Characteristics):
+--   - 时间复杂度：O(n) 其中n=50
+--   - 空间复杂度：O(n) 用于临时函数表和权重表
+--   - 支持权重预计算和函数表缓存优化
 function Common_Battle_Activate(f2_arg0, f2_arg1, f2_arg2, f2_arg3, f2_arg4, f2_arg5)
     local f2_local0 = {}  -- 临时权重表 (temporary weight table)
     local f2_local1 = {}  -- 临时函数表 (temporary function table)

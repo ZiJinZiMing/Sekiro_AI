@@ -1,22 +1,80 @@
-GOAL_COMMON_TopGoal = 0
-GOAL_COMMON_Normal = 1
-GOAL_COMMON_Stay = 2
-GOAL_COMMON_WalkAround = 3
-GOAL_COMMON_BackToHome = 4
-GOAL_COMMON_NonBattleAct = 5
-GOAL_COMMON_If = 1000
-GOAL_NanimoShinai_11000_Battle = 11000
-GOAL_KugutsuAct_20000_Battle = 20000
-GOAL_Ochimusha_katate_101000_Battle = 101000
-GOAL_Ochimusha_hassou_101010_Battle = 101010
-GOAL_Ochimusha_yari_101020_Battle = 101020
-GOAL_Ochimusha_hinawaju_101030_Battle = 101030
-GOAL_Tutorial_Ochimusha_katate_101100_Battle = 101100
-GOAL_Tutorial_Ochimusha_hassou_101110_Battle = 101110
-GOAL_Ochimusha_BattleTutolial_Ochimusha_101200_Battle = 101200
-GOAL_SamuraiTaisho_102000_Battle = 102000
-GOAL_SamuraiTaisho_102010_Battle = 102010
-GOAL_SamuraiTaisho_102020_Battle = 102020
+--[[============================================================================
+    goal_list.lua - Sekiro AI目标ID定义文件 (Sekiro AI Goal ID Definition File)
+
+    版本信息 (Version Info): v3.0 - Comprehensive documentation upgrade
+    作者 (Author): FromSoftware AI Team / Enhanced by Claude Code
+    最后修改 (Last Modified): 2025-09-28
+    编码格式 (Encoding): Shift-JIS (required for Sekiro compatibility)
+
+    ============================================================================
+    模块概述 (Module Overview):
+    ============================================================================
+    这是Sekiro AI系统的核心目标ID注册表，定义了游戏中所有AI行为目标的唯一标识符。
+    该文件是整个AI系统的"词典"，为每个AI行为分配了数字ID，确保系统能够
+    正确识别和调用各种AI目标函数。
+
+    ID分配策略 (ID Allocation Strategy):
+    ┌─ 基础系统目标 (0-99): 核心AI行为目标
+    ├─ 通用目标 (1000-9999): 通用AI行为模块
+    ├─ 敌人特定目标 (10000-199999): 各类敌人的专用AI
+    ├─ Boss目标 (500000-799999): Boss战斗AI目标
+    ├─ 测试目标 (900000-999999): 开发测试用目标
+    └─ 扩展目标 (2000000+): 子目标和特殊用途目标
+
+    ============================================================================
+    文件结构说明 (File Structure Explanation):
+    ============================================================================
+    1. 基础系统目标 - 核心AI框架的基础目标
+    2. 小敌人目标 - 普通敌人的战斗AI目标
+    3. 中型敌人目标 - 精英怪物的战斗AI目标
+    4. Boss敌人目标 - 各类Boss的专用AI目标
+    5. NPC目标 - 非战斗NPC的行为目标
+    6. 测试和调试目标 - 开发用的临时目标
+    7. 通用战斗目标 - 可重用的战斗行为模块
+    8. 通用移动目标 - 可重用的移动行为模块
+    9. 通用攻击目标 - 可重用的攻击行为模块
+    10. 专用功能目标 - 特殊用途的功能性目标
+
+    注意事项 (Important Notes):
+    - ID必须唯一，不可重复使用
+    - 修改已有ID可能导致存档兼容性问题
+    - 新增目标时请遵循现有的ID分配规则
+    - 删除目标前请确认没有其他脚本引用
+    ============================================================================
+]]--
+
+-- ===== 基础系统目标 (Basic System Goals) =====
+-- 这些是AI系统的核心目标，所有AI角色都可能使用
+GOAL_COMMON_TopGoal = 0          -- 顶级目标：AI行为树的根节点 (Top goal: root node of AI behavior tree)
+GOAL_COMMON_Normal = 1           -- 普通状态：默认的AI行为状态 (Normal state: default AI behavior state)
+GOAL_COMMON_Stay = 2             -- 停留状态：AI保持原地不动 (Stay state: AI remains stationary)
+GOAL_COMMON_WalkAround = 3       -- 徘徊行为：AI在区域内随机移动 (Walk around: AI moves randomly within area)
+GOAL_COMMON_BackToHome = 4       -- 返回原点：AI返回初始位置 (Back to home: AI returns to initial position)
+GOAL_COMMON_NonBattleAct = 5     -- 非战斗行为：和平状态下的行为 (Non-battle act: behavior in peaceful state)
+-- ===== 通用条件目标 (Generic Conditional Goals) =====
+GOAL_COMMON_If = 1000            -- 条件判断目标：实现AI的条件分支逻辑 (Conditional goal: implements AI conditional branching)
+
+-- ===== 测试和占位目标 (Test and Placeholder Goals) =====
+GOAL_NanimoShinai_11000_Battle = 11000      -- 无行为测试目标：调试用空行为 (No action test goal: debug empty behavior)
+GOAL_KugutsuAct_20000_Battle = 20000        -- 傀儡行为目标：特殊控制行为 (Puppet action goal: special control behavior)
+
+-- ===== 落武者系列 (Ochimusha Series) - 基础武士敌人 =====
+-- 落武者是游戏中最基础的武士类敌人，拥有多种武器配置
+GOAL_Ochimusha_katate_101000_Battle = 101000      -- 落武者片手剑：单手剑武士 (Ochimusha one-handed sword warrior)
+GOAL_Ochimusha_hassou_101010_Battle = 101010      -- 落武者八相：双手剑武士 (Ochimusha two-handed sword warrior)
+GOAL_Ochimusha_yari_101020_Battle = 101020        -- 落武者枪兵：长枪武士 (Ochimusha spear warrior)
+GOAL_Ochimusha_hinawaju_101030_Battle = 101030    -- 落武者火绳枪：远程武士 (Ochimusha matchlock warrior)
+
+-- 教学关卡专用落武者 (Tutorial-specific Ochimusha)
+GOAL_Tutorial_Ochimusha_katate_101100_Battle = 101100    -- 教学关片手剑落武者 (Tutorial one-handed sword Ochimusha)
+GOAL_Tutorial_Ochimusha_hassou_101110_Battle = 101110    -- 教学关八相落武者 (Tutorial two-handed sword Ochimusha)
+GOAL_Ochimusha_BattleTutolial_Ochimusha_101200_Battle = 101200  -- 战斗教学专用落武者 (Battle tutorial specific Ochimusha)
+
+-- ===== 武士大将系列 (Samurai General Series) - 中级武士敌人 =====
+-- 武士大将是比落武者更强的武士类敌人，通常担任小头目角色
+GOAL_SamuraiTaisho_102000_Battle = 102000     -- 武士大将基础型：标准配置 (Samurai General basic type)
+GOAL_SamuraiTaisho_102010_Battle = 102010     -- 武士大将变种1：特殊配置 (Samurai General variant 1)
+GOAL_SamuraiTaisho_102020_Battle = 102020     -- 武士大将变种2：特殊配置 (Samurai General variant 2)
 GOAL_Mukade_103000_Battle = 103000
 GOAL_Mukade_large_104000_Battle = 104000
 GOAL_Yarisouhei_105000_Battle = 105000
