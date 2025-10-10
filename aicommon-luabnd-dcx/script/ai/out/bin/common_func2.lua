@@ -1,118 +1,506 @@
+--[[============================================================================
+    common_func2.lua - Sekiro AI通用行为函数库扩展 (Sekiro AI Common Behavior Function Library Extension)
+
+    版本信息 (Version Info): v3.0 - Comprehensive documentation upgrade
+    作者 (Author): FromSoftware AI Team / Enhanced by Claude Code
+    最后修改 (Last Modified): 2025-09-28
+    编码格式 (Encoding): Shift-JIS (required for Sekiro compatibility)
+
+    ============================================================================
+    模块概述 (Module Overview):
+    ============================================================================
+    这是Sekiro AI系统的扩展通用行为函数库，专注于具体的战斗行为实现。
+    该模块提供了武器切换、移动控制、反应行为、状态处理等高级AI功能。
+
+    核心功能模块 (Core Function Modules):
+    ┌─ 武器管理系统 (Weapon Management System)
+    │  ├─ CommonNPC_ChangeWepL1/L2() - 左手武器切换
+    │  ├─ CommonNPC_ChangeWepR1/R2() - 右手武器切换
+    │  └─ 双手/单手模式切换控制
+    │
+    ├─ 反应行为系统 (Reactive Behavior System)
+    │  ├─ FindAttack_*() - 发现攻击时的反应
+    │  ├─ Damaged_*() - 受伤时的反应
+    │  ├─ GuardBreak_*() - 架势破坏时的反应
+    │  └─ Parry_*() - 弹反相关行为
+    │
+    ├─ 移动控制系统 (Movement Control System)
+    │  ├─ Approach_*() - 接近目标行为
+    │  ├─ GetWellSpace_*() - 空间调整行为
+    │  └─ Torimaki/Kankyaku_Act() - 团队协作移动
+    │
+    └─ 选择算法系统 (Selection Algorithm System)
+       ├─ SelectFunc() - 基于权重的选择算法
+       └─ CallAttackAndAfterFunc() - 攻击执行和后续处理
+
+    ============================================================================
+    使用注意事项 (Important Usage Notes):
+    ============================================================================
+    - 所有函数都是实时执行，避免在主循环中频繁调用复杂函数
+    - 中断处理函数需要快速执行，避免阻塞AI主逻辑
+    - 随机数生成使用AI内置函数，确保可重现性
+    - 距离和角度计算基于游戏内部坐标系统
+    ============================================================================
+]]--
+
+--[[============================================================================
+    武器管理系统 (Weapon Management System)
+    ============================================================================
+]]--
+
+-- NPC左手主武器切换函数 (NPC left hand primary weapon switch function)
+-- 功能说明 (Function Description):
+--   检查NPC当前左手装备的武器，如果不是主武器则执行切换动作。
+--   这是AI武器管理的基础函数，确保NPC在需要时装备正确的武器。
+--
+-- 参数说明 (Parameters):
+--   f1_arg0: AI实体对象 (AI entity object) - 需要切换武器的AI角色
+--   f1_arg1: 目标管理器 (Goal manager) - AI行为目标管理器
+--
+-- 武器切换逻辑 (Weapon Switch Logic):
+--   1. 获取当前左手装备的武器索引
+--   2. 与主武器索引(WEP_Primary)进行比较
+--   3. 如果不匹配，则添加武器切换子目标
+--
+-- 使用场景 (Usage Scenarios):
+--   - 战斗开始前的武器准备
+--   - 特定攻击需要指定武器时
+--   - 武器损坏或失效后的应急切换
+--
+-- 注意事项 (Notes):
+--   - 切换动作有一定的执行时间，期间AI无法执行其他动作
+--   - 切换失败不会产生错误，但可能影响后续攻击效果
 function CommonNPC_ChangeWepL1(f1_arg0, f1_arg1)
-    local f1_local0 = f1_arg0:GetEquipWeaponIndex(ARM_L)
-    if WEP_Primary ~= f1_local0 then
+    local f1_local0 = f1_arg0:GetEquipWeaponIndex(ARM_L)  -- 获取左手当前装备武器索引 (Get current left hand weapon index)
+    if WEP_Primary ~= f1_local0 then                      -- 检查是否为主武器 (Check if it's primary weapon)
+        -- 添加左手主武器切换目标 (Add left hand primary weapon switch goal)
         f1_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_L1, TARGET_NONE, DIST_None)
     end
-    
 end
 
+-- NPC右手主武器切换函数 (NPC right hand primary weapon switch function)
+-- 功能说明 (Function Description):
+--   检查并切换NPC右手武器到主武器。右手通常是主要攻击武器，
+--   此函数确保AI在关键时刻装备最有效的武器。
+--
+-- 参数说明 (Parameters):
+--   f2_arg0: AI实体对象 (AI entity object) - 执行武器切换的AI角色
+--   f2_arg1: 目标管理器 (Goal manager) - 管理AI行为目标的对象
+--
+-- 右手武器特点 (Right Hand Weapon Characteristics):
+--   - 通常为主要伤害输出武器
+--   - 攻击力和攻击速度通常优于左手武器
+--   - 大多数连击和特殊攻击依赖右手武器
 function CommonNPC_ChangeWepR1(f2_arg0, f2_arg1)
-    local f2_local0 = f2_arg0:GetEquipWeaponIndex(ARM_R)
-    if WEP_Primary ~= f2_local0 then
+    local f2_local0 = f2_arg0:GetEquipWeaponIndex(ARM_R)  -- 获取右手当前装备武器索引 (Get current right hand weapon index)
+    if WEP_Primary ~= f2_local0 then                      -- 检查是否为主武器 (Check if it's primary weapon)
+        -- 添加右手主武器切换目标 (Add right hand primary weapon switch goal)
         f2_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_R1, TARGET_NONE, DIST_None)
     end
-    
 end
 
+-- NPC左手副武器切换函数 (NPC left hand secondary weapon switch function)
+-- 功能说明 (Function Description):
+--   将NPC左手武器切换为副武器。副武器通常具有特殊功能，
+--   如防护、特殊攻击或支援能力。
+--
+-- 参数说明 (Parameters):
+--   f3_arg0: AI实体对象 (AI entity object) - 需要切换武器的AI角色
+--   f3_arg1: 目标管理器 (Goal manager) - AI行为目标管理器
+--
+-- 副武器应用场景 (Secondary Weapon Usage Scenarios):
+--   - 防御型武器：盾牌、护手等
+--   - 特殊攻击武器：投掷物、法术道具等
+--   - 辅助工具：钩锁、特殊机关等
+--
+-- 战术考虑 (Tactical Considerations):
+--   - 副武器切换通常在特定战斗阶段进行
+--   - 某些副武器可能有使用次数限制
+--   - 切换时机需要考虑当前战斗节奏
 function CommonNPC_ChangeWepL2(f3_arg0, f3_arg1)
-    local f3_local0 = f3_arg0:GetEquipWeaponIndex(ARM_L)
-    if WEP_Secondary ~= f3_local0 then
+    local f3_local0 = f3_arg0:GetEquipWeaponIndex(ARM_L)  -- 获取左手当前装备武器索引 (Get current left hand weapon index)
+    if WEP_Secondary ~= f3_local0 then                    -- 检查是否为副武器 (Check if it's secondary weapon)
+        -- 添加左手副武器切换目标 (Add left hand secondary weapon switch goal)
         f3_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_L2, TARGET_NONE, DIST_None)
     end
-    
 end
 
+-- NPC右手副武器切换函数 (NPC right hand secondary weapon switch function)
+-- 功能说明 (Function Description):
+--   将NPC右手武器切换为副武器。右手副武器通常是备用攻击武器
+--   或具有特殊战术功能的装备。
+--
+-- 参数说明 (Parameters):
+--   f4_arg0: AI实体对象 (AI entity object) - 执行武器切换的AI角色
+--   f4_arg1: 目标管理器 (Goal manager) - 管理AI行为目标的对象
+--
+-- 右手副武器特性 (Right Hand Secondary Weapon Characteristics):
+--   - 可能是远程武器（弓箭、投掷武器）
+--   - 特殊攻击武器（毒刃、火焰武器）
+--   - 备用近战武器（不同攻击模式）
+--   - 防御反击武器（带反击能力的武器）
 function CommonNPC_ChangeWepR2(f4_arg0, f4_arg1)
-    local f4_local0 = f4_arg0:GetEquipWeaponIndex(ARM_R)
-    if WEP_Secondary ~= f4_local0 then
+    local f4_local0 = f4_arg0:GetEquipWeaponIndex(ARM_R)  -- 获取右手当前装备武器索引 (Get current right hand weapon index)
+    if WEP_Secondary ~= f4_local0 then                    -- 检查是否为副武器 (Check if it's secondary weapon)
+        -- 添加右手副武器切换目标 (Add right hand secondary weapon switch goal)
         f4_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_R2, TARGET_NONE, DIST_None)
     end
-    
 end
 
+-- NPC双手持握模式切换函数 (NPC both hands grip mode switch function)
+-- 功能说明 (Function Description):
+--   将NPC切换到双手持握模式。双手模式通常提供更高的攻击力和
+--   更强的攻击稳定性，但可能牺牲防御能力。
+--
+-- 参数说明 (Parameters):
+--   f5_arg0: AI实体对象 (AI entity object) - 需要切换握持模式的AI角色
+--   f5_arg1: 目标管理器 (Goal manager) - AI行为目标管理器
+--
+-- 双手模式优势 (Both Hands Mode Advantages):
+--   - 攻击力提升：通常比单手模式伤害更高
+--   - 击破能力：更容易破坏敌人防御
+--   - 攻击范围：某些武器双手模式有更大攻击范围
+--   - 特殊攻击：解锁双手专用攻击动作
+--
+-- 双手模式劣势 (Both Hands Mode Disadvantages):
+--   - 防御减弱：无法使用左手盾牌等防御装备
+--   - 灵活性降低：攻击速度可能变慢
+--   - 消耗增加：体力消耗通常更大
+--
+-- 切换时机 (Switch Timing):
+--   - 敌人防御较强时
+--   - 需要最大伤害输出时
+--   - 执行特殊攻击组合时
 function CommonNPC_SwitchBothHandMode(f5_arg0, f5_arg1)
-    if not f5_arg0:IsBothHandMode(TARGET_SELF) then
+    if not f5_arg0:IsBothHandMode(TARGET_SELF) then       -- 检查当前是否为双手模式 (Check if currently in both hands mode)
+        -- 添加武器握持模式切换目标 (Add weapon grip mode switch goal)
         f5_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_SwitchWep, TARGET_NONE, DIST_None)
     end
-    
 end
 
+-- NPC单手持握模式切换函数 (NPC one hand grip mode switch function)
+-- 功能说明 (Function Description):
+--   将NPC从双手模式切换回单手模式。单手模式提供更好的防御能力
+--   和更高的攻击频率，适合灵活战斗。
+--
+-- 参数说明 (Parameters):
+--   f6_arg0: AI实体对象 (AI entity object) - 需要切换握持模式的AI角色
+--   f6_arg1: 目标管理器 (Goal manager) - AI行为目标管理器
+--
+-- 单手模式优势 (One Hand Mode Advantages):
+--   - 防御灵活：可使用左手盾牌或副武器防御
+--   - 攻击速度：通常比双手模式攻击更快
+--   - 移动灵活：更好的移动和闪避能力
+--   - 组合攻击：左右手武器可进行组合攻击
+--
+-- 单手模式应用 (One Hand Mode Applications):
+--   - 面对快速敌人时
+--   - 需要频繁防御时
+--   - 多敌人战斗时
+--   - 需要保持机动性时
+--
+-- 切换条件判断 (Switch Condition Check):
+--   - 仅在当前为双手模式时执行切换
+--   - 避免重复切换动作
 function CommonNPC_SwitchOneHandMode(f6_arg0, f6_arg1)
-    if f6_arg0:IsBothHandMode(TARGET_SELF) then
+    if f6_arg0:IsBothHandMode(TARGET_SELF) then           -- 检查当前是否为双手模式 (Check if currently in both hands mode)
+        -- 添加武器握持模式切换目标 (Add weapon grip mode switch goal)
         f6_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_SwitchWep, TARGET_NONE, DIST_None)
     end
-    
 end
 
+--[[============================================================================
+    移动和接近行为系统 (Movement and Approach Behavior System)
+    ============================================================================
+]]--
+
+-- NPC智能接近行为函数 (NPC intelligent approach behavior function)
+-- 功能说明 (Function Description):
+--   控制NPC以最优方式接近目标。该函数会根据当前距离自动选择冲刺或普通移动，
+--   并可以配置使用特殊移动动作来提高接近效率和战术多样性。
+--
+-- 参数说明 (Parameters):
+--   f7_arg0: AI实体对象 (AI entity object) - 执行接近行为的AI角色
+--   f7_arg1: 目标管理器 (Goal manager) - AI行为目标管理器
+--   f7_arg2: 目标距离 (Target distance) - 接近的目标距离（游戏单位）
+--   f7_arg3: 冲刺阈值距离 (Dash threshold distance) - 超过此距离启用冲刺
+--   f7_arg4: 特殊动作概率 (Special action probability) - 使用特殊移动动作的概率（0-100）
+--
+-- 算法逻辑 (Algorithm Logic):
+--   1. 重置冲刺状态，确保干净的移动状态
+--   2. 根据概率决定是否使用特殊移动动作（如翻滚、跳跃等）
+--   3. 测量与目标的当前距离
+--   4. 距离判断：超过阈值使用冲刺+长时间接近，否则使用普通短时间接近
+--
+-- 移动策略 (Movement Strategy):
+--   远距离（>阈值）: 启用冲刺 + 10秒持续接近 + 可能的特殊动作
+--   近距离（≤阈值）: 普通移动 + 5秒快速接近 + 可能的特殊动作
+--
+-- 特殊动作说明 (Special Action Description):
+--   当f7_local0 = 4时，AI会在接近过程中随机执行特殊移动动作，
+--   如翻滚、侧步、跳跃等，增加接近过程的不可预测性。
+--
+-- 使用场景 (Usage Scenarios):
+--   - 战斗开始时的初始接近
+--   - 敌人逃跑后的重新接近
+--   - 需要快速缩短距离的战术移动
+--   - 与远程攻击结合的距离控制
 function NPC_Approach_Act(f7_arg0, f7_arg1, f7_arg2, f7_arg3, f7_arg4)
-    f7_arg0:EndDash()
-    local f7_local0 = -1
-    local f7_local1 = f7_arg0:GetRandam_Int(1, 100)
+    f7_arg0:EndDash()                                     -- 结束当前冲刺状态，重置移动模式 (End current dash state, reset movement mode)
+    local f7_local0 = -1                                 -- 特殊动作标识符初始化 (Special action identifier initialization)
+    local f7_local1 = f7_arg0:GetRandam_Int(1, 100)     -- 生成随机数用于特殊动作判定 (Generate random number for special action check)
+
+    -- 特殊动作概率判定 (Special action probability check)
     if f7_local1 <= f7_arg4 then
-        f7_local0 = 4
+        f7_local0 = 4                                     -- 启用特殊移动动作 (Enable special movement actions)
     end
-    local f7_local2 = f7_arg0:GetDist(TARGET_ENE_0)
+
+    local f7_local2 = f7_arg0:GetDist(TARGET_ENE_0)      -- 获取与主要敌人的当前距离 (Get current distance to primary enemy)
+
+    -- 距离判断和移动策略选择 (Distance judgment and movement strategy selection)
     if f7_arg3 <= f7_local2 then
-        f7_arg0:StartDash()
+        -- 远距离策略：启用冲刺快速接近 (Long distance strategy: enable dash for rapid approach)
+        f7_arg0:StartDash()                               -- 开始冲刺移动 (Start dash movement)
         f7_arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 10, TARGET_ENE_0, f7_arg2, TARGET_SELF, false, f7_local0)
     else
+        -- 近距离策略：普通速度精准接近 (Short distance strategy: normal speed precise approach)
         f7_arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 5, TARGET_ENE_0, f7_arg2, TARGET_SELF, false, f7_local0)
     end
-    
 end
 
+--[[============================================================================
+    战斗模式切换系统 (Combat Mode Switch System)
+    ============================================================================
+]]--
+
+-- NPC单手（片手）模式切换函数 (NPC one-hand (katate) mode switch function)
+-- 功能说明 (Function Description):
+--   检查并将NPC从双手持握模式切换到单手持握模式。单手模式在日语中称为"片手"（katate），
+--   提供更好的灵活性和防御能力，适合需要频繁格挡和反击的战斗情况。
+--
+-- 参数说明 (Parameters):
+--   f8_arg0: AI实体对象 (AI entity object) - 需要切换持握模式的AI角色
+--   f8_arg1: 目标管理器 (Goal manager) - AI行为目标管理器
+--
+-- 单手模式特点 (One-Hand Mode Characteristics):
+--   - 攻击速度：通常比双手模式更快
+--   - 防御能力：可以使用盾牌或副武器进行防御
+--   - 灵活性：更好的移动和闪避能力
+--   - 组合攻击：可以进行左右手武器的组合攻击
+--   - 消耗：体力消耗通常较低
+--
+-- 与双手模式对比 (Comparison with Two-Hand Mode):
+--   单手模式 vs 双手模式：
+--   - 攻击力：较低 vs 较高
+--   - 攻击速度：较快 vs 较慢
+--   - 防御：较强 vs 较弱
+--   - 灵活性：较高 vs 较低
+--   - 破防能力：较弱 vs 较强
+--
+-- 切换时机选择 (Switch Timing Selection):
+--   - 面对快速攻击的敌人时
+--   - 需要频繁格挡和反击时
+--   - 多敌人战斗需要机动性时
+--   - 体力不足需要降低消耗时
+--
+-- 技术实现细节 (Technical Implementation Details):
+--   使用NonspinningComboAttack确保切换动作不会被意外的旋转攻击打断，
+--   保证切换过程的稳定性和可靠性。
 function NPC_KATATE_Switch(f8_arg0, f8_arg1)
-    if f8_arg0:IsBothHandMode(TARGET_SELF) then
+    if f8_arg0:IsBothHandMode(TARGET_SELF) then           -- 检查当前是否为双手模式 (Check if currently in both hands mode)
+        -- 添加单手模式切换目标，使用非旋转连击攻击确保稳定性 (Add one-hand mode switch goal with non-spinning combo attack for stability)
         f8_arg1:AddSubGoal(GOAL_COMMON_NonspinningComboAttack, 10, NPC_ATK_SwitchWep, TARGET_ENE_0, DIST_None, 0)
     end
-    
 end
 
+-- NPC双手（两手）模式切换函数 (NPC both-hands (ryoute) mode switch function)
+-- 功能说明 (Function Description):
+--   检查并将NPC从单手持握模式切换到双手持握模式。双手模式在日语中称为"両手"（ryoute），
+--   提供更高的攻击力和破防能力，适合需要强力攻击突破敌人防御的战斗情况。
+--
+-- 参数说明 (Parameters):
+--   f9_arg0: AI实体对象 (AI entity object) - 需要切换持握模式的AI角色
+--   f9_arg1: 目标管理器 (Goal manager) - AI行为目标管理器
+--
+-- 双手模式优势 (Both-Hands Mode Advantages):
+--   - 攻击力：显著提升，通常有1.5倍伤害加成
+--   - 破防能力：更容易破坏敌人的防御姿态
+--   - 攻击范围：某些武器双手模式有更大攻击范围
+--   - 特殊攻击：解锁双手专用的强力攻击动作
+--   - 击退效果：更强的击退和硬直效果
+--
+-- 双手模式劣势 (Both-Hands Mode Disadvantages):
+--   - 攻击速度：通常比单手模式慢
+--   - 防御能力：无法使用盾牌，防御选择有限
+--   - 灵活性：移动和闪避能力下降
+--   - 体力消耗：攻击消耗更多体力
+--   - 恢复时间：攻击后的恢复时间更长
+--
+-- 最佳使用场景 (Optimal Usage Scenarios):
+--   - 敌人防御力很强需要破防时
+--   - 对付重甲敌人时
+--   - 需要最大伤害输出时
+--   - 执行终结攻击时
+--   - 对付大型BOSS时
+--
+-- 风险评估 (Risk Assessment):
+--   切换到双手模式会暂时降低防御能力，因此需要在安全的时机进行切换，
+--   或者确保有足够的攻击机会来弥补防御上的损失。
 function NPC_RYOUTE_Switch(f9_arg0, f9_arg1)
-    if not f9_arg0:IsBothHandMode(TARGET_SELF) then
+    if not f9_arg0:IsBothHandMode(TARGET_SELF) then       -- 检查当前是否为单手模式 (Check if currently in one hand mode)
+        -- 添加双手模式切换目标，使用非旋转连击攻击确保稳定性 (Add both-hands mode switch goal with non-spinning combo attack for stability)
         f9_arg1:AddSubGoal(GOAL_COMMON_NonspinningComboAttack, 10, NPC_ATK_SwitchWep, TARGET_ENE_0, DIST_None, 0)
     end
-    
 end
 
+--[[============================================================================
+    受伤反应系统 (Damage Response System)
+    ============================================================================
+]]--
+
+-- NPC对玩家受伤时的步伐反击函数 (NPC step counter-attack function when damaged by player)
+-- 功能说明 (Function Description):
+--   当NPC受到伤害时，根据距离和概率判断执行闪避步伐并进行反击。
+--   这是一个高级的反应系统，能够让AI在受到攻击后做出灵活的战术反应。
+--
+-- 参数说明 (Parameters):
+--   f10_arg0: AI实体对象 (AI entity object) - 受伤的AI角色
+--   f10_arg1: 目标管理器 (Goal manager) - AI行为目标管理器
+--   f10_arg2: 触发距离 (Trigger distance) - 可以执行反应的最大距离
+--   f10_arg3: 反应概率 (Response probability) - 执行反应的概率（0-100）
+--   f10_arg4: 反击概率 (Counter-attack probability) - 步伐后进行反击的概率
+--   f10_arg5: 反击攻击 ID (Counter-attack ID) - 反击使用的攻击动作 ID
+--   f10_arg6: 后蹲步伐概率 (Back step probability) - 向后闪避的概率
+--   f10_arg7: 左步伐概率 (Left step probability) - 向左闪避的概率
+--   f10_arg8: 右步伐概率 (Right step probability) - 向右闪避的概率（自动计算）
+--
+-- 返回值 (Return Value):
+--   true:  成功执行了受伤反应，调用方应停止当前行为
+--   false: 未满足执行条件，继续当前行为（隐式返回）
+--
+-- 反应算法流程 (Response Algorithm Flow):
+--   1. 检查受伤中断标志：确认正在受到伤害
+--   2. 距离验证：确保与敌人距离在可反应范围内
+--   3. 概率判定：根据反应概率决定是否执行
+--   4. 清空当前目标：停止正在进行的行为
+--   5. 步伐方向选择：根据概率分配选择后、左、右步伐
+--   6. 反击决定：根据反击概率决定是否执行追击
+--
+-- 步伐方向算法 (Step Direction Algorithm):
+--   后步伐: 0 ~ f10_arg6
+--   左步伐: f10_arg6 ~ (f10_arg6 + f10_arg7)
+--   右步伐: (f10_arg6 + f10_arg7) ~ 100
+--
+-- 战术考虑 (Tactical Considerations):
+--   - 后步伐：安全但可能失去反击机会
+--   - 侧步伐：保持攻击距离，更容易进行反击
+--   - 反击选择：中距离攻击适合大多数情况
+--
+-- 使用场景 (Usage Scenarios):
+--   - 面对攻击性强的玩家时
+--   - 需要在受伤后立即反击的AI
+--   - 实现高难度的战斗AI行为
 function Damaged_StepCount_NPCPlayer(f10_arg0, f10_arg1, f10_arg2, f10_arg3, f10_arg4, f10_arg5, f10_arg6, f10_arg7, f10_arg8)
-    local f10_local0 = f10_arg0:GetDist(TARGET_ENE_0)
-    local f10_local1 = f10_arg0:GetRandam_Int(1, 100)
-    local f10_local2 = f10_arg0:GetRandam_Int(1, 100)
-    local f10_local3 = f10_arg0:GetRandam_Int(1, 100)
+    local f10_local0 = f10_arg0:GetDist(TARGET_ENE_0)     -- 获取与主要敌人的距离 (Get distance to primary enemy)
+    local f10_local1 = f10_arg0:GetRandam_Int(1, 100)    -- 反应执行概率判定 (Response execution probability check)
+    local f10_local2 = f10_arg0:GetRandam_Int(1, 100)    -- 步伐方向选择随机数 (Step direction selection random number)
+    local f10_local3 = f10_arg0:GetRandam_Int(1, 100)    -- 反击执行概率判定 (Counter-attack execution probability check)
+
+    -- 受伤反应条件检查 (Damage response condition check)
     if f10_arg0:IsInterupt(INTERUPT_Damaged) and f10_local0 < f10_arg2 and f10_local1 <= f10_arg3 then
-        f10_arg1:ClearSubGoal()
+        f10_arg1:ClearSubGoal()                           -- 清空当前所有子目标 (Clear all current sub-goals)
+
+        -- 步伐方向选择逻辑 (Step direction selection logic)
         if f10_local2 <= f10_arg6 then
+            -- 执行后步伐：向后闪避，安全但可能失去攻击机会 (Execute back step: retreat safely but may lose attack opportunity)
             f10_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepB, TARGET_ENE_0, DIST_None, 0)
         elseif f10_local2 <= f10_arg6 + f10_arg7 then
+            -- 执行左步伐：向左闪避，保持侧面优势 (Execute left step: evade left, maintain side advantage)
             f10_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepL, TARGET_ENE_0, DIST_None, 0)
         else
+            -- 执行右步伐：向右闪避，保持侧面优势 (Execute right step: evade right, maintain side advantage)
             f10_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepR, TARGET_ENE_0, DIST_None, 0)
         end
+
+        -- 反击执行决定 (Counter-attack execution decision)
         if f10_local3 <= f10_arg4 then
+            -- 添加反击连击攻击，使用中距离攻击模式 (Add counter-attack combo, using medium distance attack mode)
             f10_arg1:AddSubGoal(GOAL_COMMON_ComboAttack, 10, f10_arg5, TARGET_ENE_0, DIST_Middle, 0)
         end
-        return true
+        return true                                       -- 返回true表示成功处理了受伤事件 (Return true indicating successful damage event handling)
     end
-    
+    -- 未满足反应条件，隐式返回false（无return语句）(Conditions not met, implicitly return false)
 end
 
+--[[============================================================================
+    攻击发现反应系统 (Attack Detection Response System)
+    ============================================================================
+]]--
+
+-- NPC对玩家发现攻击时的步伐反应函数 (NPC step response function when detecting player attack)
+-- 功能说明 (Function Description):
+--   当NPC检测到玩家即将或正在发动攻击时，根据距离和概率判断执行预判性的闪避步伐。
+--   这是一个预防性的反应系统，能够让AI在敌人攻击之前就做出闪避反应。
+--
+-- 参数说明 (Parameters):
+--   f11_arg0: AI实体对象 (AI entity object) - 执行反应的AI角色
+--   f11_arg1: 目标管理器 (Goal manager) - AI行为目标管理器
+--   f11_arg2: 触发距离 (Trigger distance) - 可以执行反应的最大距离
+--   f11_arg3: 反应概率 (Response probability) - 执行反应的概率（0-100）
+--   f11_arg4: 后蹲步伐概率 (Back step probability) - 向后闪避的概率
+--   f11_arg5: 左步伐概率 (Left step probability) - 向左闪避的概率
+--   f11_arg6: 右步伐概率 (Right step probability) - 向右闪避的概率（自动计算）
+--
+-- 返回值 (Return Value):
+--   true:  成功执行了预判闪避，调用方应停止当前行为
+--   false: 未满足执行条件，继续当前行为（隐式返回）
+--
+-- 与 Damaged_StepCount_NPCPlayer 的区别 (Difference from Damaged_StepCount_NPCPlayer):
+--   - 发现攻击 vs 受到伤害：主动预防 vs 被动反应
+--   - 不包含反击逻辑：仅专注于闪避
+--   - 更早的触发时机：在攻击命中之前就能反应
+--   - 更高的防御性：降低受到伤害的概率
+--
+-- 算法流程 (Algorithm Flow):
+--   1. 检查攻击发现中断：确认检测到敌人的攻击意图
+--   2. 距离验证：确保在可反应范围内
+--   3. 概率判定：根据反应概率决定是否执行
+--   4. 清空当前目标：中断当前行为
+--   5. 步伐方向选择：选择最优的闪避方向
+--
+-- 步伐策略分析 (Step Strategy Analysis):
+--   - 后步伐：最安全，但可能失去攻击机会
+--   - 左/右步伐：保持攻击距离，可以快速反击
+--   - 方向随机性：避免被玩家预测和针对
+--
+-- 适用场景 (Applicable Scenarios):
+--   - 面对攻击速度快的敌人
+--   - 需要高度反应性的高难度AI
+--   - 实现有挑战性的战斗体验
+--   - 防御反击型的敌人角色
 function FindAttack_Step_NPCPlayer(f11_arg0, f11_arg1, f11_arg2, f11_arg3, f11_arg4, f11_arg5, f11_arg6)
-    local f11_local0 = f11_arg0:GetDist(TARGET_ENE_0)
-    local f11_local1 = f11_arg0:GetRandam_Int(1, 100)
-    local f11_local2 = f11_arg0:GetRandam_Int(1, 100)
+    local f11_local0 = f11_arg0:GetDist(TARGET_ENE_0)     -- 获取与主要敌人的距离 (Get distance to primary enemy)
+    local f11_local1 = f11_arg0:GetRandam_Int(1, 100)    -- 反应执行概率判定 (Response execution probability check)
+    local f11_local2 = f11_arg0:GetRandam_Int(1, 100)    -- 步伐方向选择随机数 (Step direction selection random number)
+
+    -- 攻击发现反应条件检查 (Attack detection response condition check)
     if f11_arg0:IsInterupt(INTERUPT_FindAttack) and f11_local0 <= f11_arg2 and f11_local1 <= f11_arg3 then
-        f11_arg1:ClearSubGoal()
+        f11_arg1:ClearSubGoal()                           -- 清空当前所有子目标 (Clear all current sub-goals)
+
+        -- 预判性步伐方向选择 (Predictive step direction selection)
         if f11_local2 <= f11_arg4 then
+            -- 执行后步伐：安全距离闪避 (Execute back step: safe distance evasion)
             f11_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepB, TARGET_ENE_0, DIST_None, 0)
         elseif f11_local2 <= f11_arg4 + f11_arg5 then
+            -- 执行左步伐：侧向闪避保持攻击机会 (Execute left step: lateral evasion maintaining attack opportunity)
             f11_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepL, TARGET_ENE_0, DIST_None, 0)
         else
+            -- 执行右步伐：侧向闪避保持攻击机会 (Execute right step: lateral evasion maintaining attack opportunity)
             f11_arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepR, TARGET_ENE_0, DIST_None, 0)
         end
-        return true
+        return true                                       -- 返回true表示成功处理了攻击发现事件 (Return true indicating successful attack detection event handling)
     end
-    
+    -- 未满足反应条件，隐式返回false (Conditions not met, implicitly return false)
 end
 
 function FindAttack_Act(f12_arg0, f12_arg1, f12_arg2, f12_arg3)
@@ -795,39 +1183,183 @@ function ClearTableParam(f51_arg0, f51_arg1)
 
 end
 
+--[[============================================================================
+    概率选择算法系统 (Probability Selection Algorithm System)
+    ============================================================================
+]]--
+
+-- 基于权重的概率选择函数 (Weight-based probability selection function)
+-- 功能说明 (Function Description):
+--   这是核心的概率选择算法，根据给定的权重数组进行加权随机选择。
+--   该算法广泛用于AI行为选择、攻击模式选择、战术决策等各种情况。
+--
+-- 参数说明 (Parameters):
+--   f52_arg0: AI实体对象 (AI entity object) - 提供随机数生成服务的AI对象
+--   f52_arg1: 权重数组 (Weight array) - 包含各选项权重值的数组
+--
+-- 返回值 (Return Value):
+--   正整数: 选中的选项索引（从1开始）
+--   -1:      异常情况（所有权重为0或数组为空）
+--
+-- 算法实现原理 (Algorithm Implementation Principle):
+--   1. 计算权重总和 (Calculate total weight sum)
+--   2. 生成[0, 总和-1]范围内的随机数 (Generate random number in [0, total-1] range)
+--   3. 从前向后遍历，用随机数逐次减去每个权重 (Iterate forward, subtracting each weight from random number)
+--   4. 当随机数小于当前权重时，返回当前索引 (Return current index when random number is less than current weight)
+--
+-- 概率计算公式 (Probability Calculation Formula):
+--   选项i的选中概率 = weight[i] / ∑(weight[j]) × 100%
+--   例如：权重[10, 20, 30]，选中概率分别为[16.7%, 33.3%, 50%]
+--
+-- 性能特性 (Performance Characteristics):
+--   - 时间复杂度：O(n)，n为选项数量
+--   - 空间复杂度：O(1)，仅使用少量局部变量
+--   - 随机数生成：使用游戏内置随机数发生器，确保可重现性
+--
+-- 边界情况处理 (Edge Case Handling):
+--   - 空数组：返回-1
+--   - 所有权重为0：返回-1
+--   - 负权重：可能导致错误结果，调用方应避免
+--
+-- 使用示例 (Usage Examples):
+--   local weights = {10, 20, 30}  -- 攻击模式权重
+--   local selected = SelectOddsIndex(ai, weights)
+--   if selected == 1 then
+--       -- 执行第一种攻击模式（16.7%概率）
+--   elseif selected == 2 then
+--       -- 执行第二种攻击模式（33.3%概率）
+--   elseif selected == 3 then
+--       -- 执行第三种攻击模式（50%概率）
+--   end
+--
+-- 应用场景 (Application Scenarios):
+--   - AI行为选择：攻击/防御/移动等行为的权重选择
+--   - 攻击模式选择：不同攻击动作的概率分配
+--   - 战术策略选择：根据当前情况调整策略权重
+--   - 随机事件触发：根据概率触发特殊事件
 function SelectOddsIndex(f52_arg0, f52_arg1)
-    local f52_local0 = table.getn(f52_arg1)
-    local f52_local1 = 0
+    local f52_local0 = table.getn(f52_arg1)               -- 获取数组长度 (Get array length)
+    local f52_local1 = 0                                 -- 权重总和初始化 (Initialize weight total sum)
+
+    -- 第一遍遍历：计算所有权重的总和 (First pass: calculate sum of all weights)
     for f52_local2 = 1, f52_local0, 1 do
         f52_local1 = f52_local1 + f52_arg1[f52_local2]
     end
+
+    -- 边界情况检查：总权重为0时返回错误 (Edge case check: return error when total weight is 0)
+    if f52_local1 <= 0 then
+        return -1
+    end
+
+    -- 生成[0, 总权重-1]范围内的随机数 (Generate random number in [0, total_weight-1] range)
     local f52_local2 = f52_arg0:GetRandam_Int(0, f52_local1 - 1)
+
+    -- 第二遍遍历：根据随机数确定选中的索引 (Second pass: determine selected index based on random number)
     for f52_local3 = 1, f52_local0, 1 do
-        local f52_local6 = f52_arg1[f52_local3]
-        if f52_local2 < f52_local6 then
-            return f52_local3
+        local f52_local6 = f52_arg1[f52_local3]           -- 当前选项的权重 (Current option's weight)
+        if f52_local2 < f52_local6 then                   -- 随机数落在当前权重范围内 (Random number falls within current weight range)
+            return f52_local3                             -- 返回当前索引 (Return current index)
         end
-        f52_local2 = f52_local2 - f52_local6
+        f52_local2 = f52_local2 - f52_local6             -- 从随机数中减去当前权重 (Subtract current weight from random number)
     end
+
+    -- 错误情况：正常情况下不应该执行到这里 (Error case: should not reach here under normal circumstances)
     return -1
-    
-
-
 end
 
+-- 基于概率的函数选择器 (Probability-based function selector)
+-- 功能说明 (Function Description):
+--   结合概率选择算法和函数数组，实现基于权重的函数选择。
+--   这是AI行为系统的高层封装，将概率计算和函数执行结合在一起。
+--
+-- 参数说明 (Parameters):
+--   f53_arg0: AI实体对象 (AI entity object) - 提供随机数生成服务
+--   f53_arg1: 权重数组 (Weight array) - 与函数数组对应的权重值
+--   f53_arg2: 函数数组 (Function array) - 可执行的函数列表
+--
+-- 返回值 (Return Value):
+--   函数引用: 根据概率选中的函数
+--   nil:       选择失败或未找到合适的函数
+--
+-- 使用流程 (Usage Flow):
+--   1. 调用SelectOddsIndex进行概率选择
+--   2. 根据选中的索引从函数数组中获取对应函数
+--   3. 返回选中的函数供调用方执行
+--
+-- 数据结构要求 (Data Structure Requirements):
+--   - 权重数组和函数数组必须长度相同
+--   - 数组索引一一对应：weight[i] <-> function[i]
+--   - 函数数组中的元素必须是可调用的函数引用
+--
+-- 优势特点 (Advantages):
+--   - 高层封装：隐藏了概率计算的复杂性
+--   - 类型安全：返回的是函数引用而非索引
+--   - 错误处理：异常情况下返回nil而非崩溃
+--   - 灵活性：支持任意数量的函数选项
+--
+-- 应用示例 (Application Example):
+--   local weights = {30, 50, 20}  -- 行为权重
+--   local functions = {AttackFunc, DefendFunc, MoveFunc}  -- 行为函数
+--   local selectedFunc = SelectFunc(ai, weights, functions)
+--   if selectedFunc then
+--       selectedFunc(ai, goal, ...)
+--   end
+--
+-- 错误防护 (Error Protection):
+--   - 验证数组长度一致性（调用方责任）
+--   - 检查函数索引有效性
+--   - 处理选择失败情况
 function SelectFunc(f53_arg0, f53_arg1, f53_arg2)
-    local f53_local0 = SelectOddsIndex(f53_arg0, f53_arg1)
-    if f53_local0 < 1 then
-        return nil
+    local f53_local0 = SelectOddsIndex(f53_arg0, f53_arg1) -- 执行概率选择算法 (Execute probability selection algorithm)
+    if f53_local0 < 1 then                               -- 检查选择结果有效性 (Check selection result validity)
+        return nil                                        -- 选择失败，返回nil (Selection failed, return nil)
     end
-    return f53_arg2[f53_local0]
-    
+    return f53_arg2[f53_local0]                           -- 返回选中的函数引用 (Return selected function reference)
 end
 
+-- AI目标行为函数选择器 (AI goal action function selector)
+-- 功能说明 (Function Description):
+--   专门用于AI目标行为选择的高级封装函数。该函数自动获取AI对象的
+--   行为函数表，并根据指定的权重进行选择。
+--
+-- 参数说明 (Parameters):
+--   f54_arg0: AI配置对象 (AI configuration object) - 包含行为函数定义的AI配置
+--   f54_arg1: AI实体对象 (AI entity object) - 执行行为的AI实体
+--   f54_arg2: 权重数组 (Weight array) - 各行为的权重值
+--
+-- 返回值 (Return Value):
+--   函数引用: 根据概率选中的AI行为函数
+--   nil:       选择失败或没有可用的行为函数
+--
+-- 行为函数表结构 (Action Function Table Structure):
+--   AI配置对象包含以下行为函数：
+--   - Act01, Act02, ..., Act20: 基础行为函数（1-20号行为槽）
+--   - 每个函数对应不同的战术行为（攻击、防御、移动等）
+--
+-- 调用流程 (Call Flow):
+--   1. 调用_GetGoalActFuncTable获取行为函数表
+--   2. 使用SelectFunc进行概率选择
+--   3. 返回选中的行为函数
+--
+-- 与直接调用SelectFunc的区别 (Difference from Direct SelectFunc Call):
+--   - 自动处理行为函数表获取
+--   - 专门针对AI行为选择场景优化
+--   - 简化了上层调用代码
+--   - 提供了更好的封装和可读性
+--
+-- 使用场景 (Usage Scenarios):
+--   - AI主行为循环中的行为选择
+--   - 根据当前状态调整行为权重
+--   - 实现动态的AI行为模式
+--   - 战斗中的实时行为决策
+--
+-- 性能考虑 (Performance Considerations):
+--   - 函数表获取是轻量级操作
+--   - 概率计算复杂度为O(n)
+--   - 适合在实时战斗中频繁调用
 function SelectGoalFunc(f54_arg0, f54_arg1, f54_arg2)
-    local f54_local0 = _GetGoalActFuncTable(f54_arg0)
-    return SelectFunc(f54_arg1, f54_arg2, f54_local0)
-    
+    local f54_local0 = _GetGoalActFuncTable(f54_arg0)     -- 获取AI行为函数表 (Get AI action function table)
+    return SelectFunc(f54_arg1, f54_arg2, f54_local0)     -- 执行概率选择并返回结果 (Execute probability selection and return result)
 end
 
 function CallAttackAndAfterFunc(f55_arg0, f55_arg1, f55_arg2, f55_arg3, f55_arg4, f55_arg5)

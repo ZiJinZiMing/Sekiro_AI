@@ -1,50 +1,166 @@
+--[[============================================================================
+    common_enemy_function.lua - Sekiro AI敌人通用行为函数库
+
+    版本信息 (Version Info): v3.0 - Comprehensive professional documentation
+    作者 (Author): FromSoftware AI Team / Enhanced by Claude Code
+    最后修改 (Last Modified): 2025-10-10
+    编码格式 (Encoding): Shift-JIS (required for Sekiro compatibility)
+
+    ============================================================================
+    模块概述 (Module Overview):
+    ============================================================================
+    这是Sekiro AI系统的敌人通用行为函数库，提供了各种敌人AI的核心行为逻辑。
+    该模块包含了紧急逃脱、防御概率、中断处理、行为选择等关键功能，是敌人
+    AI智能行为的基础支撑库。
+
+    核心功能模块 (Core Function Modules):
+    ┌─ 紧急反应系统 (Emergency Response System)
+    │  ├─ EmagencyEscapeStep() - 紧急逃脱步法
+    │  └─ 基于距离和状态的智能逃脱机制
+    │
+    ├─ 防御概率系统 (Guard Probability System)
+    │  ├─ GuardOnProbability() - 基于概率的防御触发
+    │  └─ 动态防御概率调整机制
+    │
+    ├─ 中断处理系统 (Interrupt Handling System)
+    │  ├─ Interrupt_FindAttack_Default() - 默认发现攻击中断
+    │  ├─ Interrupt_FindAttack_Guard() - 防御型发现攻击中断
+    │  └─ 各种中断条件的统一处理
+    │
+    ├─ 行为选择系统 (Behavior Selection System)
+    │  ├─ _SelectEnemyAct() - 智能敌人行为选择算法
+    │  └─ 基于权重和条件的复杂行为决策
+    │
+    └─ 状态更新系统 (State Update System)
+       ├─ Update_FinishOnNoSubGoal() - 无子目标时完成更新
+       └─ 各种更新逻辑的标准化处理
+
+    ============================================================================
+]]--
+
+-- ■ 紧急逃脱步法函数 (Emergency Escape Step Function)
+-- ■ 功能说明：当AI处于特定战斗状态且敌人距离过近时，执行紧急侧步逃脱
+-- ■ 触发条件：
+-- ■   1. AI正在执行攻击前、攻击后或行动后的目标行为
+-- ■   2. 敌人距离小于等于设定的发现攻击距离阈值
+-- ■ 参数说明 (Parameters):
+-- ■   f1_arg0: AI参数对象，包含发现攻击距离等配置 (AI parameter object)
+-- ■   f1_arg1: AI实体对象，用于距离检测和状态判断 (AI entity object)
+-- ■   f1_arg2: 子目标管理器，用于清理当前目标并设置逃脱行为 (Sub-goal manager)
 function EmagencyEscapeStep(f1_arg0, f1_arg1, f1_arg2)
-    if (f1_arg1:IsActiveGoal(GOAL_EnemyBeforeAttack) or f1_arg1:IsActiveGoal(GOAL_EnemyAfterAttack) or f1_arg1:IsActiveGoal(GOAL_EnemyAfterAction)) and (f1_arg0.FindAttackDist == nil or f1_arg0.FindAttackDist ~= nil and f1_arg1:GetDist(TARGET_ENE_0) <= f1_arg0.FindAttackDist) then
+    -- ■ 检查AI是否处于攻击相关状态 (Check if AI is in attack-related state)
+    local isInAttackState = f1_arg1:IsActiveGoal(GOAL_EnemyBeforeAttack) or
+                           f1_arg1:IsActiveGoal(GOAL_EnemyAfterAttack) or
+                           f1_arg1:IsActiveGoal(GOAL_EnemyAfterAction)
+
+    -- ■ 检查距离条件 (Check distance condition)
+    local isInRange = (f1_arg0.FindAttackDist == nil) or
+                     (f1_arg0.FindAttackDist ~= nil and f1_arg1:GetDist(TARGET_ENE_0) <= f1_arg0.FindAttackDist)
+
+    -- ■ 如果满足紧急逃脱条件，执行侧步逃脱 (If emergency escape conditions are met, execute side step escape)
+    if isInAttackState and isInRange then
+        -- ■ 清除当前所有子目标 (Clear all current sub-goals)
         f1_arg2:ClearSubGoal()
+        -- ■ 添加左右侧步逃脱目标：2秒持续时间，步法类型6 (Add left-right side step escape goal)
         f1_arg2:AddSubGoal(GOAL_EnemyStepBLR, 2, 6)
     end
-    
 end
 
+-- ■ 基于概率的防御触发函数 (Probability-based Guard Trigger Function)
+-- ■ 功能说明：根据连续受到攻击的时间间隔动态调整防御概率
+-- ■ 算法核心：
+-- ■   1. 监控最近5秒内是否受到攻击
+-- ■   2. 根据攻击频率动态增加防御概率
+-- ■   3. 最大防御概率限制为60%
+-- ■ 参数说明 (Parameters):
+-- ■   f2_arg0: AI参数对象，包含防御概率配置 (AI parameter object)
+-- ■   f2_arg1: AI实体对象，用于随机数生成和计时器管理 (AI entity object)
+-- ■   f2_arg2: 子目标管理器，用于设置防御行为 (Sub-goal manager)
 function GuardOnProbability(f2_arg0, f2_arg1, f2_arg2)
+    -- ■ 初始化受损防御概率 (Initialize damage guard probability)
     if f2_arg0.GuardRateOnDamged == nil then
         f2_arg0.GuardRateOnDamged = 0
     end
-    local f2_local0 = f2_arg1:GetIdTimer(8000)
-    if f2_local0 == nil or f2_local0 <= 0 then
-        f2_local0 = 100
+
+    -- ■ 获取计时器8000的当前值（监控攻击间隔） (Get timer 8000 current value for attack interval monitoring)
+    local attackIntervalTimer = f2_arg1:GetIdTimer(8000)
+    if attackIntervalTimer == nil or attackIntervalTimer <= 0 then
+        attackIntervalTimer = 100  -- ■ 默认值：假设很长时间没有受到攻击 (Default: assume no attack for long time)
     end
-    local f2_local1 = nil
-    f2_local1 = 5 - f2_local0
-    if f2_local1 > 0 then
-        f2_arg0.GuardRateOnDamged = f2_arg0.GuardRateOnDamged + f2_local1 * 10 / 2.5
+
+    -- ■ 计算距离上次攻击的时间差 (Calculate time since last attack)
+    local timeSinceLastAttack = 5 - attackIntervalTimer
+
+    -- ■ 根据攻击频率动态调整防御概率 (Dynamically adjust guard probability based on attack frequency)
+    if timeSinceLastAttack > 0 then
+        -- ■ 攻击频率越高，防御概率增加越多 (Higher attack frequency increases guard probability more)
+        -- ■ 公式：基础概率 + (5秒内攻击次数 * 10 / 2.5)
+        f2_arg0.GuardRateOnDamged = f2_arg0.GuardRateOnDamged + timeSinceLastAttack * 10 / 2.5
+
+        -- ■ 防御概率上限控制：最大60% (Guard probability upper limit: maximum 60%)
         if f2_arg0.GuardRateOnDamged > 60 then
             f2_arg0.GuardRateOnDamged = 60
         end
     else
+        -- ■ 如果超过5秒没有受到攻击，重置防御概率 (Reset guard probability if no attack for over 5 seconds)
         f2_arg0.GuardRateOnDamged = 0
     end
-    if f2_arg1:GetRandam_Float(0, 100) < f2_arg0.GuardRateOnDamged then
+
+    -- ■ 基于计算的概率决定是否触发防御 (Decide whether to trigger guard based on calculated probability)
+    local randomValue = f2_arg1:GetRandam_Float(0, 100)
+    if randomValue < f2_arg0.GuardRateOnDamged then
+        -- ■ 清除当前目标并执行防御 (Clear current goals and execute guard)
         f2_arg2:ClearSubGoal()
+        -- ■ 添加防御目标：1秒持续时间，动画9910，目标敌人0，启用防御，优先级1 (Add guard goal)
         f2_arg2:AddSubGoal(GOAL_COMMON_Guard, 1, 9910, TARGET_ENE_0, true, 1)
     end
+
+    -- ■ 重新启动计时器以监控下次攻击 (Restart timer to monitor next attack)
     f2_arg1:StartIdTimer(8000)
     
 end
 
+-- ■ 默认发现攻击中断函数 (Default Find Attack Interrupt Function)
+-- ■ 功能说明：处理AI发现玩家攻击时的默认中断逻辑
+-- ■ 注意：当前为空实现，子类可以重写此函数添加特定的中断处理
+-- ■ 参数说明 (Parameters):
+-- ■   f3_arg0: AI参数对象 (AI parameter object)
+-- ■   f3_arg1: AI实体对象 (AI entity object)
+-- ■   f3_arg2: 子目标管理器 (Sub-goal manager)
 function Interrupt_FindAttack_Default(f3_arg0, f3_arg1, f3_arg2)
-    
+    -- ■ 空实现：默认不执行任何中断处理 (Empty implementation: no interrupt handling by default)
+    -- ■ 具体的敌人类型可以重写此函数实现特定的发现攻击反应
 end
 
+-- ■ 无子目标时完成更新函数 (Update Function that Finishes on No Sub-goals)
+-- ■ 功能说明：当AI没有子目标时自动完成当前行为并转向自身
+-- ■ 应用场景：简单的AI行为结束处理，确保AI有明确的结束状态
+-- ■ 参数说明 (Parameters):
+-- ■   f4_arg0: AI参数对象 (AI parameter object)
+-- ■   f4_arg1: AI实体对象 (AI entity object)
+-- ■   f4_arg2: 子目标管理器 (Sub-goal manager)
+-- ■ 返回值 (Return Value):
+-- ■   GOAL_RESULT_Success: 无子目标时返回成功
+-- ■   GOAL_RESULT_Continue: 有子目标时继续执行
 function Update_FinishOnNoSubGoal(f4_arg0, f4_arg1, f4_arg2)
+    -- ■ 检查是否还有子目标需要执行 (Check if there are sub-goals to execute)
     if f4_arg2:GetSubGoalNum() <= 0 then
+        -- ■ 没有子目标时，让AI转向自身（重置朝向） (No sub-goals: turn AI to self to reset orientation)
         f4_arg1:TurnTo(TARGET_SELF)
+        -- ■ 返回成功状态，表示行为已完成 (Return success status indicating behavior completion)
         return GOAL_RESULT_Success
     end
+    -- ■ 还有子目标时继续执行 (Continue if there are still sub-goals)
     return GOAL_RESULT_Continue
-    
 end
 
+-- ■ 防御型发现攻击中断函数 (Guard-oriented Find Attack Interrupt Function)
+-- ■ 功能说明：当AI发现玩家攻击且距离较近时，触发防御反应
+-- ■ 触发条件：敌人距离小于等于3米
+-- ■ 参数说明 (Parameters):
+-- ■   f5_arg0: AI参数对象 (AI parameter object)
+-- ■   f5_arg1: AI实体对象 (AI entity object)
+-- ■   f5_arg2: 子目标管理器 (Sub-goal manager)
 function Interrupt_FindAttack_Guard(f5_arg0, f5_arg1, f5_arg2)
     if f5_arg1:GetDist(TARGET_ENE_0) <= 3 then
         local f5_local0 = 1
