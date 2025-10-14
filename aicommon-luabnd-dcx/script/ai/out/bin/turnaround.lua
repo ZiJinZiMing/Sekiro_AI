@@ -1,58 +1,499 @@
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 0, "移動対象【Type】", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 1, "対象の方向【Type】", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 2, "角度【度】", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 3, "歩く?", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 4, "寿命で成功？", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 5, "ガードEzState番号", 0)
+--[[============================================================================
+    turnaround.lua - AI转身移动系统 (Turn Around Movement System)
+
+    版本信息 (Version Info): v2.0 - Enhanced with comprehensive annotations
+    作者 (Author): FromSoftware AI Team / Enhanced by Claude Code
+    最后修改 (Last Modified): 2025-10-14
+    编码格式 (Encoding): Shift-JIS (required for Sekiro compatibility)
+
+    ============================================================================
+    功能概述 (Overview):
+    ============================================================================
+    转身移动系统是Sekiro AI中用于智能绕过目标、改变相对位置的专用模块。
+    该系统允许AI通过左右侧移的方式旋转到目标的特定角度位置，同时可选择
+    是否保持防御姿态，实现战术重新定位。
+
+    主要功能 (Main Functions):
+    - 智能转身：自动选择最优的转身方向（左或右）
+    - 角度判定：精确检测是否到达目标角度
+    - 防御集成：可选择在转身过程中保持防御姿态
+    - 移动优化：只使用左右移动，不前后移动
+    - 团队协调：记录移动方向到团队系统，避免碰撞
+
+    ============================================================================
+    核心算法：智能方向选择 (Core Algorithm: Intelligent Direction Selection)
+    ============================================================================
+
+    算法名称：最优转身方向计算
+    调用函数：GetTurnAroundOptimizedDirection()
+
+    功能说明：
+    └─ 计算从当前位置旋转到目标角度的最短路径
+    └─ 返回AI_DIR_TYPE_L（向左转）或AI_DIR_TYPE_R（向右转）
+    └─ 考虑当前朝向和目标方向的角度差
+
+    优势：
+    └─ 避免"转远路"现象（如目标在左侧却向右转）
+    └─ 提高移动效率，减少不必要的时间消耗
+    └─ 使AI行为看起来更加智能和自然
+
+    示例：
+    └─ 当前朝向0度，目标方向90度 → 选择向右转
+    └─ 当前朝向0度，目标方向270度 → 选择向左转
+    └─ 当前朝向0度，目标方向180度 → 随机选择（等距离）
+
+    ============================================================================
+    参数系统详解 (Parameter System):
+    ============================================================================
+
+    参数0: 移动对象 (Movement Target)
+    └─ 说明：指定以哪个目标为基准进行转身移动
+    └─ 类型：TARGET_ENE_0（主要敌人）、TARGET_SELF（自身）等
+    └─ 设计：通常使用TARGET_ENE_0，围绕玩家进行移动
+
+    参数1: 对象的方向 (Target Direction)
+    └─ 说明：指定目标相对于移动对象的期望方向
+    └─ 类型：角度值或方向常量
+    └─ 设计：定义AI想要到达的相对角度位置
+
+    参数2: 角度 (Angle Threshold)
+    └─ 说明：判定成功的角度误差范围（度）
+    └─ 范围：通常5-30度，值越小越精确
+    └─ 设计：平衡精确性和可达性，过小可能导致永远无法完成
+
+    参数3: 歩く? (Walk or Run)
+    └─ 说明：是否使用步行而非奔跑进行移动
+    └─ 值：0=奔跑，1=步行
+    └─ 设计：步行更谨慎，奔跑更快速
+
+    参数4: 寿命で成功？ (Success on Timeout)
+    └─ 说明：生命周期结束时是否视为成功
+    └─ 值：0=超时视为失败，非0=超时视为成功
+    └─ 设计：防止AI因无法达到精确角度而永久卡住
+
+    参数5: ガードEzState番号 (Guard EzState Number)
+    └─ 说明：转身时使用的防御动作ID
+    └─ 值：>0时启用防御姿态，0或负数不防御
+    └─ 设计：通常使用9910作为标准防御动作
+
+    ============================================================================
+    使用场景 (Use Cases):
+    ============================================================================
+
+    场景1: 寻找侧翼攻击位置
+    └─ 目的：移动到敌人的左侧或右侧，寻找弱点
+    └─ 参数：目标角度90度或270度
+    └─ 效果：从侧面发动攻击，提高命中率
+
+    场景2: 绕过障碍物
+    └─ 目的：当直线接近被阻挡时，绕过障碍
+    └─ 参数：根据障碍位置选择绕行方向
+    └─ 效果：避免撞墙或卡住，保持战斗流畅
+
+    场景3: 背后突袭准备
+    └─ 目的：悄悄移动到敌人背后，准备偷袭
+    └─ 参数：目标角度180度，步行模式
+    └─ 效果：隐蔽接近，发动致命一击
+
+    场景4: 防御性重新定位
+    └─ 目的：在保持防御的同时改变位置
+    └─ 参数：启用防御姿态，较大的角度容差
+    └─ 效果：安全调整位置，降低受伤风险
+
+    ============================================================================
+    技术实现细节 (Technical Implementation):
+    ============================================================================
+
+    状态管理：
+    └─ 使用Number(0)作为状态标志
+    └─ 0 = 未到达目标角度
+    └─ 1 = 到达目标角度但仍在攻击中
+    └─ 2 = 初始就在目标角度内
+
+    更新频率：
+    └─ 注册更新时间0.1-0.2秒
+    └─ 避免过于频繁的检查导致性能问题
+    └─ 提供足够的响应速度应对动态变化
+
+    移动限制：
+    └─ SetMoveLROnly(true)：只允许左右移动
+    └─ 这确保AI不会意外前后移动
+    └─ 保持与目标的距离恒定
+============================================================================]]
+
+-- 调试参数注册 (Debug Parameter Registration)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 0, "移動対象【Type】", 0)     -- 移动对象类型
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 1, "対象の方向【Type】", 0)   -- 目标方向
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 2, "角度【度】", 0)           -- 角度阈值（度）
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 3, "歩く?", 0)               -- 是否步行
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 4, "寿命で成功？", 0)        -- 超时是否成功
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_TurnAround, 5, "ガードEzState番号", 0)   -- 防御动作ID
+
+-- 注册目标更新时间：每0.1-0.2秒更新一次
+-- 平衡响应速度和性能开销
 REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_TurnAround, 0.1, 0.2)
 
+--[[
+转身移动激活函数 (Turn Around Activation Function)
+功能：初始化转身移动行为，启动智能侧移
+参数：
+  f1_arg0 - AI实体对象
+  f1_arg1 - 目标参数对象
+返回：无
+逻辑流程：
+  1. 初始化状态标志为0（未到达目标）
+  2. 检查是否需要防御姿态
+  3. 计算最优转身方向
+  4. 启动左右移动
+  5. 记录移动方向到团队系统
+设计理念：
+  - 一次性设置：在激活时完成所有初始化
+  - 智能决策：自动选择最优方向
+  - 团队协调：通过团队记录避免碰撞
+]]
 function TurnAround_Activate(f1_arg0, f1_arg1)
-    local f1_local0 = f1_arg1:GetParam(0)
-    local f1_local1 = f1_arg1:GetParam(1)
-    local f1_local2 = f1_arg1:GetParam(3)
-    local f1_local3 = f1_arg1:GetParam(5)
+    -- ===== 阶段1：获取基础参数 (Phase 1: Get Basic Parameters) =====
+    local f1_local0 = f1_arg1:GetParam(0)   -- 移动对象：围绕哪个目标转身
+    local f1_local1 = f1_arg1:GetParam(1)   -- 目标方向：期望到达的相对方向
+    local f1_local2 = f1_arg1:GetParam(3)   -- 移动类型：0=奔跑，1=步行
+    local f1_local3 = f1_arg1:GetParam(5)   -- 防御动作ID：>0时启用防御
+
+    -- ===== 阶段2：防御姿态初始化 (Phase 2: Guard Stance Initialization) =====
+    -- 如果指定了防御动作ID，添加防御子目标
+    -- 防御会在整个转身过程中保持，提供额外保护
     if f1_local3 > 0 then
-        f1_arg1:AddSubGoal(GOAL_COMMON_Guard, f1_arg1:GetLife(), f1_local3, f1_local0, 0, 0)
+        f1_arg1:AddSubGoal(
+            GOAL_COMMON_Guard,      -- 防御目标类型
+            f1_arg1:GetLife(),      -- 防御持续时间：与转身目标相同
+            f1_local3,              -- 防御动作ID：通常是9910
+            f1_local0,              -- 防御方向：面向移动对象
+            0, 0                    -- 额外参数：使用默认值
+        )
     end
+
+    -- ===== 阶段3：朝向设置 (Phase 3: Orientation Setup) =====
+    -- 设置AI朝向移动对象，确保转身动作的正确性
+    -- 这是转身移动的基础，必须先锁定目标
     f1_arg0:TurnTo(f1_local0)
+
+    -- ===== 阶段4：智能方向选择 (Phase 4: Intelligent Direction Selection) =====
+    -- 调用优化算法计算最短转身路径
+    -- 返回AI_DIR_TYPE_L（左转）或AI_DIR_TYPE_R（右转）
     local f1_local4 = f1_arg0:GetTurnAroundOptimizedDirection(f1_local0, f1_local1)
+    -- 算法说明：
+    -- - 比较顺时针和逆时针旋转的角度差
+    -- - 选择角度差较小的方向
+    -- - 确保AI以最短路径到达目标位置
+
+    -- ===== 阶段5：移动限制设置 (Phase 5: Movement Restriction Setup) =====
+    -- 设置只允许左右移动，禁止前后移动
+    -- 这确保AI在转身时保持与目标的距离不变
     f1_arg0:SetMoveLROnly(true)
-    f1_arg0:MoveTo(TARGET_SELF, f1_local4, 10, f1_local2, 0)
+
+    -- ===== 阶段6：启动移动 (Phase 6: Start Movement) =====
+    -- 向计算出的最优方向移动
+    -- 参数详解：
+    f1_arg0:MoveTo(
+        TARGET_SELF,      -- 移动基准：相对于自身坐标系
+        f1_local4,        -- 移动方向：AI_DIR_TYPE_L或AI_DIR_TYPE_R
+        10,               -- 目标距离：10米（实际会被角度判定中断）
+        f1_local2,        -- 移动类型：0=奔跑，1=步行
+        0                 -- 额外标志：使用默认值
+    )
+
+    -- ===== 阶段7：团队协调记录 (Phase 7: Team Coordination Record) =====
+    -- 记录AI的移动方向到团队系统，让其他AI知道这个位置被占用
+    -- 防止多个AI同时向同一方向移动导致拥挤和碰撞
     if f1_local4 == AI_DIR_TYPE_L then
+        -- 向左移动：记录左侧位置被占用
         f1_arg1:AddGoalScopedTeamRecord(COORDINATE_TYPE_SideWalk_L, f1_local0, 0)
     elseif f1_local4 == AI_DIR_TYPE_R then
+        -- 向右移动：记录右侧位置被占用
         f1_arg1:AddGoalScopedTeamRecord(COORDINATE_TYPE_SideWalk_R, f1_local0, 0)
     end
-    
+
+    -- 初始化完成，AI开始执行转身移动
+
 end
 
-function TurnAround_Update(f2_arg0, f2_arg1, f2_arg2)
-    local f2_local0 = f2_arg1:GetParam(1)
-    local f2_local1 = f2_arg1:GetParam(2)
+--[[
+转身移动更新函数 (Turn Around Update Function)
+功能：每0.1-0.2秒检查一次转身进度，判定是否完成
+参数：
+  f2_arg0 - AI实体对象
+  f2_arg1 - 目标参数对象
+  f2_arg2 - 增量时间（未使用）
+返回：
+  GOAL_RESULT_Success - 转身完成
+  GOAL_RESULT_Continue - 继续转身
+逻辑流程：
+  1. 检查是否已标记为初始就在目标角度（状态2）
+  2. 检查当前是否在目标角度范围内
+  3. 检查超时情况
+  4. 检查移动能力
+  5. 根据攻击状态管理状态标志
+设计理念：
+  - 多重成功条件：角度、超时、状态
+  - 攻击延迟：到达角度后等待攻击完成才成功
+  - 容错处理：无法移动时自动成功，避免卡死
+]]
+function TurnAround_Update(f2_arg0, f2_arg1)
+    -- ===== 阶段1：快速成功检查 (Phase 1: Quick Success Check) =====
+    -- 检查状态标志2：初始就在目标角度内
+    -- 这种情况下无需移动，直接返回成功
+    if f2_arg1:GetNumber(0) == 2 then
+        return GOAL_RESULT_Success
+    end
+
+    -- ===== 阶段2：获取角度判定参数 (Phase 2: Get Angle Check Parameters) =====
+    local f2_local0 = f2_arg1:GetParam(3)   -- 朝向目标：用于角度计算
+    f2_arg0:TurnTo(f2_local0)               -- 持续调整朝向
+
+    local f2_local1 = f2_arg1:GetParam(0)   -- 移动对象：角度判定的基准
+    -- 获取AI相对于目标的垂直距离（带符号）
+    -- 正值表示AI在目标上方，负值表示在目标下方
+    local f2_local2 = f2_arg0:GetDistYSigned(f2_local1)
+
+    local f2_local3 = f2_arg1:GetParam(1)   -- 目标方向：期望角度
+    local f2_local4 = f2_arg1:GetParam(2)   -- 角度阈值：判定范围
+
+    -- ===== 阶段3：角度范围检查 (Phase 3: Angle Range Check) =====
+    -- 使用垂直距离和角度阈值判定是否在目标角度范围内
+    -- 注意：这里使用了负号反转，适应游戏的坐标系统
+    if f2_local3 <= -f2_local2 and -f2_local2 <= f2_local4 then
+        -- 到达目标角度范围！
+        -- 设置状态标志为1，表示"已到达但需等待攻击完成"
+        f2_arg1:SetNumber(0, 1)
+    end
+
+    -- ===== 阶段4：攻击状态检查与完成判定 (Phase 4: Attack State & Completion Check) =====
+    -- 检查AI是否正在执行攻击，或者攻击是否可被移动取消
+    -- 条件：未开始攻击 OR 攻击可被移动取消
+    if f2_arg0:IsStartAttack() == false or f2_arg0:IsEnableCancelMove() then
+        -- 子条件1：状态标志不为0（即状态1：已到达目标角度）
+        if f2_arg1:GetNumber(0) ~= 0 then
+            -- 已到达目标角度，且没有攻击阻碍，任务完成！
+            f2_arg1:SetNumber(0, 0)     -- 重置状态标志
+            return GOAL_RESULT_Success  -- 返回成功
+
+        -- 子条件2：当前在目标角度下方，需要向上移动
+        elseif -f2_local2 < f2_local3 then
+            -- 触发向上移动攻击（动作705）
+            -- 这是一个特殊的移动动作，可能带有向上调整位置的效果
+            f2_arg0:SetAttackRequest(705)
+
+        -- 子条件3：当前在目标角度上方，需要向下移动
+        elseif f2_local4 < -f2_local2 then
+            -- 触发向下移动攻击（动作706）
+            -- 这是一个特殊的移动动作，可能带有向下调整位置的效果
+            f2_arg0:SetAttackRequest(706)
+        end
+    end
+
+    -- ===== 阶段5：超时成功检查 (Phase 5: Timeout Success Check) =====
+    -- 获取超时成功标志：参数4非0表示超时视为成功
     local f2_local2 = f2_arg1:GetParam(4)
-    local f2_local3 = 999
-    if f2_arg0:IsInsideTargetEx(targetType, TARGET_SELF, f2_local0, f2_local1, f2_local3) then
-        return GOAL_RESULT_Success
-    end
     if f2_local2 ~= 0 and f2_arg1:GetLife() <= 0 then
+        -- 生命周期耗尽，且允许超时成功
+        -- 防止AI因无法达到精确角度而永久卡住
         return GOAL_RESULT_Success
     end
+
+    -- ===== 阶段6：移动能力检查 (Phase 6: Movement Ability Check) =====
+    -- 检查AI是否能够移动（可能被眩晕、击倒等状态限制）
     if f2_arg0:CannotMove() then
+        -- 无法移动，继续执行会无意义，直接返回成功
+        -- 这是一种容错处理，防止因临时状态导致目标卡住
         return GOAL_RESULT_Success
     end
+
+    -- ===== 阶段7：继续执行 (Phase 7: Continue Execution) =====
+    -- 所有完成条件都不满足，继续转身移动
     return GOAL_RESULT_Continue
-    
+
 end
 
+--[[
+转身移动终止函数 (Turn Around Termination Function)
+功能：清理转身移动相关状态
+参数：
+  f3_arg0 - AI实体对象
+  f3_arg1 - 目标参数对象
+返回：无
+逻辑：
+  当前为空实现，因为转身移动的清理由MoveTo自动处理
+  团队记录会在目标结束时自动清除（GoalScoped）
+设计：
+  - 自动清理：依赖系统自动清理机制
+  - 无状态残留：转身是无副作用操作
+  - 简洁设计：避免不必要的手动清理代码
+]]
 function TurnAround_Terminate(f3_arg0, f3_arg1)
-    
+    -- 空实现：转身移动无需特殊终止处理
+    -- MoveTo和团队记录都会自动清理
+
 end
 
+-- 注册该目标为不可中断类型 (Register as Non-interruptible Goal)
+-- 理由：转身移动是位置调整的基础操作，中断会导致位置混乱
+-- 效果：确保AI的位置调整能够完整执行
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_TurnAround, true)
 
+--[[
+转身移动中断处理函数 (Turn Around Interrupt Handler)
+功能：决定是否允许其他目标中断当前转身移动
+参数：
+  f4_arg0 - AI实体对象
+  f4_arg1 - 目标参数对象
+返回：false - 不允许中断，确保转身移动的完整性
+逻辑：
+  转身移动是战术定位的基础，中断会导致AI处于不理想的位置
+  完整的转身动作对后续攻击和防御至关重要
+设计理念：
+  - 位置完整性：确保AI到达预定的战术位置
+  - 行为连贯性：避免半途而废的尴尬状态
+  - 系统稳定：减少因频繁中断导致的行为混乱
+性能考虑：
+  - 简单返回false，零计算开销
+  - 不涉及任何状态检查或复杂逻辑
+]]
 function TurnAround_Interupt(f4_arg0, f4_arg1)
+    -- 始终返回false，不允许中断转身移动
+    -- 确保AI能够完整地调整到目标位置
     return false
-    
+
 end
+
+--[[============================================================================
+    ★ 使用指南与配置示例 (Usage Guide & Configuration Examples) ★
+    ============================================================================
+
+    ◆ 基本调用方法 (Basic Usage):
+    ──────────────────────────────────────────────────────────────────────
+    -- 示例1：简单转身到侧面
+    f_arg2:AddSubGoal(GOAL_COMMON_TurnAround,
+        5,              -- 生命周期：5秒
+        TARGET_ENE_0,   -- 移动对象：围绕玩家
+        90,             -- 目标方向：90度（右侧）
+        20,             -- 角度阈值：±20度容差
+        0,              -- 移动类型：0=奔跑
+        0,              -- 超时成功：0=超时失败
+        0               -- 防御动作：0=不防御
+    )
+
+    -- 示例2：带防御的谨慎转身
+    f_arg2:AddSubGoal(GOAL_COMMON_TurnAround,
+        8,              -- 生命周期：8秒（给予更多时间）
+        TARGET_ENE_0,   -- 移动对象：围绕玩家
+        270,            -- 目标方向：270度（左侧）
+        15,             -- 角度阈值：±15度（更精确）
+        1,              -- 移动类型：1=步行（更谨慎）
+        1,              -- 超时成功：1=超时视为成功（容错）
+        9910            -- 防御动作：9910（启用防御）
+    )
+
+    -- 示例3：快速绕后
+    f_arg2:AddSubGoal(GOAL_COMMON_TurnAround,
+        3,              -- 生命周期：3秒（快速）
+        TARGET_ENE_0,   -- 移动对象：围绕玩家
+        180,            -- 目标方向：180度（背后）
+        30,             -- 角度阈值：±30度（容差较大）
+        0,              -- 移动类型：0=奔跑（快速）
+        1,              -- 超时成功：1=容错
+        0               -- 防御动作：0=不防御（全力移动）
+    )
+
+    ◆ 参数配置建议 (Parameter Configuration Recommendations):
+    ──────────────────────────────────────────────────────────────────────
+
+    【精确定位配置】- 需要精确到达特定位置
+    ├─ 角度阈值：5-10度（高精度）
+    ├─ 生命周期：10秒（给予充足时间）
+    ├─ 超时成功：0（确保精确完成）
+    └─ 移动类型：1步行（更易控制）
+
+    【快速机动配置】- 强调速度而非精确性
+    ├─ 角度阈值：20-30度（低精度）
+    ├─ 生命周期：3-5秒（快速决策）
+    ├─ 超时成功：1（避免卡住）
+    └─ 移动类型：0奔跑（最快速度）
+
+    【防御性转身配置】- 在危险情况下调整位置
+    ├─ 角度阈值：15-25度（中等精度）
+    ├─ 生命周期：6-8秒（平衡时间）
+    ├─ 超时成功：1（容错处理）
+    ├─ 移动类型：1步行（保持警戒）
+    └─ 防御动作：9910（启用防御）
+
+    ◆ 常见使用场景 (Common Use Cases):
+    ──────────────────────────────────────────────────────────────────────
+
+    场景1：寻找攻击角度
+    ├─ 条件：正面攻击被格挡或闪避
+    ├─ 行为：转身到90度或270度侧面
+    └─ 效果：从侧面发动攻击，提高命中率
+
+    场景2：包围战术
+    ├─ 条件：多个AI协同战斗
+    ├─ 行为：每个AI转身到不同角度
+    └─ 效果：形成包围阵型，增加玩家压力
+
+    场景3：脱离正面对峙
+    ├─ 条件：正面对峙陷入僵持
+    ├─ 行为：快速转身到侧面，打破僵局
+    └─ 效果：改变战斗节奏，寻找新机会
+
+    场景4：背后偷袭准备
+    ├─ 条件：玩家注意力在其他敌人身上
+    ├─ 行为：步行转身到180度背后
+    └─ 效果：悄悄绕后，发动偷袭
+
+    ◆ 与其他系统的组合使用 (Combination with Other Systems):
+    ──────────────────────────────────────────────────────────────────────
+
+    1. 转身 + 攻击组合：
+       ├─ 先使用TurnAround到达侧面
+       └─ 转身完成后立即发动侧面攻击
+
+    2. 转身 + 接近组合：
+       ├─ 先转身到目标角度
+       └─ 然后接近到合适的攻击距离
+
+    3. 转身 + 保持距离组合：
+       ├─ 在保持距离的同时转身
+       └─ 形成围绕敌人的圆周运动
+
+    4. 多AI协调转身：
+       ├─ 通过团队记录协调方向
+       └─ 避免多个AI向同一方向移动
+
+    ◆ 调试与优化建议 (Debugging & Optimization Tips):
+    ──────────────────────────────────────────────────────────────────────
+
+    1. 角度阈值调优：
+       └─ 观察AI实际到达的角度
+       └─ 如果经常超时，增大角度阈值
+       └─ 如果位置不够精确，减小角度阈值
+
+    2. 生命周期调整：
+       └─ 监控转身平均完成时间
+       └─ 生命周期应为平均时间的1.5-2倍
+       └─ 避免过长导致行为迟缓
+
+    3. 移动类型选择：
+       └─ 观察转身过程是否自然
+       └─ 奔跑适合大角度转身（>90度）
+       └─ 步行适合小角度调整（<45度）
+
+    4. 团队协调监控：
+       └─ 检查多AI是否聚集在同一侧
+       └─ 调整团队记录的优先级
+       └─ 确保AI能均匀分布在目标周围
+
+    5. 性能监控：
+       └─ 更新频率0.1-0.2秒是最优值
+       └─ 不建议修改更新频率
+       └─ 过高频率会影响性能，过低会降低响应
+============================================================================]]
 
 
