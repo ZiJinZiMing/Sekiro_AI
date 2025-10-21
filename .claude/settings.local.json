@@ -11,7 +11,11 @@
       "Bash(find:*)",
       "Bash(xargs ls:*)",
       "Bash(for file in \"common_func.lua\" \"common_enemy.lua\" \"common_battle_func.lua\" \"attack.lua\" \"goal_list.lua\")",
-      "Bash(do echo \"=== $file ===\")"
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\n为三个关键敌人AI模块补充全面的中文注释\n\n完成以下文件的注释补充：\n\n1. enemy_multi_attack.lua - 敌人多段攻击系统\n   - 添加140+行的模块头部文档\n   - 完整的参数系统说明（7个参数）\n   - 详细的工作流程和使用场景示例\n   - Activate和Update函数的完整注释\n\n2. enemy_keepdist.lua - 敌人保持距离系统\n   - 添加200+行的模块头部文档\n   - 12个参数的完整参数说明和战术配置建议\n   - 紧急回避和距离调整的详细逻辑解释\n   - 9步Activate流程和Update函数注释\n\n3. enemy_handy_attack.lua - 敌人便捷攻击系统（核心模块）\n   - 添加160+行的模块头部文档\n   - 13个参数的详细说明，包含链式触发概念\n   - 概率驱动决策和连击链管理机制\n   - 最复杂的Activate和Update函数详解\n\n注释特点：\n- 中英双语对照\n- 层次清晰的处理步骤说明\n- 丰富的配置示例和推荐值\n- 技术原理和战术应用说明\n- 与其他模块的关系解释\n\n总计：1583行代码，973行注释（61%的注释比例）\n\n所有文件已验证Shift-JIS编码兼容性。\n\nGenerated with Claude Code\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(for:*)"
     ],
     "deny": [],
     "ask": []

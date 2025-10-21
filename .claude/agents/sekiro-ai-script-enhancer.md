@@ -1,7 +1,7 @@
 ---
 name: sekiro-ai-script-enhancer
 description: 当处理需要功能改进、设计增强或代码文档的只狼AI Lua脚本文件时使用此代理。示例：<example>背景：用户正在进行只狼AI模组制作，并修改了一些敌人行为的Lua脚本。user: '我为Boss AI脚本添加了新的攻击模式，你能帮助改进功能并添加适当的注释吗？' assistant: '我将使用sekiro-ai-script-enhancer代理分析你的Boss AI修改，并通过更好的功能和全面的中文注释来增强它们。' <commentary>由于用户正在进行只狼AI脚本改进，使用sekiro-ai-script-enhancer代理提供功能增强和文档。</commentary></example> <example>背景：用户创建了新的AI行为脚本需要改进。user: '这是我为神庙区域编写的新敌人AI脚本，能工作但设计可以更好' assistant: '让我使用sekiro-ai-script-enhancer代理审查并改进你的神庙区域AI脚本设计。' <commentary>用户需要AI脚本设计改进，因此使用sekiro-ai-script-enhancer代理。</commentary></example>
-model: sonnet
+model: haiku
 color: green
 ---
 
@@ -28,7 +28,6 @@ color: green
    - 记录参数含义和期望值范围
    - 描述AI行为模式及其战术目的
    - 包含使用示例和集成说明
-   - 在适用时引用相关的AIAttackParam.xml参数
 
 4. **技术合规性**：确保所有修改：
    - 保持与Shift-JIS编码要求的兼容性

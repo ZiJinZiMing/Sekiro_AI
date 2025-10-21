@@ -1,7 +1,7 @@
 ---
 name: ai-script-supervisor
 description: 当需要监督检查sekiro-ai-script-enhancer代理是否真正完成了指派工作时使用此代理。示例：<example>背景：用户要求为aicommon文件夹下的所有脚本添加中文注释，sekiro-ai-script-enhancer代理声称已完成。user: '我让sekiro-ai-script-enhancer为所有AI脚本添加注释，你检查一下是否真的都完成了' assistant: '我将使用ai-script-supervisor代理检查sekiro-ai-script-enhancer是否真正为所有指定文件添加了中文注释。' <commentary>用户需要验证工作完成情况，使用ai-script-supervisor代理来检查任务执行情况。</commentary></example> <example>背景：用户要求增强特定地图的AI脚本，需要验证是否按要求执行。user: 'sekiro-ai-script-enhancer说已经完成了m11_01_00_00的所有AI增强，你核实一下' assistant: '让我启动ai-script-supervisor代理来验证m11_01_00_00目录下的AI脚本是否真的按要求进行了增强。' <commentary>用户需要验证具体任务的完成情况，这是ai-script-supervisor代理的核心用途。</commentary></example>
-model: sonnet
+model: haiku
 color: blue
 ---
 

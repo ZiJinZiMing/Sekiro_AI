@@ -1,85 +1,136 @@
+-- ====================================================================================================
+-- 101010_battle.lua - 落武者八双 (双剑武士) 战斗AI
+-- ====================================================================================================
+-- 敌人类型: 落武者八双 (Ochimusha Hassou)
+-- 地图区域: m11_01_00_00 (苇名城)
+-- 战斗风格: 高速双剑连击，具备快速移动和强大压制力
+-- 主要特点:
+--   - 7种攻击模式: 快速连击、横扫、跳跃等
+--   - 移动灵活: 侧步、后退规避
+--   - 8种特殊招式: 根据距离和敌人防御选择
+--   - 距离战术: 根据距离动态调整(7米/5米/3米/1米以下)
+--   - 特效触发: 对特定特效(5020/5021)有加速响应
+--   - 冷却管理: 防止同一招式频繁使用
+-- ====================================================================================================
+
 RegisterTableGoal(GOAL_Ochimusha_hassou_101010_Battle, "GOAL_Ochimusha_hassou_101010_Battle")
 REGISTER_GOAL_NO_UPDATE(GOAL_Ochimusha_hassou_101010_Battle, true)
 
+-- 初始化函数（当前为空实现）
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
-    
+
 end
 
+-- ====================================================================================================
+-- 激活函数 - 战斗AI的核心决策逻辑
+-- ====================================================================================================
+-- 功能: 根据当前战斗状态（HP、SP、距离、特效等）选择最优行动
+-- 处理流程: 初始化参数 -> 检查剑戟 -> 获取状态 -> 决策行为 -> 空间检查 -> 设置冷却 -> 激活行为
+-- ====================================================================================================
 Goal.Activate = function (f2_arg0, f2_arg1, f2_arg2)
     Init_Pseudo_Global(f2_arg1, f2_arg2)
+    -- 初始化行动权重表
     local f2_local0 = {}
+    -- 注册行动函数表
     local f2_local1 = {}
+    -- 参数表（当前未使用）
     local f2_local2 = {}
     Common_Clear_Param(f2_local0, f2_local1, f2_local2)
+    -- 获取与目标敌人的距离
     local f2_local3 = f2_arg1:GetDist(TARGET_ENE_0)
+    -- 获取AI参数：是否为学徒状态(0=正常, 1=学徒模式)
     local f2_local4 = f2_arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
+    -- 监听特效：109031=姿态被破坏
     f2_arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
+    -- 监听特效：107900=见切时机
     f2_arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 107900)
     Set_ConsecutiveGuardCount_Interrupt(f2_arg1)
+    -- 检查是否能激活剑戟反击，若能则直接返回
     if f2_arg0.Kengeki_Activate(f2_arg0, f2_arg1, f2_arg2) then
         return
     end
+    -- ====== 状态检查及行动决策 ======
+    -- 特殊状态1: 敌人处于处决状态 (3170200)
     if f2_arg1:HasSpecialEffectId(TARGET_ENE_0, 3170200) then
+        -- 处决状态下：逃离(权重1000)和基础攻击(权重1)
         f2_local0[25] = 1000
         f2_local0[1] = 1
+    -- 特殊状态2: 敌人被推倒 (3101540)
     elseif f2_arg1:HasSpecialEffectId(TARGET_ENE_0, 3101540) then
+        -- 推倒状态下：环绕移动(权重100)
         f2_local0[27] = 100
+    -- 特殊事件触发
     elseif Common_ActivateAct(f2_arg1, f2_arg2) then
+    -- 特殊模式检查: 双剑特殊攻击(5020/5021)
     elseif f2_arg1:HasSpecialEffectId(TARGET_SELF, 5020) or f2_arg1:HasSpecialEffectId(TARGET_SELF, 5021) then
+        -- 双剑模式下：侧向移动权重提高(600)
         f2_local0[23] = 600
+    -- 路径检查: 无法到达敌人或敌人失衡状态(109220/109221)
     elseif f2_arg1:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false or f2_arg1:HasSpecialEffectId(TARGET_ENE_0, 109220) or f2_arg1:HasSpecialEffectId(TARGET_ENE_0, 109221) then
+        -- 无路径或失衡：远距离攻击(3010,权重100)和环绕移动
         f2_local0[10] = 100
         f2_local0[27] = 100
+    -- 团队AI: 观客角色处理
     elseif f2_local4 == 1 and f2_arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Kankyaku then
         KankyakuAct(f2_arg1, f2_arg2)
+    -- 团队AI: 包围角色处理
     elseif f2_local4 == 1 and f2_arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Torimaki then
         if TorimakiAct(f2_arg1, f2_arg2) == true then
+            -- 包围模式：基础攻击和跳跃斩击
             f2_local0[1] = 10
             f2_local0[4] = 10
+            -- 检查特殊效果：3101500
             if f2_arg1:HasSpecialEffectId(TARGET_SELF, 3101500) then
                 f2_local0[10] = 500
             end
         end
+    -- 定时器检查：等待第一击完成
     elseif f2_arg1:IsFinishTimer(0) == false then
         f2_local0[1] = 1
         f2_local0[23] = 1000
+    -- ====== 距离分层战术 ======
+    -- 距离 >= 7米: 远距离阶段 - 使用远程攻击接近敌人
     elseif f2_local3 >= 7 then
         f2_local0[1] = 1
-        f2_local0[2] = 200
-        f2_local0[4] = 0
-        f2_local0[5] = 100
-        f2_local0[6] = 0
-        f2_local0[23] = 600
+        f2_local0[2] = 200      -- 冲刺斩击
+        f2_local0[4] = 0        -- 禁用
+        f2_local0[5] = 100      -- 跳跃攻击
+        f2_local0[6] = 0        -- 禁用
+        f2_local0[23] = 600     -- 侧向移动
+    -- 距离 >= 5米: 中距离阶段 - 多重攻击与移动
     elseif f2_local3 >= 5 then
-        f2_local0[1] = 100
-        f2_local0[2] = 200
-        f2_local0[4] = 0
-        f2_local0[5] = 100
-        f2_local0[6] = 0
-        f2_local0[23] = 1200
+        f2_local0[1] = 100      -- 基础连击
+        f2_local0[2] = 200      -- 冲刺斩击
+        f2_local0[4] = 0        -- 禁用
+        f2_local0[5] = 100      -- 跳跃攻击
+        f2_local0[6] = 0        -- 禁用
+        f2_local0[23] = 1200    -- 侧向移动
+    -- 距离 >= 3米: 中近距离阶段 - 增加连击与破防频率
     elseif f2_local3 >= 3 then
-        f2_local0[1] = 100
-        f2_local0[2] = 200
-        f2_local0[4] = 0
-        f2_local0[5] = 100
-        f2_local0[6] = 300
-        f2_local0[23] = 1200
+        f2_local0[1] = 100      -- 基础连击
+        f2_local0[2] = 200      -- 冲刺斩击
+        f2_local0[4] = 0        -- 禁用
+        f2_local0[5] = 100      -- 跳跃攻击
+        f2_local0[6] = 300      -- 特殊连击
+        f2_local0[23] = 1200    -- 侧向移动
+    -- 距离 >= 1米: 近距离阶段 - 近战连续压制
     elseif f2_local3 >= 1 then
-        f2_local0[1] = 200
-        f2_local0[2] = 100
-        f2_local0[4] = 100
-        f2_local0[5] = 0
-        f2_local0[6] = 200
-        f2_local0[23] = 0
-        f2_local1[24] = 0
+        f2_local0[1] = 200      -- 基础连击(高权重)
+        f2_local0[2] = 100      -- 冲刺斩击
+        f2_local0[4] = 100      -- 跳跃斩击
+        f2_local0[5] = 0        -- 禁用
+        f2_local0[6] = 200      -- 特殊连击
+        f2_local0[23] = 0       -- 侧向移动禁用
+        f2_local1[24] = 0       -- 后退禁用
+    -- 距离 < 1米: 贴身距离 - 极限压制
     else
-        f2_local0[1] = 100
-        f2_local0[2] = 100
-        f2_local0[3] = 0
-        f2_local0[4] = 200
-        f2_local0[5] = 0
-        f2_local0[6] = 400
-        f2_local0[23] = 0
+        f2_local0[1] = 100      -- 基础连击
+        f2_local0[2] = 100      -- 冲刺斩击
+        f2_local0[3] = 0        -- 禁用
+        f2_local0[4] = 200      -- 跳跃斩击(高权重)
+        f2_local0[5] = 0        -- 禁用
+        f2_local0[6] = 400      -- 特殊连击(超高权重)
+        f2_local0[23] = 0       -- 侧向移动禁用
     end
     if SpaceCheck(f2_arg1, f2_arg2, 45, 2) == false and SpaceCheck(f2_arg1, f2_arg2, -45, 2) == false then
         f2_local0[22] = 0
@@ -122,6 +173,13 @@ Goal.Activate = function (f2_arg0, f2_arg1, f2_arg2)
     
 end
 
+-- Act01 - 基础双剑连击 (3000->3001, 3.5米, 冷却5秒)
+-- 功能: 快速双剑连击，是最常用的基础攻击
+-- 特点:
+--   - 距离要求: 3.5米
+--   - 攻击ID: 3000(主攻击) -> 3001(最终击)
+--   - 旋转限制: 0.5秒, 最大旋转角度90度
+--   - 权重: 中等，在各距离段均有使用
 Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
     local f3_local0 = 3.5 - f3_arg0:GetMapHitRadius(TARGET_SELF)
     local f3_local1 = 3.5 - f3_arg0:GetMapHitRadius(TARGET_SELF) + 2
@@ -139,7 +197,7 @@ Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
     f3_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3001, TARGET_ENE_0, 9999, 0, 0)
     GetWellSpace_Odds = 100
     return GetWellSpace_Odds
-    
+
 end
 
 Goal.Act02 = function (f4_arg0, f4_arg1, f4_arg2)
@@ -452,25 +510,36 @@ Goal.Act41 = function (f19_arg0, f19_arg1, f19_arg2)
     
 end
 
+-- ====================================================================================================
+-- 中断处理函数
+-- ====================================================================================================
+-- 功能: 处理战斗中的各种中断事件
+-- 中断类型: 梯子动作/特效触发/弹反时机/伤害反应/射击冲击等
+-- ====================================================================================================
 Goal.Interrupt = function (f20_arg0, f20_arg1, f20_arg2)
     local f20_local0 = f20_arg1:GetSpecialEffectActivateInterruptType(0)
+    -- 检查是否在梯子上，若是则无法中断
     if f20_arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
+    -- 检查是否具备战斗能力特效(200004)
     if not f20_arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
         return false
     end
+    -- 检查弹反时机，若无特效3502520则执行弹反(权重100)
     if f20_arg1:IsInterupt(INTERUPT_ParryTiming) and not f20_arg1:HasSpecialEffectId(TARGET_ENE_0, 3502520) then
         return Common_Parry(f20_arg1, f20_arg2, 100, 0, 0, 3102)
     end
+    -- 检查伤害中断
     if f20_arg1:IsInterupt(INTERUPT_Damaged) then
         return f20_arg0.Damaged(f20_arg1, f20_arg2)
     end
+    -- 检查射击冲击中断
     if f20_arg1:IsInterupt(INTERUPT_ShootImpact) and f20_arg0.ShootReaction(f20_arg1, f20_arg2) then
         return true
     end
     return false
-    
+
 end
 
 Goal.ShootReaction = function (f21_arg0, f21_arg1)

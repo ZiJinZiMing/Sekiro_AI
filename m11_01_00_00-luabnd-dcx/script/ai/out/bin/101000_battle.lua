@@ -1,10 +1,34 @@
+-- ====================================================================================================
+-- 101000_battle.lua - 落武者单手武士战斗AI
+-- ====================================================================================================
+-- 敌人类型: 落武者单手武士 (Ochimusha Katate)
+-- 地图区域: m11_01_00_00 (苇名城)
+-- 战斗风格: 灵活的近中距离战斗，具备招架反击和破防能力
+-- 主要特点:
+--   - 15种攻击模式: 连击、突刺、破防等
+--   - 8种移动方式: 侧步、后退、环绕等
+--   - 9种招架反击: 根据攻击类型选择反击
+--   - 距离战术: 根据距离动态调整策略(7米以上/5-7米/3-5米/1-3米/1米内)
+--   - 空间感知: 检查周围空间确保移动可行性
+--   - 冷却管理: 防止同一招式频繁使用(5-15秒)
+-- ====================================================================================================
+
 RegisterTableGoal(GOAL_Ochimusha_katate_101000_Battle, "Ochimusha_katate_101000_Battle")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_Ochimusha_katate_101000_Battle, true)
 
+
+-- 初始化函数（当前为空实现）
 Goal.Initialize = function (f1_arg0, f1_arg1, f1_arg2, f1_arg3)
     
 end
 
+
+-- ====================================================================================================
+-- 激活函数 - 战斗AI的核心决策逻辑
+-- ====================================================================================================
+-- 功能: 根据当前战斗状态（HP、SP、距离、特效等）选择最优行动
+-- 处理流程: 初始化参数 -> 检查剑戟 -> 获取状态 -> 决策行为 -> 空间检查 -> 设置冷却 -> 激活行为
+-- ====================================================================================================
 Goal.Activate = function (f2_arg0, f2_arg1, f2_arg2)
     Init_Pseudo_Global(f2_arg1, f2_arg2)
     f2_arg1:SetStringIndexedNumber("Dist_Step_Small", 2)
@@ -261,6 +285,8 @@ Goal.Activate = function (f2_arg0, f2_arg1, f2_arg2)
     
 end
 
+
+-- Act01 - 基础连击(3000->3001, 2.5米, 冷却5秒)
 Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
     local f3_local0 = f3_arg0:GetDist(TARGET_ENE_0)
     local f3_local1 = 2.5 - f3_arg0:GetMapHitRadius(TARGET_SELF) + f3_arg0:GetStringIndexedNumber("karaburiDist")
@@ -288,6 +314,8 @@ Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
     
 end
 
+
+-- Act02 - 冲刺斩击(3002, 7米, 冷却5秒)
 Goal.Act02 = function (f4_arg0, f4_arg1, f4_arg2)
     local f4_local0 = f4_arg0:GetDist(TARGET_ENE_0)
     local f4_local1 = 7 - f4_arg0:GetMapHitRadius(TARGET_SELF) + f4_arg0:GetStringIndexedNumber("karaburiDist")
@@ -311,6 +339,8 @@ Goal.Act02 = function (f4_arg0, f4_arg1, f4_arg2)
     
 end
 
+
+-- Act03 - 破防攻击(3003, 7.1米, 冷却5秒, 对防御敌人高权重)
 Goal.Act03 = function (f5_arg0, f5_arg1, f5_arg2)
     local f5_local0 = f5_arg0:GetDist(TARGET_ENE_0)
     local f5_local1 = 7.1 - f5_arg0:GetMapHitRadius(TARGET_SELF) + f5_arg0:GetStringIndexedNumber("karaburiDist")
@@ -334,6 +364,8 @@ Goal.Act03 = function (f5_arg0, f5_arg1, f5_arg2)
     
 end
 
+
+-- Act04 - 特殊连击4(3004->3006, 3.1米, 冷却10秒)
 Goal.Act04 = function (f6_arg0, f6_arg1, f6_arg2)
     local f6_local0 = f6_arg0:GetDist(TARGET_ENE_0)
     local f6_local1 = 3.1 - f6_arg0:GetMapHitRadius(TARGET_SELF) + f6_arg0:GetStringIndexedNumber("karaburiDist")
@@ -358,6 +390,8 @@ Goal.Act04 = function (f6_arg0, f6_arg1, f6_arg2)
     
 end
 
+
+-- Act05 - 破防连击(3005->3007, 3.7米, 冷却10秒, 对防御敌人极高权重)
 Goal.Act05 = function (f7_arg0, f7_arg1, f7_arg2)
     local f7_local0 = f7_arg0:GetDist(TARGET_ENE_0)
     local f7_local1 = 3.7 - f7_arg0:GetMapHitRadius(TARGET_SELF) + f7_arg0:GetStringIndexedNumber("karaburiDist")
@@ -382,6 +416,8 @@ Goal.Act05 = function (f7_arg0, f7_arg1, f7_arg2)
     
 end
 
+
+-- Act06 - 突刺攻击(3008, 4.7米, 冷却10秒, 见切反击后触发)
 Goal.Act06 = function (f8_arg0, f8_arg1, f8_arg2)
     local f8_local0 = f8_arg0:GetDist(TARGET_ENE_0)
     local f8_local1 = 4.7 - f8_arg0:GetMapHitRadius(TARGET_SELF) + f8_arg0:GetStringIndexedNumber("karaburiDist")
@@ -405,6 +441,8 @@ Goal.Act06 = function (f8_arg0, f8_arg1, f8_arg2)
     
 end
 
+
+-- Act07 - 接近攻击(3009, 12米, 冷却5秒, 无路径时使用)
 Goal.Act07 = function (f9_arg0, f9_arg1, f9_arg2)
     local f9_local0 = f9_arg0:GetDist(TARGET_ENE_0)
     local f9_local1 = 12 - f9_arg0:GetMapHitRadius(TARGET_SELF) + f9_arg0:GetStringIndexedNumber("karaburiDist")
@@ -426,6 +464,8 @@ Goal.Act07 = function (f9_arg0, f9_arg1, f9_arg2)
     
 end
 
+
+-- Act08 - 冲刺攻击1(3010, 5米+特效4米, 冷却15秒, 设置标志5=1)
 Goal.Act08 = function (f10_arg0, f10_arg1, f10_arg2)
     f10_arg0:SetNumber(5, 1)
     local f10_local0 = f10_arg0:GetDist(TARGET_ENE_0)
@@ -451,6 +491,8 @@ Goal.Act08 = function (f10_arg0, f10_arg1, f10_arg2)
     
 end
 
+
+-- Act09 - 冲刺攻击2(3011, 7.6米+特效4米, 冷却15秒, 设置标志5=1)
 Goal.Act09 = function (f11_arg0, f11_arg1, f11_arg2)
     f11_arg0:SetNumber(5, 1)
     local f11_local0 = f11_arg0:GetDist(TARGET_ENE_0)
@@ -476,6 +518,8 @@ Goal.Act09 = function (f11_arg0, f11_arg1, f11_arg2)
     
 end
 
+
+-- Act10 - 特殊事件攻击(3013, 移动到事件点9622518)
 Goal.Act10 = function (f12_arg0, f12_arg1, f12_arg2)
     f12_arg0:SetEventMoveTarget(9622518)
     f12_arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 10, POINT_EVENT, 2, TARGET_SELF, false, -1)
@@ -486,6 +530,8 @@ Goal.Act10 = function (f12_arg0, f12_arg1, f12_arg2)
     
 end
 
+
+-- Act11 - 上段斩击(3012, 3.5米, 冷却5秒)
 Goal.Act11 = function (f13_arg0, f13_arg1, f13_arg2)
     local f13_local0 = f13_arg0:GetDist(TARGET_ENE_0)
     local f13_local1 = 3.5 - f13_arg0:GetMapHitRadius(TARGET_SELF) + f13_arg0:GetStringIndexedNumber("karaburiDist")
@@ -509,6 +555,8 @@ Goal.Act11 = function (f13_arg0, f13_arg1, f13_arg2)
     
 end
 
+
+-- Act12 - 后跳脱离(5211->3030, SP<40%触发, 定时器10秒)
 Goal.Act12 = function (f14_arg0, f14_arg1, f14_arg2)
     local f14_local0 = f14_arg0:GetDist(TARGET_ENE_0)
     local f14_local1 = 0.5
@@ -523,6 +571,8 @@ Goal.Act12 = function (f14_arg0, f14_arg1, f14_arg2)
     
 end
 
+
+-- Act13 - 事件目标攻击(3011, 设置标志5=1)
 Goal.Act13 = function (f15_arg0, f15_arg1, f15_arg2)
     f15_arg0:SetNumber(5, 1)
     local f15_local0 = 3011
@@ -534,6 +584,8 @@ Goal.Act13 = function (f15_arg0, f15_arg1, f15_arg2)
     
 end
 
+
+-- Act14 - 特殊攻击14(3013, 5米, 冷却5秒, 特效310060)
 Goal.Act14 = function (f16_arg0, f16_arg1, f16_arg2)
     local f16_local0 = f16_arg0:GetDist(TARGET_ENE_0)
     local f16_local1 = 5 - f16_arg0:GetMapHitRadius(TARGET_SELF)
@@ -555,6 +607,8 @@ Goal.Act14 = function (f16_arg0, f16_arg1, f16_arg2)
     
 end
 
+
+-- Act15 - 特殊攻击15(3014, 3.5米, 冷却5秒, 特效310060)
 Goal.Act15 = function (f17_arg0, f17_arg1, f17_arg2)
     local f17_local0 = f17_arg0:GetDist(TARGET_ENE_0)
     local f17_local1 = 3.5 - f17_arg0:GetMapHitRadius(TARGET_SELF)
@@ -576,6 +630,8 @@ Goal.Act15 = function (f17_arg0, f17_arg1, f17_arg2)
     
 end
 
+
+-- Act41 - 战术横移(3.5秒, 智能选择左右方向)
 Goal.Act41 = function (f18_arg0, f18_arg1, f18_arg2)
     local f18_local0 = 3.5
     local f18_local1 = f18_arg0:GetRandam_Int(30, 45)
@@ -599,6 +655,8 @@ Goal.Act41 = function (f18_arg0, f18_arg1, f18_arg2)
     
 end
 
+
+-- Act21 - 转向敌人(3秒, 角度容差45度)
 Goal.Act21 = function (f19_arg0, f19_arg1, f19_arg2)
     local f19_local0 = 3
     local f19_local1 = 45
@@ -612,6 +670,8 @@ Goal.Act21 = function (f19_arg0, f19_arg1, f19_arg2)
     
 end
 
+
+-- Act22 - 左右步(5202/5203, 3秒, 快速侧步规避)
 Goal.Act22 = function (f20_arg0, f20_arg1, f20_arg2)
     local f20_local0 = 3
     local f20_local1 = 0
@@ -634,6 +694,8 @@ Goal.Act22 = function (f20_arg0, f20_arg1, f20_arg2)
     
 end
 
+
+-- Act23 - 侧向移动(1.8秒, 持续侧向规避)
 Goal.Act23 = function (f21_arg0, f21_arg1, f21_arg2)
     local f21_local0 = f21_arg0:GetSp(TARGET_SELF)
     local f21_local1 = 0
@@ -667,6 +729,8 @@ Goal.Act23 = function (f21_arg0, f21_arg1, f21_arg2)
     
 end
 
+
+-- Act24 - 后退步(5201/5211, 3秒, 冷却5秒, 根据距离选择大小)
 Goal.Act24 = function (f22_arg0, f22_arg1, f22_arg2)
     local f22_local0 = f22_arg0:GetDist(TARGET_ENE_0)
     local f22_local1 = 3
@@ -688,6 +752,8 @@ Goal.Act24 = function (f22_arg0, f22_arg1, f22_arg2)
     
 end
 
+
+-- Act25 - 逃离行为(3-5秒, 处决状态时极高权重1000)
 Goal.Act25 = function (f23_arg0, f23_arg1, f23_arg2)
     local f23_local0 = f23_arg0:GetSp(TARGET_SELF)
     local f23_local1 = 0
@@ -712,6 +778,8 @@ Goal.Act25 = function (f23_arg0, f23_arg1, f23_arg2)
     
 end
 
+
+-- Act26 - 短暂等待(0.5秒, 战斗节奏调整)
 Goal.Act26 = function (f24_arg0, f24_arg1, f24_arg2)
     f24_arg1:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
     GetWellSpace_Odds = 0
@@ -719,6 +787,8 @@ Goal.Act26 = function (f24_arg0, f24_arg1, f24_arg2)
     
 end
 
+
+-- Act27 - 环绕移动(3秒, 水中或特殊地形)
 Goal.Act27 = function (f25_arg0, f25_arg1, f25_arg2)
     local f25_local0 = f25_arg0:GetRandam_Int(1, 100)
     if YousumiAct_SubGoal(f25_arg0, f25_arg1, true, 60, 30) == false then
@@ -748,6 +818,8 @@ Goal.Act27 = function (f25_arg0, f25_arg1, f25_arg2)
     
 end
 
+
+-- Act28 - 智能接近(根据距离调整位置, 保持合适战斗距离)
 Goal.Act28 = function (f26_arg0, f26_arg1, f26_arg2)
     local f26_local0 = f26_arg0:GetDist(TARGET_ENE_0)
     local f26_local1 = 1.5
@@ -782,6 +854,13 @@ Goal.Act28 = function (f26_arg0, f26_arg1, f26_arg2)
     
 end
 
+
+-- ====================================================================================================
+-- 中断处理函数
+-- ====================================================================================================
+-- 功能: 处理战斗中的各种中断事件
+-- 中断类型: 梯子动作/特效触发/弹反时机/失去视线/射击冲击等
+-- ====================================================================================================
 Goal.Interrupt = function (f27_arg0, f27_arg1, f27_arg2)
     local f27_local0 = f27_arg1:GetHpRate(TARGET_SELF)
     local f27_local1 = f27_arg1:GetDist(TARGET_ENE_0)
@@ -829,6 +908,8 @@ Goal.Interrupt = function (f27_arg0, f27_arg1, f27_arg2)
     
 end
 
+
+-- 射击反应: 被远程攻击命中时执行承受攻击动画(3100, 0.3秒)
 Goal.ShootReaction = function (f28_arg0, f28_arg1)
     f28_arg1:ClearSubGoal()
     f28_arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
@@ -836,6 +917,14 @@ Goal.ShootReaction = function (f28_arg0, f28_arg1)
     
 end
 
+
+-- ====================================================================================================
+-- 剑戟激活函数（招架反击系统）
+-- ====================================================================================================
+-- 功能: 检测并处理剑戟（弹刀反击）
+-- 剑戟类型: 200200/200205上段, 200201/200206中段, 200210/200215下段, 200211/200216特殊
+-- 距离判断: >=2.7米不反击, <=0.2米后退, 正常距离执行反击
+-- ====================================================================================================
 Goal.Kengeki_Activate = function (f29_arg0, f29_arg1, f29_arg2)
     local f29_local0 = ReturnKengekiSpecialEffect(f29_arg1)
     if f29_local0 == 0 then
@@ -912,30 +1001,40 @@ Goal.Kengeki_Activate = function (f29_arg0, f29_arg1, f29_arg2)
     
 end
 
+
+-- Kengeki01 - 剑戟反击1(3050, 上段攻击反击)
 Goal.Kengeki01 = function (f30_arg0, f30_arg1, f30_arg2)
     f30_arg1:ClearSubGoal()
     f30_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3050, TARGET_ENE_0, 9999, 0, 0)
     
 end
 
+
+-- Kengeki02 - 剑戟反击2(3051, 上段攻击反击)
 Goal.Kengeki02 = function (f31_arg0, f31_arg1, f31_arg2)
     f31_arg1:ClearSubGoal()
     f31_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3051, TARGET_ENE_0, 9999, 0, 0)
     
 end
 
+
+-- Kengeki03 - 剑戟反击3(3055, 中段攻击反击)
 Goal.Kengeki03 = function (f32_arg0, f32_arg1, f32_arg2)
     f32_arg1:ClearSubGoal()
     f32_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3055, TARGET_ENE_0, 9999, 0, 0)
     
 end
 
+
+-- Kengeki04 - 剑戟反击4(3056, 中段攻击反击)
 Goal.Kengeki04 = function (f33_arg0, f33_arg1, f33_arg2)
     f33_arg1:ClearSubGoal()
     f33_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3056, TARGET_ENE_0, 9999, 0, 0)
     
 end
 
+
+-- Kengeki05 - 剑戟反击5(3070, 设置标志0=1)
 Goal.Kengeki05 = function (f34_arg0, f34_arg1, f34_arg2)
     f34_arg0:SetNumber(0, 1)
     f34_arg1:ClearSubGoal()
@@ -943,6 +1042,8 @@ Goal.Kengeki05 = function (f34_arg0, f34_arg1, f34_arg2)
     
 end
 
+
+-- Kengeki06 - 剑戟反击6(3071, 设置标志0=0)
 Goal.Kengeki06 = function (f35_arg0, f35_arg1, f35_arg2)
     f35_arg0:SetNumber(0, 0)
     f35_arg1:ClearSubGoal()
@@ -950,38 +1051,52 @@ Goal.Kengeki06 = function (f35_arg0, f35_arg1, f35_arg2)
     
 end
 
+
+-- Kengeki07 - 剑戟反击7(3075, 下段攻击反击)
 Goal.Kengeki07 = function (f36_arg0, f36_arg1, f36_arg2)
     f36_arg1:ClearSubGoal()
     f36_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3075, TARGET_ENE_0, 9999, 0, 0)
     
 end
 
+
+-- Kengeki08 - 剑戟反击8(3076)
 Goal.Kengeki08 = function (f37_arg0, f37_arg1, f37_arg2)
     f37_arg1:ClearSubGoal()
     f37_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3076, TARGET_ENE_0, 9999, 0, 0)
     
 end
 
+
+-- Kengeki30 - 剑戟后退(5201, 距离过近时后退规避)
 Goal.Kengeki30 = function (f38_arg0, f38_arg1, f38_arg2)
     f38_arg1:ClearSubGoal()
     f38_arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 2, 5201, TARGET_ENE_0, TurnTime, AI_DIR_TYPE_B, 0)
     
 end
 
+
+-- NoAction - 不执行动作(剑戟触发时选择不反击)
 Goal.NoAction = function (f39_arg0, f39_arg1, f39_arg2)
     return -1
     
 end
 
+
+-- 行为后空间调整（当前为空实现，预留扩展接口）
 Goal.ActAfter_AdjustSpace = function (f40_arg0, f40_arg1, f40_arg2)
-    
+
 end
 
+
+-- 更新函数（每帧更新AI状态，使用默认的无子目标更新逻辑）
 Goal.Update = function (f41_arg0, f41_arg1, f41_arg2)
     return Update_Default_NoSubGoal(f41_arg0, f41_arg1, f41_arg2)
     
 end
 
+
+-- 终止函数（目标终止时的清理工作，当前为空实现）
 Goal.Terminate = function (f42_arg0, f42_arg1, f42_arg2)
     
 end
