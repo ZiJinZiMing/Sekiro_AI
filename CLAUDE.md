@@ -1,58 +1,57 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+本文件为 Claude Code (claude.ai/code) 在处理本仓库代码时提供指导。
 
-## Overview
+## 概述
 
-This is a Sekiro AI modding project that processes Lua scripts for game AI behavior modification. The project handles encoding conversion, BOM removal, and building AI mods for integration into the Sekiro game.
+这是一个只狼 AI 模组项目，用于处理 Lua 脚本以修改游戏 AI 行为。该项目负责编码转换、BOM 移除，以及构建 AI 模组以集成到只狼游戏中。
 
-## Core Architecture
+## 核心架构
 
-The project consists of three main Python scripts that work together to process Sekiro AI script files:
+该项目由三个主要的 Python 脚本组成，它们协同工作以处理只狼 AI 脚本文件：
 
-1. **BuildAIMod.py** - Main build script that processes multiple map directories, converts Lua files to Shift-JIS encoding, and uses Yabber to repack them into `.luabnd.dcx` files for the game
-2. **encode_to_shiftjis.py** - Standalone utility for encoding conversion of files from UTF-8 to Shift-JIS
-3. **remove_bom.py** - Utility for removing BOM (Byte Order Mark) from files across multiple directories
+1. **BuildAIMod.py** - 主构建脚本，处理多个地图目录，将 Lua 文件转换为 Shift-JIS 编码，并使用 Yabber 将它们重新打包为 `.luabnd.dcx` 文件供游戏使用
+2. **encode_to_shiftjis.py** - 独立的编码转换工具，将文件从 UTF-8 转换为 Shift-JIS
+3. **remove_bom.py** - 用于从多个目录中的文件移除 BOM（字节顺序标记）的工具
 
-## Directory Structure
+## 目录结构
 
-- **Map-specific directories**: Named like `m##_##_##_##-luabnd-dcx` (e.g., `m11_01_00_00-luabnd-dcx`) - contain unpacked Lua AI scripts for specific game areas
-- **aicommon-luabnd-dcx** - Common AI scripts shared across areas
-- **output/** - Temporary directory for processed files during build
-- **Yabber/** - Contains the Yabber.exe tool for packing/unpacking FromSoftware BND files
-- **AIAttackParam.xml** - Parameter definition file for AI attack behaviors (bilingual Japanese/Chinese comments)
+- **地图特定目录**：命名格式为 `m##_##_##_##-luabnd-dcx`（例如 `m11_01_00_00-luabnd-dcx`）- 包含特定游戏区域的已解包 Lua AI 脚本
+- **aicommon-luabnd-dcx** - 跨区域共享的通用 AI 脚本
+- **output/** - 构建过程中处理文件的临时目录
+- **Yabber/** - 包含用于打包/解包 FromSoftware BND 文件的 Yabber.exe 工具
 
-## Common Commands
+## 常用命令
 
-### Build AI Mod
+### 构建 AI 模组
 ```bash
 python BuildAIMod.py
 ```
-This processes all configured map directories, converts Lua files to Shift-JIS encoding, removes BOM markers, and repacks them using Yabber. Built files are deployed to the Sekiro mods directory.
+此命令处理所有已配置的地图目录，将 Lua 文件转换为 Shift-JIS 编码，移除 BOM 标记，并使用 Yabber 重新打包。构建的文件会自动部署到只狼模组目录。
 
-### Convert Files to Shift-JIS
+### 将文件转换为 Shift-JIS
 ```bash
 python encode_to_shiftjis.py <directory> [--output output_dir] [--extensions .lua,.txt]
 ```
 
-### Remove BOM from Files
+### 从文件中移除 BOM
 ```bash
 python remove_bom.py [--directories dir1 dir2] [--extensions .lua,.txt]
 ```
-If no directories specified, processes all default map directories defined in the script.
+如果未指定目录，则处理脚本中定义的所有默认地图目录。
 
-## Key Technical Details
+## 关键技术细节
 
-- **Target Encoding**: All Lua files must be in Shift-JIS encoding for proper game compatibility
-- **BOM Handling**: UTF-8 BOM markers are automatically detected and removed during processing
-- **Yabber Integration**: Uses Yabber.exe to pack processed Lua directories back into `.luabnd.dcx` format
-- **Deployment Path**: Built mods are automatically deployed to `D:/SteamLibrary/steamapps/common/Sekiro/mods/script/`
+- **目标编码**：所有 Lua 文件必须使用 Shift-JIS 编码以确保游戏兼容性
+- **BOM 处理**：UTF-8 BOM 标记在处理过程中会被自动检测并移除
+- **Yabber 集成**：使用 Yabber.exe 将处理后的 Lua 目录重新打包为 `.luabnd.dcx` 格式
+- **部署路径**：构建的模组会自动部署到 `D:/SteamLibrary/steamapps/common/Sekiro/mods/script/`
 
-## Map Directory Configuration
+## 地图目录配置
 
-The `BuildAIMod.py` script processes these map areas by default:
+`BuildAIMod.py` 脚本默认处理以下地图区域：
 - aicommon, m10_00_00_00, m11_00_00_00, m11_01_00_00, m11_02_00_00
 - m12_00_00_00, m13_00_00_00, m15_00_00_00, m17_00_00_00, m20_00_00_00
 - m25_00_00_00, m25_01_00_00
 
-Individual maps can be processed by modifying the `names` array in BuildAIMod.py.
+可以通过修改 BuildAIMod.py 中的 `names` 数组来处理单独的地图。
