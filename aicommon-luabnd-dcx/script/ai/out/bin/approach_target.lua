@@ -87,9 +87,9 @@ function ApproachTarget_Activate(f1_arg0, f1_arg1)
         f1_local6,   -- 移动方向类型
         f1_local2,   -- 到达距离
         f1_local3,   -- 旋回目标
-        f1_local4,   -- 移动模式
-        f1_local6,   -- 方向参数
-        f1_local7,   -- 方向偏移
+        f1_local4,   -- 步行标志
+        f1_local6,   -- 方向参数?
+        f1_local7,   -- 方向偏移?
         f1_local10,  -- 路径选择
         f1_local5,   -- 防御动作
         f1_local8,   -- 移动模式扩展

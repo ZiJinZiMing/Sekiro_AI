@@ -152,9 +152,9 @@ Goal.Activate = function (f2_arg0, f2_arg1, f2_arg2)
         f2_local0[48] = 0    -- 禁用Act48（对策技能限制） (Disable Act48 - Counter skill restricted)
     end
     -- ========== 空间检查系统 (Space Check System) ==========
-    -- 检查左右斜后方空间（±45°，2米）(Check diagonal rear space (±45°, 2m))
+    -- 检查左右斜前方空间（±45°，2米）(Check diagonal front space (±45°, 2m))
     if SpaceCheck(f2_arg1, f2_arg2, 45, 2) == false and SpaceCheck(f2_arg1, f2_arg2, -45, 2) == false then
-        f2_local0[22] = 0    -- 禁用Act22（斜后移动攻击） (Disable Act22 - Diagonal rear movement attack)
+        f2_local0[22] = 0    -- 禁用Act22（斜向闪避步） (Disable Act22 - Diagonal dodge step)
     end
     -- 检查左右侧方空间（±90°，1米）(Check left/right side space (±90°, 1m))
     if SpaceCheck(f2_arg1, f2_arg2, 90, 1) == false and SpaceCheck(f2_arg1, f2_arg2, -90, 1) == false then
@@ -600,19 +600,19 @@ Goal.Act22 = function (f15_arg0, f15_arg1, f15_arg2)
     local f15_local1 = 0                                                 -- 闪避参数 (Dodge parameter)
 
     -- 空间检测与闪避方向决策 (Space detection and dodge direction decision)
-    if SpaceCheck(f15_arg0, f15_arg1, -45, 2) == true then              -- 检查左后方45°空间 (Check left rear 45° space)
-        if SpaceCheck(f15_arg0, f15_arg1, 45, 2) == true then           -- 检查右后方45°空间 (Check right rear 45° space)
-            -- 双侧都有空间，根据玩家位置选择闪避方向 (Both sides have space, choose dodge direction based on player position)
+    if SpaceCheck(f15_arg0, f15_arg1, -45, 2) == true then              -- 检查左斜前方45°空间 (Check left-front 45° space)
+        if SpaceCheck(f15_arg0, f15_arg1, 45, 2) == true then           -- 检查右斜前方45°空间 (Check right-front 45° space)
+            -- 双侧斜前方都有空间，根据玩家位置选择闪避方向 (Both diagonal fronts have space, choose dodge direction based on player position)
             if f15_arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
                 f15_arg1:AddSubGoal(GOAL_COMMON_SpinStep, f15_local0, 5202, TARGET_ENE_0, f15_local1, AI_DIR_TYPE_L, 0)  -- 向左闪避 (Dodge left)
             else
                 f15_arg1:AddSubGoal(GOAL_COMMON_SpinStep, f15_local0, 5203, TARGET_ENE_0, f15_local1, AI_DIR_TYPE_R, 0)  -- 向右闪避 (Dodge right)
             end
         else
-            -- 只有左侧有空间 (Only left side has space)
+            -- 只有左斜前方有空间 (Only left-front has space)
             f15_arg1:AddSubGoal(GOAL_COMMON_SpinStep, f15_local0, 5202, TARGET_ENE_0, f15_local1, AI_DIR_TYPE_L, 0)      -- 向左闪避 (Dodge left)
         end
-    elseif SpaceCheck(f15_arg0, f15_arg1, 45, 2) == true then           -- 只有右侧有空间 (Only right side has space)
+    elseif SpaceCheck(f15_arg0, f15_arg1, 45, 2) == true then           -- 只有右斜前方有空间 (Only right-front has space)
         f15_arg1:AddSubGoal(GOAL_COMMON_SpinStep, f15_local0, 5203, TARGET_ENE_0, f15_local1, AI_DIR_TYPE_R, 0)          -- 向右闪避 (Dodge right)
     else
         -- 两侧都没有空间，不执行闪避 (No space on either side, don't execute dodge)
@@ -1449,19 +1449,19 @@ Goal.Kengeki20 = function (f44_arg0, f44_arg1, f44_arg2)
 
     -- 复杂的空间检查逻辑 (Complex spatial check logic)
     if SpaceCheck(f44_arg0, f44_arg1, -135, 1) == true then
-        -- 检查-135度方向空间 (Check -135 degree direction space)
+        -- 检查左斜后方（-135°）空间 (Check left-rear (-135°) space)
         if SpaceCheck(f44_arg0, f44_arg1, 135, 1) == true then
-            -- 检查135度方向空间 (Check 135 degree direction space)
+            -- 检查右斜后方（135°）空间 (Check right-rear (135°) space)
             if f44_arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
                 f44_local2 = 1  -- 玩家在右侧，向右移动 (Player on right, move right)
             else
                 f44_local2 = 0  -- 玩家在左侧，向左移动 (Player on left, move left)
             end
         else
-            f44_local2 = 0      -- 135度方向受阻，向左移动 (135 degree blocked, move left)
+            f44_local2 = 0      -- 右斜后方（135°）受阻，向左移动 (Right-rear (135°) blocked, move left)
         end
     elseif SpaceCheck(f44_arg0, f44_arg1, 90, 1) == true then
-        -- 90度方向有空间，向右移动 (90 degree space available, move right)
+        -- 右侧（90°）有空间，向右移动 (Right side (90°) space available, move right)
         f44_local2 = 1
     else
         -- 无可用空间时的默认处理 (Default handling when no space available)

@@ -274,10 +274,10 @@ Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
     local f3_local13 = f3_arg0:GetRandam_Int(1, 100)
     f3_arg1:AddSubGoal(GOAL_COMMON_ComboTunable_SuccessAngle180, 10, f3_local5, TARGET_ENE_0, 999, 0, 0, 0, 0)
     f3_arg1:AddSubGoal(GOAL_COMMON_ComboRepeat_SuccessAngle180, 10, f3_local6, TARGET_ENE_0, 999, 0, 0, 0, 0)
-    f3_arg0:SetNumber(5, 1)
-    GetWellSpace_Odds = 0
+
+    GetWellSpace_Odds = 100
     return GetWellSpace_Odds
-    
+
 end
 
 Goal.Act02 = function (f4_arg0, f4_arg1, f4_arg2)

@@ -7,19 +7,52 @@
 --require("io")
 --require("os")
 
+--GOAL_COMMON_CommonAttack:[1]ezStateId,[2]target,[3]successDistance,[4]successAngle,[5]turnTime,[6]turnFaceAngle,[7]isComboEnabled,[8]isTurn,[9]isGuardBreakAttack,[10]isNonspinning,[11]angleUp,[12]angleDown,[13]isCancelAttack
+
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 0, "ezStateId", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 1, "target", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 2, "successDistance", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 3, "successAngle", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 4, "turnTime", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 5, "turnFaceAngle", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 6, "isComboEnabled", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 7, "isTurn", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 8, "isGuardBreakAttack", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 9, "isNonspinning", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 10, "angleUp", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 11, "angleDown", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_CommonAttack, 12, "isCancelAttack", 0)
+
+------------------------------------------------------------------------------
+
+--GOAL_COMMON_SidewayMove:moveTarget,isRight,stopAngle,isWalk,successOnEnd,guardStateId,guardEndType
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_SidewayMove, 0, "moveTarget", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_SidewayMove, 1, "isRight", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_SidewayMove, 2, "stopAngle", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_SidewayMove, 3, "isWalk", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_SidewayMove, 4, "successOnEnd", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_SidewayMove, 5, "guardStateId", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_SidewayMove, 6, "guardEndType", 0)
+
+
+
+
+
+
+
 -- 定义一个函数来记录日志
 function log( message)
 
+    local time = os.date("%H-%M-%S")
+
     if not logFile then
-        logFile = io.open("D:\\Sekiro\\Sekiro.log", "w")
+        logFile = io.open(string.format("D:\\Sekiro\\Log\\%s.log",time), "w")
     end
 
     -- 获取当前时间
-    local time = os.date("%H:%M:%S")
     -- 写入日志文件
-    logFile:write(string.format("[%s] [%s] %s\n", time, "INFO", message))
+    logFile:write(string.format("[%s] [INFO] %s\n", time, message))
     logFile:flush()  -- 确保立即写入到文件
-
 
 end
 
@@ -268,6 +301,7 @@ end
 -- 功能：执行基础的连击攻击，包含多种连击路线 (Function: Execute basic combo attack with multiple combo routes)
 -- 特点：适用于3-5米距离，随机选择不同连击路线 (Features: Suitable for 3-5m distance, randomly choose different combo routes)
 Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
+
     -- 计算接近距离参数（考虑角色体型）(Calculate approach distance parameters considering character size)
     local f3_local0 = 3.6 - f3_arg0:GetMapHitRadius(TARGET_SELF)        -- 最佳攻击距离 (Optimal attack distance)
     local f3_local1 = 3.6 - f3_arg0:GetMapHitRadius(TARGET_SELF) + 2    -- 中等距离范围 (Medium distance range)
@@ -304,6 +338,10 @@ Goal.Act01 = function (f3_arg0, f3_arg1, f3_arg2)
         f3_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3025, TARGET_ENE_0, 9999, 0, 0)      -- 连击终结 (Combo finisher)
     end
 
+
+
+    --f3_arg1:AddSubGoal(GOAL_COMMON_Wait, 5, TARGET_SELF, 0, 0, 0)
+
     GetWellSpace_Odds = 100  -- 设置空间优化概率 (Set space optimization probability)
     return GetWellSpace_Odds
 
@@ -317,13 +355,17 @@ Goal.Act02 = function (f4_arg0, f4_arg1, f4_arg2)
     local f4_local0 = 3.2 - f4_arg0:GetMapHitRadius(TARGET_SELF)        -- 最佳攻击距离 (Optimal attack distance)
     local f4_local1 = 3.2 - f4_arg0:GetMapHitRadius(TARGET_SELF) + 2    -- 中等距离范围 (Medium distance range)
     local f4_local2 = 3.2 - f4_arg0:GetMapHitRadius(TARGET_SELF) + 3    -- 最大距离范围 (Maximum distance range)
-    local f4_local3 = 100                                               -- 接近权重 (Approach weight)
+    local f4_local3 = 100                                               -- 在步行判定范围内选择奔跑的概率
     local f4_local4 = 0                                                 -- 方向偏移 (Direction offset)
     local f4_local5 = 2.5                                               -- 移动速度倍率 (Movement speed multiplier)
     local f4_local6 = 3                                                 -- 转身速度 (Turn speed)
 
     -- 执行灵活接近 (Execute flexible approach)
-    Approach_Act_Flex(f4_arg0, f4_arg1, f4_local0, f4_local1, f4_local2, f4_local3, f4_local4, f4_local5, f4_local6)
+    Approach_Act_Flex(f4_arg0, f4_arg1, f4_local0 --[[目标距离]],
+            f4_local1 --[[行走判定最小距离]],
+            f4_local2--[[行走判定最大距离]],
+            f4_local3--[[在步行判定范围内选择奔跑的概率]],
+            f4_local4--[[招架执行概率]], f4_local5--[[步行模式的Goal生命周期]], f4_local6)--[[奔跑模式的Goal生命周期]]
 
     local f4_local7 = 0                                                 -- 上攻击角度 (Upper attack angle)
     local f4_local8 = 0                                                 -- 下攻击角度 (Lower attack angle)
@@ -350,7 +392,6 @@ Goal.Act03 = function (f5_arg0, f5_arg1, f5_arg2)
     local f5_local6 = 3                                                 -- 转身速度 (Turn speed)
 
     -- 执行灵活接近 (Execute flexible approach)
-    Approach_Act_Flex(f5_arg0, f5_arg1, f5_local0, f5_local1, f5_local2, f5_local3, f5_local4, f5_local5, f5_local6)
 
     local f5_local7 = 0                                                 -- 上攻击角度 (Upper attack angle)
     local f5_local8 = 0                                                 -- 下攻击角度 (Lower attack angle)
@@ -359,6 +400,9 @@ Goal.Act03 = function (f5_arg0, f5_arg1, f5_arg2)
 
     -- 在攻击前设置后方观察区域，监控玩家是否绕到背后 (Set rear observation area before attack to monitor if player circles behind)
     f5_arg0:AddObserveArea(0, TARGET_SELF, TARGET_ENE_0, AI_DIR_TYPE_B, f5_local9, f5_local10)
+
+    Approach_Act_Flex(f5_arg0, f5_arg1, f5_local0, f5_local1, f5_local2, f5_local3, f5_local4, f5_local5, f5_local6)
+
 
     -- 执行快速攻击（动画3005）(Execute quick attack - animation 3005)
     f5_arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3005, TARGET_ENE_0, 9999, f5_local7, f5_local8, 0, 0)
@@ -473,7 +517,14 @@ Goal.Act10 = function (f9_arg0, f9_arg1, f9_arg2)
     local f9_local6 = 10                                                -- 非常高的转身速度 (Very high turn speed)
 
     -- 执行高速冲刺接近 (Execute high-speed charge approach)
-    Approach_Act_Flex(f9_arg0, f9_arg1, f9_local0, f9_local1, f9_local2, f9_local3, f9_local4, f9_local5, f9_local6)
+    Approach_Act_Flex(f9_arg0, f9_arg1,
+            f9_local0, -- 目标接近距离（米）
+            f9_local1, --行走判定最小距离（米）
+            f9_local2, --行走判定最大距离（米）
+            f9_local3, --在判定范围内选择行走的概率（1-100）
+            f9_local4, --等待动画执行概率（1-100），0表示不等待
+            f9_local5, --行走模式的Goal生命周期（秒），默认3秒
+            f9_local6)--奔跑模式的Goal生命周期（秒），默认8秒
 
     local f9_local7 = 0                                                 -- 上攻击角度 (Upper attack angle)
     local f9_local8 = 0                                                 -- 下攻击角度 (Lower attack angle)
@@ -743,11 +794,9 @@ end
 -- 特点：用于时机调整和节奏控制 (Features: Used for timing adjustment and rhythm control)
 -- 应用场景：战斗间隙中的观察等待 (Application: Observation waiting during combat intervals)
 Goal.Act26 = function (f19_arg0, f19_arg1, f19_arg2)
-    -- 执行0.5秒等待 (Execute 0.5-second wait)
     f19_arg1:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
-    GetWellSpace_Odds = 0    -- 不需要空间优化 (No space optimization needed)
+    GetWellSpace_Odds = 0
     return GetWellSpace_Odds
-    
 end
 
 -- ========== ACT27: 自适应距离调整 (ACT27: Adaptive Distance Adjustment) ==========
@@ -973,82 +1022,229 @@ Goal.Interrupt = function (f26_arg0, f26_arg1, f26_arg2)
     return false  -- 没有中断处理时返回false (Return false when no interrupt handling)
 
 end
-
--- ========== 招架反应系统 (Parry Reaction System) ==========
--- 功能：处理玩家攻击时的招架反应，根据不同条件选择反击方式 (Function: Handle parry reactions to player attacks, choose counter-attack methods based on different conditions)
--- 特点：复杂的条件判断，包括距离、特殊效果、连续防御次数等因素 (Features: Complex condition checks including distance, special effects, consecutive guard count, etc.)
+-- ============================================================================
+-- 【弹反反击系统】Goal.Parry - 玩家攻击应对机制
+-- ============================================================================
+-- 职责：
+--   当玩家发动攻击时，BOSS进行弹反（Parry/格挡反击）判定和执行
+--   根据玩家攻击类型、距离、BOSS状态选择最优的防御/反击策略
+--
+-- 参数：
+--   f27_arg0 - BOSS角色对象（被攻击方）
+--   f27_arg1 - 玩家对象（攻击方）
+--   f27_arg2 - 反击权重参数（默认50，用于体干反击概率）
+--   f27_arg3 - 中距闪避概率参数（默认0，范围[0,100]）
+--
+-- 返回值：
+--   TRUE  - 成功执行弹反反击，并触发对应防御/反击动画
+--   FALSE - 不满足弹反条件，放弃本次弹反
+--
+-- 反击动画编码表：
+--   3100 - 标准格挡反击（体干足够时的标准反击）
+--   3101 - 格挡反击（被连续攻击击中时的反击）
+--   3102 - 特殊反击（处于间隙状态3710040时的致命反击）
+--   3103 - 连续攻击应对（应对玩家rush连续攻击）
+--   5201 - 后方旋转闪避（大幅躲避，通常用于无法防御攻击）
+--   5211 - 侧向旋转闪避（快速规避，用于中距反应）
+--
+-- BOSS弹反等级系统（由SpEffect 221000/221001控制）：
+--   等级A (221000) - 掌控状态：绝对掌控，气势高涨
+--                   └─> 突刺攻击：100%反击（一定会反击）
+--                   └─> 普通攻击：主动反击（显得攻防兼备）
+--                   └─> 体感：BOSS压制力强，玩家容易被反杀
+--
+--   等级B (221001) - 防守状态：被动应对，相对保守
+--                   └─> 突刺攻击：50%反击（概率反击或闪避）
+--                   └─> 普通攻击：根据体干值判定反击概率
+--                   └─> 体感：BOSS在防守，反击机会较多
+--
+--   等级2 (默认)  - 一般战斗：无法主动控制局面
+--                 └─> 突刺攻击：拒绝反击（只能闪避或承受）
+--                 └─> 普通攻击：消极应对（无法主动反击）
+--                 └─> 体感：BOSS显得较为被动
+--
+-- 关键SpEffect定义：
+--   109970 - 玩家突刺攻击（敵AI参照_突き）
+--            危险性最高，触发BOSS的特殊防御策略
+--            案例：剑圣一心的"危"字技、忍杀前置刺击等
+--
+--   110450/110501/110500 - 玩家忍者刺（敵AI参照_忍び刺し）
+--            触发时直接拒绝弹反，强制使用闪避
+--            无法反击，只能躲避
+--
+--   109980 - 无法防御的攻击（敵AI参照_ガード/ジャスガ不可攻撃）
+--            当玩家使用此SpEffect属性的攻击时，BOSS无法格挡反击
+--            必须通过闪避（5201）来躲避，否则直接承受伤害
+--
+--   3710040 - 间隙状态（[NTC]ライバル_隙）
+--             BOSS处于极度脆弱的间隙状态
+--             此时玩家可触发特殊致命反击（3102）
+--             通常出现在BOSS特殊技能后的硬直期
+--
+-- ============================================================================
 Goal.Parry = function (f27_arg0, f27_arg1, f27_arg2, f27_arg3)
     --log("7100 Parry")
 
-    local f27_local0 = f27_arg0:GetDist(TARGET_ENE_0)
-    local f27_local1 = GetDist_Parry(f27_arg0)
-    local f27_local2 = f27_arg0:GetRandam_Int(1, 100)
-    local f27_local3 = f27_arg0:GetRandam_Int(1, 100)
-    local f27_local4 = f27_arg0:GetRandam_Int(1, 100)
-    local f27_local5 = f27_arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)--突刺攻击
+    -- ========== 【初始化阶段】读取战斗环境参数 ==========
+    local f27_local0 = f27_arg0:GetDist(TARGET_ENE_0)                       -- 当前与玩家的距离
+    local f27_local1 = GetDist_Parry(f27_arg0)                              -- 弹反有效范围距离（弹反触发的最大距离）
+    local f27_local2 = f27_arg0:GetRandam_Int(1, 100)                       -- 随机数1 (1-100，用于反击动画选择 50%概率阈值)
+    local f27_local3 = f27_arg0:GetRandam_Int(1, 100)                       -- 随机数2 (1-100，用于反击概率判定 与体干值+权重比较)
+    local f27_local4 = f27_arg0:GetRandam_Int(1, 100)                       -- 随机数3 (1-100，用于中距闪避判定 与参数f27_arg3比较)
+
+    -- ========== 【玩家攻击类型检测】SpEffect分类 ==========
+    -- SpEffect 109970：敵AI参照_突き（突刺攻击）
+    -- 　　含义：玩家正在使用突刺系攻击（如剑圣一心的"危"字技、忍杀前置刺击）
+    -- 　　特点：极高危险性，需要特殊处理（反击率低/闪避优先）
+    -- 　　战术：BOSS在等级A状态下100%反击，等级B状态下50%反击，等级2拒绝反击
+    local f27_local5 = f27_arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)    -- TRUE=玩家发动突刺，FALSE=普通攻击
+
+    -- SpEffect COMMON_SP_EFFECT_PC_ATTACK_RUSH：玩家连续冲刺攻击
+    -- 　　含义：玩家正在进行连续快速攻击或冲刺斩
+    -- 　　特点：攻击节奏快，高频率，难以防守，连续伤害高
+    -- 　　战术：BOSS应该立即反击（动画3103），不允许被持续压制
     local f27_local6 = f27_arg0:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_ATTACK_RUSH)
-    local f27_local7 = 2
+
+    -- ========== 【BOSS弹反能力等级】Parry Interrupt Rank ==========
+    -- 这个等级直接影响BOSS对玩家攻击的应对方式（等级越高，反击越积极）
+    -- SpEffect 221000：Parry Interrupt Rank A（弹反中断等级A）
+    -- 　　含义：BOSS处于"绝对掌控状态"，气势高涨
+    -- 　　行为：对突刺100%发动反击，对普通攻击主动反击，显得攻防兼备
+    -- 　　体感：BOSS压制力强，玩家容易被反杀
+    --
+    -- SpEffect 221001：Parry Interrupt Rank B（弹反中断等级B）
+    -- 　　含义：BOSS处于"防守反击状态"，相对被动
+    -- 　　行为：对突刺50%反击（或闪避），对普通攻击根据体干值判定
+    -- 　　体感：BOSS在防守，反击机会较多，玩家可以趁机进攻
+    --
+    -- 等级2（默认值）：无特殊能力
+    -- 　　含义：BOSS处于"一般战斗状态"，无法主动控制局面
+    -- 　　行为：对突刺直接拒绝反击，只能闪避或承受，对普通攻击消极应对
+    -- 　　体感：BOSS显得较为被动，防守能力较弱
+    local f27_local7 = 2                                                    -- 初始值=2（无特殊弹反能力）
     if f27_arg0:HasSpecialEffectId(TARGET_SELF, 221000) then
-        f27_local7 = 0
+        f27_local7 = 0                                                      -- 等级A：绝对掌控状态
     elseif f27_arg0:HasSpecialEffectId(TARGET_SELF, 221001) then
-        f27_local7 = 1
+        f27_local7 = 1                                                      -- 等级B：防守反击状态
     end
+
+    -- ========== 【弹反冷却检查】防止频繁反击 ==========
+    -- AI_TIMER_PARRY_INTERVAL：弹反间隔计时器（通常设置为0.1秒）
+    -- 　　作用：防止BOSS在极短时间内连续弹反多次
+    -- 　　意义：给玩家留出合理的反应时间，避免BOSS显得过于无敌
     if f27_arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
-        log("7100 Parry false:AI_TIMER_PARRY_INTERVAL")
+        log("7100 Parry false:AI_TIMER_PARRY_INTERVAL冷却中，本帧拒绝弹反")
 
         return false
     end
+
+    -- ========== 【忍者刺检测】特殊忍具技能拒绝 ==========
+    -- SpEffect 110450：敵AI参照_見えない居合連撃1（隐形开始连击1）
+    -- SpEffect 110501：敵AI参照_忍び刺し（忍者刺）
+    -- SpEffect 110500：敵AI参照_溜め忍び刺し（积蓄忍者刺）
+    -- 　　含义：玩家发动的是特殊忍者刺击技能（具有特殊属性）
+    -- 　　特点：这些攻击具有特殊无敌属性，无法通过普通弹反防御
+    -- 　　战术：BOSS必须闪避，否则会被打破格挡或直接伤害
+    -- 　　结果：直接返回FALSE，拒绝弹反，由后续防御系统处理
     if f27_arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or f27_arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or f27_arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
 
-        log("7100 Parry false: f27_arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or f27_arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or f27_arg0:HasSpecialEffectId(TARGET_ENE_0, 110500)")
+        log("7100 Parry false: 检测到忍者刺击（110450/110501/110500），无法弹反，拒绝")
 
         return false
     end
-    f27_arg0:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)
+
+    -- ========== 【更新弹反冷却】为下次弹反预留冷却时间 ==========
+    f27_arg0:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)                         -- 设置0.1秒冷却（下次可以弹反的时刻）
+
+    -- ========== 【参数默认值处理】初始化传入参数 ==========
     if f27_arg2 == nil then
-        f27_arg2 = 50
+        f27_arg2 = 50                                                       -- 默认反击权重=50（用于体干反击概率判定）
     end
     if f27_arg3 == nil then
-        f27_arg3 = 0
+        f27_arg3 = 0                                                        -- 默认中距闪避概率=0（范围0-100，0表示无闪避）
     end
+
+    -- ========== 【近距离弹反处理】距离在弹反范围内 ==========
+    -- 判定条件：玩家在BOSS前方90°范围内，且在弹反有效距离内（180°, f27_local1）
+    -- 　　含义：玩家已经逼近，处于BOSS的正面且在弹反触发距离内
     if f27_arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) and f27_arg0:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 180, f27_local1) then
+
+        -- ========== 【分支1】间隙状态处理（优先级最高） ==========
+        -- SpEffect 3710040：[NTC]ライバル_隙（间隙状态）
+        -- 　　含义：BOSS处于极度脆弱的间隙状态（特殊技能后的硬直）
+        -- 　　战术：玩家可以触发特殊致命反击（3102），造成巨大伤害
+        -- 　　反应：BOSS应该发动特殊反击动画3102，同时设置长冷却(60秒)防止连续触发
         if f27_arg0:HasSpecialEffectId(TARGET_SELF, 3710040) then
             f27_arg1:ClearSubGoal()
             f27_arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3102, TARGET_ENE_0, 9999, 0)
-            f27_arg0:SetTimer(5, 60)
-            log("7100 Parry true:f27_arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) and f27_arg0:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 180, f27_local1)")
+            f27_arg0:SetTimer(5, 60)                                         -- 设置计时器5为60秒，防止间隙状态被频繁触发
+            log("7100 Parry true:间隙状态触发，执行特殊反击3102")
 
             return true
+
+            -- ========== 【分支2】连续攻击应对（Rush攻击） ==========
+            -- SpEffect COMMON_SP_EFFECT_PC_ATTACK_RUSH：玩家连续冲刺攻击
+            -- 　　含义：玩家在进行高频率连续攻击，BOSS必须立即反击
+            -- 　　战术：发动反击动画3103（专门应对连续攻击的反击）
+            -- 　　意义：打破玩家的攻击节奏，防止被持续压制
         elseif f27_local6 then
             f27_arg1:ClearSubGoal()
             f27_arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3103, TARGET_ENE_0, 9999, 0)
-            log("7100 Parry true: f27_local6")
+            log("7100 Parry true: 检测到连续攻击，执行应对反击3103")
 
             return true
+
+            -- ========== 【分支3】突刺攻击应对（最复杂的逻辑） ==========
+            -- SpEffect 109970：玩家突刺攻击
+            -- 　　这是最危险的攻击类型，需要根据BOSS等级分别处理
         elseif f27_local5 then
+            -- 【子判定1】玩家是否正在防御+没有剑击特效
+            -- 　　含义：如果玩家正在防御且BOSS没有剑击特效（特殊能力）
+            -- 　　结果：BOSS无法进行有效反击，拒绝本次弹反
             if f27_arg0:IsTargetGuard(TARGET_SELF) and ReturnKengekiSpecialEffect(f27_arg0) == false then
-                log("7100 Parry false: f27_arg0:IsTargetGuard(TARGET_SELF) and ReturnKengekiSpecialEffect(f27_arg0) == false")
+                log("7100 Parry false: 玩家防御中且BOSS无剑击特效，无法反击")
 
                 return false
+
+                -- 【子判定2】BOSS处于等级2状态（一般战斗）
+                -- 　　含义：BOSS无特殊能力，对突刺攻击必须拒绝反击
+                -- 　　战术：只能闪避或承受伤害，由后续防御系统处理
             elseif f27_local7 == 2 then
-                log("7100 Parry false: f27_local7 == 2")
+                log("7100 Parry false: BOSS处于等级2（一般战斗），对突刺拒绝反击")
 
                 return false
+
+                -- 【子判定3】BOSS处于等级B状态（防守反击）
+                -- 　　含义：BOSS被动应对，对突刺只有50%反击概率
+                -- 　　逻辑：f27_local2 <= 50 时发动侧向闪避（5211）
+                -- 　　意义：给玩家一定的反应机会，显得BOSS也在防守
             elseif f27_local7 == 1 then
-                if f27_local2 <= 50 then
+                if f27_local2 <= 50 then                                     -- 50%概率
                     f27_arg1:ClearSubGoal()
                     f27_arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5211, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
-                    log("7100 Parry true: f27_local2 <= 50")
+                    log("7100 Parry true: BOSS等级B，50%概率闪避突刺，执行侧向闪避5211")
 
                     return true
                 end
-            elseif f27_local7 == 0 and f27_local2 <= 100 then
+                -- 如果概率失败，继续往下判定（可能返回false）
+
+                -- 【子判定4】BOSS处于等级A状态（掌控状态）
+                -- 　　含义：BOSS绝对掌控，对所有突刺100%反击
+                -- 　　逻辑：f27_local2 <= 100 始终成立（概率100%）
+                -- 　　反击：发动反击动画3101（主动反击）
+            elseif f27_local7 == 0 and f27_local2 <= 100 then              -- 100%概率
                 f27_arg1:ClearSubGoal()
                 f27_arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
-                log("7100 Parry true: f27_local7 == 0 and f27_local2 <= 100")
+                log("7100 Parry true: BOSS等级A，100%反击突刺，执行主动反击3101")
 
                 return true
             end
+
+            -- ========== 【分支4】无法防御的攻击处理 ==========
+            -- SpEffect 109980：敵AI参照_ガード/ジャスガ不可攻撃（无法防御的攻击）
+            -- 　　含义：玩家使用了特殊无敌攻击，BOSS无法通过格挡防御
+            -- 　　战术：必须闪避，发动后方旋转闪避（5201）
+            -- 　　结果：可能不完全躲避，但至少有反应
         elseif f27_arg0:HasSpecialEffectId(TARGET_ENE_0, 109980) then
             --
             --[[
@@ -1060,42 +1256,69 @@ Goal.Parry = function (f27_arg0, f27_arg1, f27_arg2, f27_arg3)
             f27_arg1:ClearSubGoal()
             f27_arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
 
-            log("7100 Parry true: f27_arg0:HasSpecialEffectId(TARGET_ENE_0, 109980)")
+            log("7100 Parry true: 检测到无法防御的攻击109980，执行后方旋转闪避5201")
 
             return true
+
+            -- ========== 【分支5】体干反击判定 ==========
+            -- 逻辑：随机数3 <= 体干连续计数 * 权重参数
+            -- 　　含义：根据BOSS当前被攻击的连续次数（体干条）来判定是否反击
+            -- 　　公式：f27_local3(随机数1-100) <= Get_ConsecutiveGuardCount(体干计数) * f27_arg2(权重)
+            -- 　　含义：体干计数越高（被连续攻击越多），越容易触发反击
+            -- 　　意义：当BOSS被持续压制时，会积累反击力量，最后一次反击打破局面
         elseif f27_local3 <= Get_ConsecutiveGuardCount(f27_arg0) * f27_arg2 then
             f27_arg1:ClearSubGoal()
             f27_arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
 
-            log("7100 Parry true: f27_local3 <= Get_ConsecutiveGuardCount(f27_arg0) * f27_arg2")
+            log("7100 Parry true: 体干反击触发，体干值*权重充足，执行反击3101")
 
             return true
+
+            -- ========== 【分支6】默认反击（兜底） ==========
+            -- 条件：所有特殊条件都不满足，但BOSS仍在弹反范围内
+            -- 　　含义：玩家在近距离发动了普通攻击，BOSS应该格挡反击
+            -- 　　反击：发动标准反击动画3100（最基础的防御反击）
         else
             f27_arg1:ClearSubGoal()
             f27_arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
 
-            log("7100 Parry true: f27_arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)")
+            log("7100 Parry true: 默认情况，执行标准格挡反击3100")
 
             return true
         end
+
+        -- ========== 【中距离弹反处理】超出弹反范围但仍可闪避 ==========
+        -- 判定条件：玩家在BOSS前方90°范围内，且距离在弹反范围外1米以内
+        -- 　　f27_local1 + 1 = 稍微扩大的弹反判定距离
+        -- 　　含义：玩家靠近但还没完全进入弹反范围，可以提前闪避
     elseif f27_arg0:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, f27_local1 + 1) then
+
+        -- 【闪避概率判定】
+        -- 逻辑：f27_local4(随机数1-100) <= f27_arg3(中距闪避参数)
+        -- 　　含义：根据参数f27_arg3决定闪避概率
+        -- 　　用途：不同的弹反函数调用可以传入不同f27_arg3，控制闪避率
+        -- 　　例如：f27_arg3=0时不闪避，f27_arg3=50时50%闪避，f27_arg3=100时100%闪避
         if f27_local4 <= f27_arg3 then
             f27_arg1:ClearSubGoal()
             f27_arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5211, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
-            log("7100 Parry true:f27_local4 <= f27_arg3")
+            log("7100 Parry true: 中距离闪避触发(概率判定)，执行侧向闪避5211")
 
             return true
         else
-            log("7100 Parry false: else1")
+            log("7100 Parry false: 中距离概率闪避失败")
 
             return false
         end
+
+        -- ========== 【超出范围】距离太远或角度不对 ==========
+        -- 条件：玩家不在BOSS正面范围内，或者距离超过弹反+1范围
+        -- 　　含义：BOSS无法及时反击，由其他系统处理
     else
-        log("7100 Parry false: else2")
+        log("7100 Parry false: 玩家超出弹反/闪避范围")
 
         return false
     end
-    
+
 end
 
 -- ========== 受伤反应系统 (Damage Reaction System) ==========
@@ -1358,8 +1581,12 @@ end
 Goal.Kengeki01 = function (f31_arg0, f31_arg1, f31_arg2)
     f31_arg0:SetNumber(3, 1)                                              -- 设置数字3为1，标记剑击执行 (Set number 3 to 1, mark sword strike execution)
     f31_arg1:ClearSubGoal()                                               -- 清空所有子目标 (Clear all sub-goals)
+
+
     -- 执行终结剑击（动画3050）(Execute finisher sword strike - animation 3050)
     f31_arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3050, TARGET_ENE_0, 9999, 0, 0)
+    --f31_arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 10, TARGET_ENE_0, true, 45, true, true, 9910)
+
 end
 
 -- ========== 剑击02：后退旋转剑击 (Kengeki02: Backward Spinning Sword Strike) ==========

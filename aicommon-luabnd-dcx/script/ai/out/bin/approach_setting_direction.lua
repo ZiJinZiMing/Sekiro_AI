@@ -45,7 +45,20 @@ function ApproachSettingDirection_Activate(f1_arg0, f1_arg1)
 
     -- ■ 添加移动到某处的子目标，使用所有配置参数
     -- ■ 参数顺序: 生命周期(-1表示无限), 目标, 方向, 距离, 旋回目标, 步行标志, 移动距离, 未知参数, false, 防御状态, 继续结果, false
-    f1_arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, -1, f1_local1, f1_local6, f1_local2, f1_local3, f1_local4, f1_local7, 0, false, f1_local5, GOAL_RESULT_Continue, false)
+    f1_arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere,
+            -1,                     --生命周期(-1表示无限)
+            f1_local1,              --目标
+            f1_local6,              --方向
+            f1_local2,              --到达判定距离
+            f1_local3,              --旋回目标
+            f1_local4,              --步行标志
+            f1_local7,              --向指定方向的距离?
+            0,                      --未知参数?
+            false,                  --
+            f1_local5,              --防御状态
+            GOAL_RESULT_Continue,   --继续结果
+            false                   --
+    )
 
 end
 

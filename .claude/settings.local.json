@@ -4,7 +4,21 @@
       "Bash(dir)",
       "Bash(python:*)",
       "Bash(fc:*)",
-      "Bash(for:*)"
+      "Bash(for:*)",
+      "Bash(do echo '=== $file ===')",
+      "Bash(done)",
+      "Bash(sed:*)",
+      "Bash(do echo '--- $file ---')",
+      "Bash(nul)",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(cp:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "WebFetch(domain:sekiroshadowsdietwice.wiki.fextralife.com)",
+      "WebSearch",
+      "Bash(findstr:*)",
+      "Bash(fi)"
     ],
     "deny": [],
     "ask": []

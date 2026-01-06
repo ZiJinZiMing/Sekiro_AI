@@ -60,7 +60,21 @@ function NonspinningComboAttack_Activate(f1_arg0, f1_arg1)
 
     -- 启动通用攻击子目标，执行非旋转连击攻击
     -- 注意：连击取消机制被启用，允许在特定条件下停止连击
-    f1_arg1:AddSubGoal(GOAL_COMMON_CommonAttack, f1_local0, f1_local1, f1_local2, f1_local3, f1_local4, f1_local5, f1_local6, f1_local8, f1_local9, f1_local10, f1_local11, f1_local12, f1_local13, f1_local7)
+    f1_arg1:AddSubGoal(GOAL_COMMON_CommonAttack,
+            f1_local0,
+            f1_local1,
+            f1_local2,
+            f1_local3,
+            f1_local4,
+            f1_local5,
+            f1_local6,
+            f1_local8,
+            f1_local9,
+            f1_local10,
+            f1_local11,
+            f1_local12,
+            f1_local13,
+            f1_local7)
 
 end
 

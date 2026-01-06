@@ -1,0 +1,2381 @@
+{
+  "anime_ids": {
+    "ANIME_ID_IDLE_DEFAULT": 0,
+    "ANIME_ID_IDLE_CAUTION_NO_BATTLE": 100000,
+    "ANIME_ID_IDLE_CAUTION_BATTLE": 200000,
+    "ANIME_ID_IDLE_BATTLE": 400000,
+    "ANIME_ID_IDLE_GURD": 500000,
+    "ANIME_ID_IDLE_GENERAL_STANCE": 600000,
+    "ANIME_ID_TRANS_TO_DEFAULT_FROM_DEFAULT": 1000,
+    "ANIME_ID_TRANS_TO_CAUTION_NO_BATTLE_SMALL_FROM_DEFAULT": 1010,
+    "ANIME_ID_TRANS_TO_CAUTION_NO_BATTLE_BIG_FROM_DEFAULT": 1011,
+    "ANIME_ID_TRANS_TO_CAUTION_BATTLE_FROM_DEFAULT": 1020,
+    "ANIME_ID_TRANS_TO_BATTLE_FROM_DEFAULT": 1040,
+    "ANIME_ID_TRANS_TO_DEFAULT_FROM_CAUTION_NO_BATTLE": 101000,
+    "ANIME_ID_TRANS_TO_BATTLE_FROM_CAUTION_NO_BATTLE": 101040,
+    "ANIME_ID_TRANS_TO_DEFAULT_FROM_CAUTION_BATTLE": 201000,
+    "ANIME_ID_TRANS_TO_BATTLE_FROM_CAUTION_BATTLE": 201040,
+    "ANIME_ID_TRANS_TO_DEFAULT_FROM_BATTLE": 401000,
+    "ANIME_ID_TRANS_TO_CAUTION_BATTLE_FROM_BATTLE": 401020,
+    "ANIME_ID_TRANS_TO_BATTLE_FROM_BATTLE": 401040,
+    "ANIME_ID_ONE_SHOT_IDLE_UNIQUE_BEGIN": 200,
+    "ANIME_ID_ONE_SHOT_IDLE_UNIQUE_END": 240,
+    "ANIME_ID_LOOP_IDLE_UNIQUE_BEGIN": 400,
+    "ANIME_ID_LOOP_IDLE_UNIQUE_END": 492,
+    "ANIME_ID_SEARCH_DEFAULT_BEGIN": 600,
+    "ANIME_ID_SEARCH_DEFAULT_END": 620,
+    "ANIME_ID_LISTEN_SOUND_BEGIN": 700,
+    "ANIME_ID_LISTEN_SOUND_END": 720,
+    "ANIME_ID_SEARCH_BATTLE_BEGIN": 400600,
+    "ANIME_ID_SEARCH_BATTLE_END": 400620,
+    "ANIME_ID_IDLE_UNIQUE_CAUTION_BEGIN": 200200,
+    "ANIME_ID_IDLE_UNIQUE_CAUTION_END": 200240,
+    "ANIME_ID_IDLE_UNIQUE_BATTLE_BEGIN": 400200,
+    "ANIME_ID_IDLE_UNIQUE_BATTLE_END": 400240,
+    "ANIME_ID_ATTACK_BEGIN": 3000,
+    "ANIME_ID_ATTACK_END": 3109,
+    "ANIME_ID_JUMP_ATTACK_BEGIN": 3200,
+    "ANIME_ID_JUMP_ATTACK_LOOP": 3201,
+    "ANIME_ID_JUMP_ATTACK_END": 3299,
+    "ANIME_ID_WALK_DEFAULT": 5000,
+    "ANIME_ID_RUN_DEFAULT": 5010,
+    "ANIME_ID_WALK_CAUTION_NO_BATTLE": 105000,
+    "ANIME_ID_RUN_CAUTION_NO_BATTLE": 105010,
+    "ANIME_ID_WALK_CAUTION_BATTLE": 205000,
+    "ANIME_ID_RUN_CAUTION_BATTLE": 205010,
+    "ANIME_ID_WALK_BATTLE": 405000,
+    "ANIME_ID_RUN_BATTLE": 405010,
+    "ANIME_ID_WALK_GUARD": 505000,
+    "ANIME_ID_RUN_GUARD": 505010,
+    "ANIME_ID_WALK_GENERAL_STANCE": 605000,
+    "ANIME_ID_RUN_GENERAL_STANCE": 605010,
+    "ANIME_ID_STEP_BEGIN": 5200,
+    "ANIME_ID_STEP_END": 5213,
+    "ANIME_ID_TURN": 5400,
+    "ANIME_ID_FALL_START_DEFAULT": 7000,
+    "ANIME_ID_FALL_START_UPWARD": 7100,
+    "ANIME_ID_FALL_START_DOWNWARD": 7200,
+    "ANIME_ID_FALL_START_TRUNK": 7600,
+    "ANIME_ID_FALLING_UPWARD": 7110,
+    "ANIME_ID_FALLING_DOWNWARD": 7210,
+    "ANIME_ID_FALLING_TRUNK": 7610,
+    "ANIME_ID_DEATH_LAND_DEFAULT": 7021,
+    "ANIME_ID_LAND_HEAVY": 7022,
+    "ANIME_ID_DEATH_LAND_UPWARD": 7121,
+    "ANIME_ID_DEATH_LAND_DOWNWARD": 7221,
+    "ANIME_ID_DEATH_LAND_THROW_DEF_BACK": 7321,
+    "ANIME_ID_DEATH_LAND_THROW_DEF_FRONT": 7421,
+    "ANIME_ID_DEATH_LAND_THROW_DEF_ANTI_AIR": 7521,
+    "ANIME_ID_TRUNK_COLLAPSE_LAND": 7620,
+    "ANIME_ID_DAMAGE_SMALL": 8000,
+    "ANIME_ID_DAMAGE_MIDDLE": 8010,
+    "ANIME_ID_DAMAGE_LARGE": 8020,
+    "ANIME_ID_DAMAGE_PUSH": 8050,
+    "ANIME_ID_DAMAGE_WEAK": 8060,
+    "ANIME_ID_DAMAGE_FLING": 8100,
+    "ANIME_ID_DAMAGE_UPPER": 8110,
+    "ANIME_ID_DAMAGE_BLOW": 8120,
+    "ANIME_ID_DAMAGE_LARGE_BLOW": 8130,
+    "ANIME_ID_DAMAGE_AERIAL_FRONT": 8140,
+    "ANIME_ID_DAMAGE_AERIAL_BACK": 8141,
+    "ANIME_ID_DAMAGE_LARGE_BLOW_AERIAL": 8150,
+    "ANIME_ID_SPECIAL_DAMAGE_RANDOM": 8200,
+    "ANIME_ID_SPECIAL_DAMAGE_LIGHTNING_START": 8210,
+    "ANIME_ID_SPECIAL_DAMAGE_LIGHTNING_LOOP": 8220,
+    "ANIME_ID_TRUNK_COLLAPSE_LIGHTNING_START": 8240,
+    "ANIME_ID_TRUNK_COLLAPSE_LIGHTNING_LOOP": 8250,
+    "ANIME_ID_TRUNK_COLLAPSE_FRONT": 8300,
+    "ANIME_ID_TRUNK_COLLAPSE_BACK": 8301,
+    "ANIME_ID_TRUNK_COLLAPSE_LARGE": 8310,
+    "ANIME_ID_TRUNK_COLLAPSE_AERIAL": 8320,
+    "ANIME_ID_TRUNK_COLLAPSE_BURST": 8330,
+    "ANIME_ID_JUSTGUARD_RIGHT_TO_LEFT": 8400,
+    "ANIME_ID_JUSTGUARD_LEFT_TO_RIGHT": 8401,
+    "ANIME_ID_SPECIALJUSTGUARD_RIGHT_TO_LEFT": 8402,
+    "ANIME_ID_SPECIALJUSTGUARD_LEFT_TO_RIGHT": 8403,
+    "ANIME_ID_SPECIALJUSTGUARD2_RIGHT_TO_LEFT": 8404,
+    "ANIME_ID_SPECIALJUSTGUARD2_LEFT_TO_RIGHT": 8405,
+    "ANIME_ID_SMALL_GUARD_RIGHT_TO_LEFT": 8500,
+    "ANIME_ID_SMALL_GUARD_LEFT_TO_RIGHT": 8501,
+    "ANIME_ID_SPECIALGUARD_RIGHT_TO_LEFT": 8502,
+    "ANIME_ID_SPECIALGUARD_LEFT_TO_RIGHT": 8503,
+    "ANIME_ID_SPECIALGUARD2_RIGHT_TO_LEFT": 8504,
+    "ANIME_ID_SPECIALGUARD2_LEFT_TO_RIGHT": 8505,
+    "ANIME_ID_LARGE_GUARD_RIGHT_TO_LEFT": 8510,
+    "ANIME_ID_LARGE_GUARD_LEFT_TO_RIGHT": 8511,
+    "ANIME_ID_KICK_GUARD_RIGHT_TO_LEFT": 8520,
+    "ANIME_ID_KICK_GUARD_LEFT_TO_RIGHT": 8521,
+    "ANIME_ID_GUARD_BREAK_LEFT": 8550,
+    "ANIME_ID_GUARD_BREAK_RIGHT": 8551,
+    "ANIME_ID_ATTACK_BOUND_RIGHT": 8600,
+    "ANIME_ID_ATTACK_BOUND_LEFT": 8601,
+    "ANIME_ID_ATTACK_BOUND_RIGHT_SPECIAL1": 8602,
+    "ANIME_ID_ATTACK_BOUND_LEFT_SPECIAL1": 8603,
+    "ANIME_ID_ATTACK_BOUND_RIGHT_SPECIAL2": 8604,
+    "ANIME_ID_ATTACK_BOUND_LEFT_SPECIAL2": 8605,
+    "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_RIGHT": 8650,
+    "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_LEFT": 8651,
+    "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_AERIAL_RIGHT": 8660,
+    "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_AERIAL_LEFT": 8661,
+    "ANIME_ID_ATTACK_NO_BOUND_RIGHT": 8700,
+    "ANIME_ID_ATTACK_NO_BOUND_LEFT": 8701,
+    "ANIME_ID_ATTACK_NO_BOUND_RIGHT_SPECIAL1": 8702,
+    "ANIME_ID_ATTACK_NO_BOUND_LEFT_SPECIAL1": 8703,
+    "ANIME_ID_ATTACK_NO_BOUND_RIGHT_SPECIAL2": 8704,
+    "ANIME_ID_ATTACK_NO_BOUND_LEFT_SPECIAL2": 8705,
+    "ANIME_ID_FIRE_REACTION": 8900,
+    "ANIME_ID_BLEND_DAMAGE_SMALL_FRONT": 9000,
+    "ANIME_ID_BLEND_DAMAGE_MIDDLE_FRONT": 9010,
+    "ANIME_ID_BLEND_DAMAGE_LARGE_FRONT": 9020,
+    "ANIME_ID_BLEND_DAMAGE_FIRE": 9200,
+    "ANIME_ID_ADD_BLEND_FRONT": 9500,
+    "ANIME_ID_ADD_BLEND_BACK": 9501,
+    "ANIME_ID_ADD_BLEND_LEFT": 9502,
+    "ANIME_ID_ADD_BLEND_RIGHT": 9503,
+    "ANIME_ID_PART_DAMAGE": 9510,
+    "ANIME_ID_PARRY_BOUND_ADD01": 9600,
+    "ANIME_ID_GUARD_BOUND_ADD01": 9700,
+    "ANIME_ID_NO_ADD": 9999,
+    "ANIME_ID_DEATH_VARIATION": 10000,
+    "ANIME_ID_DEATH_DEFAULT": 10000,
+    "ANIME_ID_DEATH_DEFAULT2": 10010,
+    "ANIME_ID_DEATH_WEAK": 10060,
+    "ANIME_ID_DEATH_FLING": 10100,
+    "ANIME_ID_DEATH_UPPER": 10110,
+    "ANIME_ID_DEATH_BLAST": 10120,
+    "ANIME_ID_DEATH_UNIQUE_CASE": 10160,
+    "ANIME_ID_DEATH_FIRE": 10200,
+    "ANIME_ID_DEATH_LIGHTNING": 10210,
+    "ANIME_ID_DEATH_GHOST": 10220,
+    "ANIME_ID_DEATH_SLASH": 10230,
+    "ANIME_ID_DEATH_LIGHT_KNOCK": 10240,
+    "ANIME_ID_DEATH_STING": 10250,
+    "ANIME_ID_DEATH_HEAVY_KNOCK": 10260,
+    "ANIME_ID_DEATH_ANTI_GROUND": 10270,
+    "ANIME_ID_DEATH_ANTI_AIR": 10280,
+    "ANIME_ID_DEATH_LIGHT_SHOT": 10290,
+    "ANIME_ID_DEATH_HIDE": 10350,
+    "ANIME_ID_DEATH_BACK_REALITY": 10360,
+    "ANIME_ID_DEATH_SPECIAL_POISON": 10370,
+    "ANIME_ID_DEATH_AERIAL_FRONT": 10400,
+    "ANIME_ID_DEATH_AERIAL_BACK": 10401,
+    "ANIME_ID_DEATH_AERIAL_BLOW": 10410,
+    "ANIME_ID_RESURRECTION_IDLE_UPWARD": 10500,
+    "ANIME_ID_RESURRECTION_IDLE_DOWNWARD": 10510,
+    "ANIME_ID_RESURRECTION_START_UPWARD": 10600,
+    "ANIME_ID_RESURRECTION_START_DOWNWARD": 10610,
+    "ANIME_ID_THROW_DEF_BREAK": 12000,
+    "ANIME_ID_DEATH_THROW_BREAK": 12001,
+    "ANIME_ID_THROW_DEF_BREAK_FINISH": 12090,
+    "ANIME_ID_THROW_DEF_PARRY": 12100,
+    "ANIME_ID_THROW_DEF_PARRY_FIRST": 12110,
+    "ANIME_ID_DEATH_THROW_PARRY": 12111,
+    "ANIME_ID_THROW_DEF_PARRY_FINISH": 12190,
+    "ANIME_ID_THROW_DEF_BACK": 12200,
+    "ANIME_ID_DEATH_THROW_BACK": 12201,
+    "ANIME_ID_THROW_DEF_BACK_BLOOD_SMOKE": 12210,
+    "ANIME_ID_DEATH_THROW_BACK_BLOOD_SMOKE": 12211,
+    "ANIME_ID_THROW_DEF_BACK_MARIONETTE": 12220,
+    "ANIME_ID_THROW_DEF_BACK_ENCHANT": 12230,
+    "ANIME_ID_DEATH_THROW_BACK_ENCHANT": 12231,
+    "ANIME_ID_THROW_DEF_FALL": 12300,
+    "ANIME_ID_THROW_DEF_FALL_FIRST": 12310,
+    "ANIME_ID_DEATH_THROW_FALL": 12311,
+    "ANIME_ID_THROW_DEF_FALL_SECOND": 12320,
+    "ANIME_ID_THROW_DEF_NO_LIMIT_FALL": 12400,
+    "ANIME_ID_THROW_DEF_NO_LIMIT_FALL_FIRST": 12410,
+    "ANIME_ID_DEATH_THROW_NO_LIMIT_FALL": 12411,
+    "ANIME_ID_THROW_DEF_CROUCH_BACK": 12500,
+    "ANIME_ID_DEATH_THROW_CROUCH_BACK": 12501,
+    "ANIME_ID_THROW_DEF_WALL_PASTE_LEFT": 12600,
+    "ANIME_ID_DEATH_THROW_WALL_PASTE_LEFT": 12601,
+    "ANIME_ID_THROW_DEF_WALL_PASTE_RIGHT": 12700,
+    "ANIME_ID_DEATH_THROW_WALL_PASTE_RIGHT": 12701,
+    "ANIME_ID_THROW_DEF_HANG_BACK": 12800,
+    "ANIME_ID_THROW_DEF_SPECIAL": 12900,
+    "ANIME_ID_DEATH_THROW_SPECIAL": 12901,
+    "ANIME_ID_THROW_DEF_SPECIAL_B": 12950,
+    "ANIME_ID_DEATH_THROW_SPECIAL_B": 12951,
+    "ANIME_ID_THROW_DEF_HANG_FRONT": 13000,
+    "ANIME_ID_THROW_DEF_BREAKTHROUGH": 13100,
+    "ANIME_ID_THROW_DEF_BREAKTHROUGH_ATK": 13110,
+    "ANIME_ID_DEATH_THROW_BREAKTHROUGH_ATK": 13111,
+    "ANIME_ID_THROW_DEF_BREAKTHROUGH_JMP": 13120,
+    "ANIME_ID_THROW_DEF_BREAK_BACK": 13200,
+    "ANIME_ID_DEATH_THROW_BREAK_BACK": 13201,
+    "ANIME_ID_THROW_DEF_BREAK_BACK_ASSASSINATION": 13210,
+    "ANIME_ID_DEATH_THROW_BREAK_BACK_ASSASSINATION": 13211,
+    "ANIME_ID_THROW_DEF_BREAK_BACK_MARIONETTE": 13220,
+    "ANIME_ID_THROW_DEF_BREAK_BACK_ENCHANT": 13230,
+    "ANIME_ID_DEATH_THROW_BREAK_BACK_ENCHANT": 13231,
+    "ANIME_ID_THROW_DEF_BREAK_BACK_FINISH": 13290,
+    "ANIME_ID_THROW_DEF_ANTI_AIR": 13300,
+    "ANIME_ID_THROW_DEF_ANTI_AIR_FIRST": 13310,
+    "ANIME_ID_THROW_DEF_BREAK_FALL": 13400,
+    "ANIME_ID_THROW_DEF_BREAK_FALL_FIRST": 13410,
+    "ANIME_ID_DEATH_THROW_BREAK_FALL": 13411,
+    "ANIME_ID_THROW_DEF_KICK_BREAK": 13500,
+    "ANIME_ID_THROW_DEF_KICK_BREAK_FIRST": 13510,
+    "ANIME_ID_DEATH_THROW_KICK_BREAK": 13511,
+    "ANIME_ID_THROW_DEF_BREAK_WIRE": 13600,
+    "ANIME_ID_THROW_DEF_BREAK_WIRE_FIRST": 13610,
+    "ANIME_ID_DEATH_THROW_BREAK_WIRE": 13611,
+    "ANIME_ID_THROW_DEF_BREAK_WIRE_FINISH": 13690,
+    "ANIME_ID_THROW_DEF_FINISH": 13700,
+    "ANIME_ID_THROW_DEF_OVERLOOK": 13800,
+    "ANIME_ID_THROW_DEF_BREAK_KICK_FINISH": 14300,
+    "ANIME_ID_DEATH_START_LADDER": 19600,
+    "ANIME_ID_ONE_SHOT_EVENT_BEGIN": 20000,
+    "ANIME_ID_ONE_SHOT_EVENT_END": 20039,
+    "ANIME_ID_LOOP_EVENT_BEGIN": 21000,
+    "ANIME_ID_LOOP_EVENT_END": 21019,
+    "ANIME_ID_THROW_NEAR_REACTION": 20100,
+    "ANIME_ID_THROW_NEAR_REACTION_END": 20104,
+    "ANIME_ID_THROW_FAR_REACTION": 20105,
+    "ANIME_ID_THROW_FAR_REACTION_END": 20109,
+    "ANIME_ID_ASSASSINATION_BLOOD_REACTION": 20110,
+    "ANIME_ID_FIRE_FEAR_REACTION": 20130,
+    "ANIME_ID_HIDE_REACTION": 20140,
+    "ANIME_ID_BACK_REALITY_REACTION": 20150,
+    "ANIME_ID_SPECIAL_POISON_REACTION": 20160,
+    "ANIME_ID_FINGER_WHITSTLE_REACTION": 20170,
+    "ANIME_ID_GUARD_ATTACK_BEGIN": 503000,
+    "ANIME_ID_GUARD_ATTACK_END": 503009,
+    "ANIME_ID_GENERAL_STANCE_START_BEGIN": 401060,
+    "ANIME_ID_GENERAL_STANCE_START_END": 401064,
+    "ANIME_ID_GENERAL_STANCE_END_BEGIN": 601040,
+    "ANIME_ID_GENERAL_STANCE_END_END": 601044,
+    "ANIME_ID_GENERAL_STANCE_ATTACK_BEGIN": 603000,
+    "ANIME_ID_GENERAL_STANCE_ATTACK_END": 603009,
+    "ANIME_ID_GENERAL_LIP_SYNC": 41500,
+    "ANIME_ID_IDLE_UNIQUE_TO_IDLE": 1700,
+    "ANIME_ID_BRING_EST": 4600
+  },
+  "categories": {
+    "其他动画 (Other)": [
+      {
+        "fire_event": "W_IdleDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 944,
+        "code_context": "Fire(\"W_IdleDefault\")"
+      },
+      {
+        "fire_event": "W_IdleBattle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 949,
+        "code_context": "Fire(\"W_IdleBattle\")"
+      },
+      {
+        "fire_event": "W_IdleCautionNoBattle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 952,
+        "code_context": "Fire(\"W_IdleCautionNoBattle\")"
+      },
+      {
+        "fire_event": "W_IdleCautionBattle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 955,
+        "code_context": "Fire(\"W_IdleCautionBattle\")"
+      },
+      {
+        "fire_event": "W_IdleDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 958,
+        "code_context": "Fire(\"W_IdleDefault\")"
+      },
+      {
+        "fire_event": "W_JumpMoveStart",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1309,
+        "code_context": "Fire(\"W_JumpMoveStart\")"
+      },
+      {
+        "fire_event": "W_StandtoCrouch",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1316,
+        "code_context": "Fire(\"W_StandtoCrouch\")"
+      },
+      {
+        "fire_event": "W_CrouchtoStand",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1320,
+        "code_context": "Fire(\"W_CrouchtoStand\")"
+      },
+      {
+        "fire_event": "W_GuardEnd",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1359,
+        "code_context": "Fire(\"W_GuardEnd\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceEnd601040",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1361,
+        "code_context": "Fire(\"W_GeneralStanceEnd601040\")"
+      },
+      {
+        "fire_event": "W_TransToDefaultFromDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1386,
+        "code_context": "Fire(\"W_TransToDefaultFromDefault\")"
+      },
+      {
+        "fire_event": "W_TransToCautionNoBattleSmallFromDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1391,
+        "code_context": "Fire(\"W_TransToCautionNoBattleSmallFromDefault\")"
+      },
+      {
+        "fire_event": "W_TransToCautionNoBattleBigFromDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1396,
+        "code_context": "Fire(\"W_TransToCautionNoBattleBigFromDefault\")"
+      },
+      {
+        "fire_event": "W_TransToCautionBattleFromDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1401,
+        "code_context": "Fire(\"W_TransToCautionBattleFromDefault\")"
+      },
+      {
+        "fire_event": "W_TransToDefaultFromCautionNoBattle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1406,
+        "code_context": "Fire(\"W_TransToDefaultFromCautionNoBattle\")"
+      },
+      {
+        "fire_event": "W_TransToBattleFromDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1411,
+        "code_context": "Fire(\"W_TransToBattleFromDefault\")"
+      },
+      {
+        "fire_event": "W_TransToBattleFromCautionNoBattle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1416,
+        "code_context": "Fire(\"W_TransToBattleFromCautionNoBattle\")"
+      },
+      {
+        "fire_event": "W_TransToDefaultFromCautionBattle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1421,
+        "code_context": "Fire(\"W_TransToDefaultFromCautionBattle\")"
+      },
+      {
+        "fire_event": "W_TransToBattleFromCautionBattle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1426,
+        "code_context": "Fire(\"W_TransToBattleFromCautionBattle\")"
+      },
+      {
+        "fire_event": "W_TransToDefaultFromBattle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1431,
+        "code_context": "Fire(\"W_TransToDefaultFromBattle\")"
+      },
+      {
+        "fire_event": "W_TransToCautionBattleFromBattle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1436,
+        "code_context": "Fire(\"W_TransToCautionBattleFromBattle\")"
+      },
+      {
+        "fire_event": "W_TransToBattleFromBattle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1441,
+        "code_context": "Fire(\"W_TransToBattleFromBattle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceEnd601040",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1523,
+        "code_context": "Fire(\"W_GeneralStanceEnd601040\")"
+      },
+      {
+        "fire_event": "W_GuardStart",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1537,
+        "code_context": "Fire(\"W_GuardStart\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceEnd601040",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1545,
+        "code_context": "Fire(\"W_GeneralStanceEnd601040\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceStart401060",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1555,
+        "code_context": "Fire(\"W_GeneralStanceStart401060\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceStart401060",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1565,
+        "code_context": "Fire(\"W_GeneralStanceStart401060\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceEnd601040",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1574,
+        "code_context": "Fire(\"W_GeneralStanceEnd601040\")"
+      },
+      {
+        "fire_event": "W_GuardEnd",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1583,
+        "code_context": "Fire(\"W_GuardEnd\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceStart401060",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1594,
+        "code_context": "Fire(\"W_GeneralStanceStart401060\")"
+      },
+      {
+        "fire_event": "W_Event20200",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1604,
+        "code_context": "Fire(\"W_Event20200\")"
+      },
+      {
+        "fire_event": "W_Event20000",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1609,
+        "code_context": "Fire(\"W_Event20000\")"
+      },
+      {
+        "fire_event": "W_Event20005",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1614,
+        "code_context": "Fire(\"W_Event20005\")"
+      },
+      {
+        "fire_event": "W_Event20010",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1619,
+        "code_context": "Fire(\"W_Event20010\")"
+      },
+      {
+        "fire_event": "W_Event20020",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1624,
+        "code_context": "Fire(\"W_Event20020\")"
+      },
+      {
+        "fire_event": "W_Event21000",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1629,
+        "code_context": "Fire(\"W_Event21000\")"
+      },
+      {
+        "fire_event": "W_ParallelMove",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1794,
+        "code_context": "Fire(\"W_ParallelMove\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 2064,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 2067,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_ResurrectionIdleUpward",
+        "anime_id_const": "ANIME_ID_RESURRECTION_IDLE_UPWARD",
+        "anime_id_value": 10500,
+        "line_number": 2348,
+        "code_context": "Fire(\"W_ResurrectionIdleUpward\")"
+      },
+      {
+        "fire_event": "W_ResurrectionIdleDownward",
+        "anime_id_const": "ANIME_ID_RESURRECTION_IDLE_DOWNWARD",
+        "anime_id_value": 10510,
+        "line_number": 2352,
+        "code_context": "Fire(\"W_ResurrectionIdleDownward\")"
+      },
+      {
+        "fire_event": "W_Event20001",
+        "anime_id_const": "ANIME_ID_RESURRECTION_IDLE_DOWNWARD",
+        "anime_id_value": 10510,
+        "line_number": 2360,
+        "code_context": "Fire(\"W_Event20001\")"
+      },
+      {
+        "fire_event": "W_Event20000",
+        "anime_id_const": "ANIME_ID_RESURRECTION_IDLE_DOWNWARD",
+        "anime_id_value": 10510,
+        "line_number": 2362,
+        "code_context": "Fire(\"W_Event20000\")"
+      },
+      {
+        "fire_event": "W_Event20000",
+        "anime_id_const": "ANIME_ID_RESURRECTION_IDLE_DOWNWARD",
+        "anime_id_value": 10510,
+        "line_number": 2365,
+        "code_context": "Fire(\"W_Event20000\")"
+      },
+      {
+        "fire_event": "W_Event20001",
+        "anime_id_const": "ANIME_ID_RESURRECTION_IDLE_DOWNWARD",
+        "anime_id_value": 10510,
+        "line_number": 2367,
+        "code_context": "Fire(\"W_Event20001\")"
+      },
+      {
+        "fire_event": "W_Event20000",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 2371,
+        "code_context": "Fire(\"W_Event20000\")"
+      },
+      {
+        "fire_event": "W_Event20001",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 2373,
+        "code_context": "Fire(\"W_Event20001\")"
+      },
+      {
+        "fire_event": "W_Event20001",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 2376,
+        "code_context": "Fire(\"W_Event20001\")"
+      },
+      {
+        "fire_event": "W_SABlend_Add_Front",
+        "anime_id_const": "ANIME_ID_ADD_BLEND_FRONT",
+        "anime_id_value": 9500,
+        "line_number": 2684,
+        "code_context": "Fire(\"W_SABlend_Add_Front\")"
+      },
+      {
+        "fire_event": "W_GuardKick_RighttoLeft",
+        "anime_id_const": "ANIME_ID_KICK_GUARD_RIGHT_TO_LEFT",
+        "anime_id_value": 8520,
+        "line_number": 2790,
+        "code_context": "Fire(\"W_GuardKick_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_GuardKick_LefttoRight",
+        "anime_id_const": "ANIME_ID_KICK_GUARD_LEFT_TO_RIGHT",
+        "anime_id_value": 8521,
+        "line_number": 2829,
+        "code_context": "Fire(\"W_GuardKick_LefttoRight\")"
+      },
+      {
+        "fire_event": "W_SABlend_Add_Front",
+        "anime_id_const": "ANIME_ID_ADD_BLEND_FRONT",
+        "anime_id_value": 9500,
+        "line_number": 3277,
+        "code_context": "Fire(\"W_SABlend_Add_Front\")"
+      },
+      {
+        "fire_event": "W_FireReaction",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3358,
+        "code_context": "Fire(\"W_FireReaction\")"
+      },
+      {
+        "fire_event": "W_SpecialPoisonReaction",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3367,
+        "code_context": "Fire(\"W_SpecialPoisonReaction\")"
+      },
+      {
+        "fire_event": "W_Event20039",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3402,
+        "code_context": "Fire(\"W_Event20039\")"
+      },
+      {
+        "fire_event": "W_FireFearReaction",
+        "anime_id_const": "ANIME_ID_FIRE_FEAR_REACTION",
+        "anime_id_value": 20130,
+        "line_number": 3412,
+        "code_context": "Fire(\"W_FireFearReaction\")"
+      },
+      {
+        "fire_event": "W_FingerWhistleReaction",
+        "anime_id_const": "ANIME_ID_FINGER_WHITSTLE_REACTION",
+        "anime_id_value": 20170,
+        "line_number": 3420,
+        "code_context": "Fire(\"W_FingerWhistleReaction\")"
+      },
+      {
+        "fire_event": "W_BackRealityReaction",
+        "anime_id_const": "ANIME_ID_BACK_REALITY_REACTION",
+        "anime_id_value": 20150,
+        "line_number": 3428,
+        "code_context": "Fire(\"W_BackRealityReaction\")"
+      },
+      {
+        "fire_event": "W_HideReaction",
+        "anime_id_const": "ANIME_ID_HIDE_REACTION",
+        "anime_id_value": 20140,
+        "line_number": 3436,
+        "code_context": "Fire(\"W_HideReaction\")"
+      },
+      {
+        "fire_event": "W_AssassinationBloodReaction",
+        "anime_id_const": "ANIME_ID_ASSASSINATION_BLOOD_REACTION",
+        "anime_id_value": 20110,
+        "line_number": 3488,
+        "code_context": "Fire(\"W_AssassinationBloodReaction\")"
+      },
+      {
+        "fire_event": "W_AssassinationBloodReaction",
+        "anime_id_const": "ANIME_ID_ASSASSINATION_BLOOD_REACTION",
+        "anime_id_value": 20110,
+        "line_number": 3496,
+        "code_context": "Fire(\"W_AssassinationBloodReaction\")"
+      },
+      {
+        "fire_event": "W_LadderFallLand",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3802,
+        "code_context": "Fire(\"W_LadderFallLand\")"
+      },
+      {
+        "fire_event": "W_LandHeavy",
+        "anime_id_const": "ANIME_ID_LAND_HEAVY",
+        "anime_id_value": 7022,
+        "line_number": 3807,
+        "code_context": "Fire(\"W_LandHeavy\")"
+      },
+      {
+        "fire_event": "W_LandDefault",
+        "anime_id_const": "ANIME_ID_LAND_HEAVY",
+        "anime_id_value": 7022,
+        "line_number": 3809,
+        "code_context": "Fire(\"W_LandDefault\")"
+      },
+      {
+        "fire_event": "W_LandDefault",
+        "anime_id_const": "ANIME_ID_LAND_HEAVY",
+        "anime_id_value": 7022,
+        "line_number": 3815,
+        "code_context": "Fire(\"W_LandDefault\")"
+      },
+      {
+        "fire_event": "W_LandUpward",
+        "anime_id_const": "ANIME_ID_LAND_HEAVY",
+        "anime_id_value": 7022,
+        "line_number": 3824,
+        "code_context": "Fire(\"W_LandUpward\")"
+      },
+      {
+        "fire_event": "W_LandDownward",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3828,
+        "code_context": "Fire(\"W_LandDownward\")"
+      },
+      {
+        "fire_event": "W_JumpMoveEnd",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3848,
+        "code_context": "Fire(\"W_JumpMoveEnd\")"
+      },
+      {
+        "fire_event": "W_LadderRemoveWeaponBottom",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3886,
+        "code_context": "Fire(\"W_LadderRemoveWeaponBottom\")"
+      },
+      {
+        "fire_event": "W_LadderRemoveWeaponTop",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3889,
+        "code_context": "Fire(\"W_LadderRemoveWeaponTop\")"
+      },
+      {
+        "fire_event": "W_LadderFallStart",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3904,
+        "code_context": "Fire(\"W_LadderFallStart\")"
+      },
+      {
+        "fire_event": "W_LadderCoastStart",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3977,
+        "code_context": "Fire(\"W_LadderCoastStart\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3981,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_LadderCoastEnd",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3998,
+        "code_context": "Fire(\"W_LadderCoastEnd\")"
+      },
+      {
+        "fire_event": "W_Event20000",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4387,
+        "code_context": "Fire(\"W_Event20000\")"
+      },
+      {
+        "fire_event": "W_Event20004",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4391,
+        "code_context": "Fire(\"W_Event20004\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4423,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_Event21001",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4569,
+        "code_context": "Fire(\"W_Event21001\")"
+      },
+      {
+        "fire_event": "W_Event21010",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4572,
+        "code_context": "Fire(\"W_Event21010\")"
+      },
+      {
+        "fire_event": "W_Event21002",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4575,
+        "code_context": "Fire(\"W_Event21002\")"
+      },
+      {
+        "fire_event": "W_Event21001",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4578,
+        "code_context": "Fire(\"W_Event21001\")"
+      },
+      {
+        "fire_event": "W_Event21003",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4581,
+        "code_context": "Fire(\"W_Event21003\")"
+      },
+      {
+        "fire_event": "W_Event21007",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4584,
+        "code_context": "Fire(\"W_Event21007\")"
+      },
+      {
+        "fire_event": "W_Event21007",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4587,
+        "code_context": "Fire(\"W_Event21007\")"
+      },
+      {
+        "fire_event": "W_Event21013",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4590,
+        "code_context": "Fire(\"W_Event21013\")"
+      },
+      {
+        "fire_event": "W_Event21016",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4593,
+        "code_context": "Fire(\"W_Event21016\")"
+      },
+      {
+        "fire_event": "W_Event21000",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4603,
+        "code_context": "Fire(\"W_Event21000\")"
+      },
+      {
+        "fire_event": "W_Generate",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4606,
+        "code_context": "Fire(\"W_Generate\")"
+      },
+      {
+        "fire_event": "W_IdleUniqueDefault401",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 5413,
+        "code_context": "Fire(\"W_IdleUniqueDefault401\")"
+      },
+      {
+        "fire_event": "W_IdleUniqueDefault411",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 5459,
+        "code_context": "Fire(\"W_IdleUniqueDefault411\")"
+      },
+      {
+        "fire_event": "W_IdleUniqueDefault421",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 5505,
+        "code_context": "Fire(\"W_IdleUniqueDefault421\")"
+      },
+      {
+        "fire_event": "W_IdleUniqueDefault431",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 5551,
+        "code_context": "Fire(\"W_IdleUniqueDefault431\")"
+      },
+      {
+        "fire_event": "W_IdleUniqueDefault441",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 5597,
+        "code_context": "Fire(\"W_IdleUniqueDefault441\")"
+      },
+      {
+        "fire_event": "W_IdleUniqueDefault451",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 5643,
+        "code_context": "Fire(\"W_IdleUniqueDefault451\")"
+      },
+      {
+        "fire_event": "W_IdleUniqueDefault461",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 5689,
+        "code_context": "Fire(\"W_IdleUniqueDefault461\")"
+      },
+      {
+        "fire_event": "W_IdleUniqueDefault471",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 5731,
+        "code_context": "Fire(\"W_IdleUniqueDefault471\")"
+      },
+      {
+        "fire_event": "W_IdleUniqueDefault481",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 5777,
+        "code_context": "Fire(\"W_IdleUniqueDefault481\")"
+      },
+      {
+        "fire_event": "W_IdleUniqueDefault491",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 5823,
+        "code_context": "Fire(\"W_IdleUniqueDefault491\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": "ANIME_ID_JUMP_ATTACK_LOOP",
+        "anime_id_value": 3201,
+        "line_number": 7419,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7459,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7500,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7541,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7582,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7623,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7664,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7705,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7746,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_FallingDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7787,
+        "code_context": "Fire(\"W_FallingDefault\")"
+      },
+      {
+        "fire_event": "W_FallingUpward",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8497,
+        "code_context": "Fire(\"W_FallingUpward\")"
+      },
+      {
+        "fire_event": "W_FallingDownward",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8519,
+        "code_context": "Fire(\"W_FallingDownward\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8964,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8987,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9010,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9033,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9056,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9079,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9182,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9205,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9228,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9251,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9274,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9297,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_ResurrectionStartUpward",
+        "anime_id_const": "ANIME_ID_RESURRECTION_START_UPWARD",
+        "anime_id_value": 10600,
+        "line_number": 9315,
+        "code_context": "Fire(\"W_ResurrectionStartUpward\")"
+      },
+      {
+        "fire_event": "W_ResurrectionStartDownward",
+        "anime_id_const": "ANIME_ID_RESURRECTION_START_DOWNWARD",
+        "anime_id_value": 10610,
+        "line_number": 9324,
+        "code_context": "Fire(\"W_ResurrectionStartDownward\")"
+      },
+      {
+        "fire_event": "W_Event21003",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 10059,
+        "code_context": "Fire(\"W_Event21003\")"
+      },
+      {
+        "fire_event": "W_LandDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 10181,
+        "code_context": "Fire(\"W_LandDefault\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 10931,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 10957,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 10970,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 10983,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 10996,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11009,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11022,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11035,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11048,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11061,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11074,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11126,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11138,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11150,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11162,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11174,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GuardIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11186,
+        "code_context": "Fire(\"W_GuardIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11207,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11220,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11233,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11246,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11259,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11337,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11350,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11363,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11376,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11389,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11402,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11415,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11428,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11441,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11454,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11506,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11518,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11530,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_GeneralStanceIdle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11542,
+        "code_context": "Fire(\"W_GeneralStanceIdle\")"
+      },
+      {
+        "fire_event": "W_LipSync",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 11649,
+        "code_context": "Fire(\"W_LipSync\")"
+      },
+      {
+        "fire_event": "W_IdleDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 12066,
+        "code_context": "Fire(\"W_IdleDefault\")"
+      },
+      {
+        "fire_event": "W_IdleDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 12082,
+        "code_context": "Fire(\"W_IdleDefault\")"
+      },
+      {
+        "fire_event": "W_IdleDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 12111,
+        "code_context": "Fire(\"W_IdleDefault\")"
+      },
+      {
+        "fire_event": "W_Event20003",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 12159,
+        "code_context": "Fire(\"W_Event20003\")"
+      },
+      {
+        "fire_event": "W_LipSync",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 12303,
+        "code_context": "Fire(\"W_LipSync\")"
+      }
+    ],
+    "投技动画 (Throw)": [
+      {
+        "fire_event": "W_ThrowNearReaction",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1489,
+        "code_context": "Fire(\"W_ThrowNearReaction\")"
+      },
+      {
+        "fire_event": "W_ThrowFarReaction",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 1496,
+        "code_context": "Fire(\"W_ThrowFarReaction\")"
+      },
+      {
+        "fire_event": "W_ThrowNearReaction",
+        "anime_id_const": "ANIME_ID_THROW_NEAR_REACTION",
+        "anime_id_value": 20100,
+        "line_number": 3470,
+        "code_context": "Fire(\"W_ThrowNearReaction\")"
+      },
+      {
+        "fire_event": "W_ThrowFarReaction",
+        "anime_id_const": "ANIME_ID_THROW_FAR_REACTION",
+        "anime_id_value": 20105,
+        "line_number": 3480,
+        "code_context": "Fire(\"W_ThrowFarReaction\")"
+      },
+      {
+        "fire_event": "W_LandThrowDefFront",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3832,
+        "code_context": "Fire(\"W_LandThrowDefFront\")"
+      },
+      {
+        "fire_event": "W_LandThrowDefBack",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3836,
+        "code_context": "Fire(\"W_LandThrowDefBack\")"
+      },
+      {
+        "fire_event": "W_LandThrowDefAntiAir",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3840,
+        "code_context": "Fire(\"W_LandThrowDefAntiAir\")"
+      },
+      {
+        "fire_event": "W_FallingThrowDefFront",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4419,
+        "code_context": "Fire(\"W_FallingThrowDefFront\")"
+      },
+      {
+        "fire_event": "W_FallingThrowDefBack",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4421,
+        "code_context": "Fire(\"W_FallingThrowDefBack\")"
+      },
+      {
+        "fire_event": "W_FallingThrowDefAntiAir",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4425,
+        "code_context": "Fire(\"W_FallingThrowDefAntiAir\")"
+      }
+    ],
+    "死亡动画 (Death)": [
+      {
+        "fire_event": "W_DeathStartDefault",
+        "anime_id_const": "ANIME_ID_DEATH_BACK_REALITY",
+        "anime_id_value": 10360,
+        "line_number": 2140,
+        "code_context": "Fire(\"W_DeathStartDefault\")"
+      },
+      {
+        "fire_event": "W_DeathStartDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 2145,
+        "code_context": "Fire(\"W_DeathStartDefault\")"
+      },
+      {
+        "fire_event": "W_LadderDeath",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3899,
+        "code_context": "Fire(\"W_LadderDeath\")"
+      },
+      {
+        "fire_event": "W_FallingThrowDefFrontDeath",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4399,
+        "code_context": "Fire(\"W_FallingThrowDefFrontDeath\")"
+      },
+      {
+        "fire_event": "W_FallingThrowDefBackDeath",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4402,
+        "code_context": "Fire(\"W_FallingThrowDefBackDeath\")"
+      },
+      {
+        "fire_event": "W_FallingThrowDefAntiAirDeath",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4405,
+        "code_context": "Fire(\"W_FallingThrowDefAntiAirDeath\")"
+      },
+      {
+        "fire_event": "W_DeathIdleReturn",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4566,
+        "code_context": "Fire(\"W_DeathIdleReturn\")"
+      },
+      {
+        "fire_event": "W_DeathIdleDefault",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4598,
+        "code_context": "Fire(\"W_DeathIdleDefault\")"
+      },
+      {
+        "fire_event": "W_DeathStartLightning",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8394,
+        "code_context": "Fire(\"W_DeathStartLightning\")"
+      },
+      {
+        "fire_event": "W_DeathStartLightning",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8655,
+        "code_context": "Fire(\"W_DeathStartLightning\")"
+      },
+      {
+        "fire_event": "W_FallingDeathUpward",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9567,
+        "code_context": "Fire(\"W_FallingDeathUpward\")"
+      },
+      {
+        "fire_event": "W_FallStartDeathUpward",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9645,
+        "code_context": "Fire(\"W_FallStartDeathUpward\")"
+      },
+      {
+        "fire_event": "W_FallStartDeathDownward",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9657,
+        "code_context": "Fire(\"W_FallStartDeathDownward\")"
+      },
+      {
+        "fire_event": "W_FallingDeathUpward",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9666,
+        "code_context": "Fire(\"W_FallingDeathUpward\")"
+      }
+    ],
+    "破防动画 (Guard Break)": [
+      {
+        "fire_event": "W_GuardBreakRight",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 2655,
+        "code_context": "Fire(\"W_GuardBreakRight\")"
+      },
+      {
+        "fire_event": "W_GuardBreakLeft",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 2657,
+        "code_context": "Fire(\"W_GuardBreakLeft\")"
+      }
+    ],
+    "弹反动画 (Just Guard)": [
+      {
+        "fire_event": "W_JustGuardDamageSpecial_RighttoLeft",
+        "anime_id_const": "ANIME_ID_SPECIALJUSTGUARD_RIGHT_TO_LEFT",
+        "anime_id_value": 8402,
+        "line_number": 2694,
+        "code_context": "Fire(\"W_JustGuardDamageSpecial_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_JustGuardDamageSpecial2_RighttoLeft",
+        "anime_id_const": "ANIME_ID_SPECIALJUSTGUARD2_RIGHT_TO_LEFT",
+        "anime_id_value": 8404,
+        "line_number": 2699,
+        "code_context": "Fire(\"W_JustGuardDamageSpecial2_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_JustGuardDamage_RighttoLeft",
+        "anime_id_const": "ANIME_ID_JUSTGUARD_RIGHT_TO_LEFT",
+        "anime_id_value": 8400,
+        "line_number": 2704,
+        "code_context": "Fire(\"W_JustGuardDamage_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_JustGuardDamageSpecial_LefttoRight",
+        "anime_id_const": "ANIME_ID_SPECIALJUSTGUARD_LEFT_TO_RIGHT",
+        "anime_id_value": 8403,
+        "line_number": 2728,
+        "code_context": "Fire(\"W_JustGuardDamageSpecial_LefttoRight\")"
+      },
+      {
+        "fire_event": "W_JustGuardDamageSpecial2_LefttoRight",
+        "anime_id_const": "ANIME_ID_SPECIALJUSTGUARD2_LEFT_TO_RIGHT",
+        "anime_id_value": 8405,
+        "line_number": 2733,
+        "code_context": "Fire(\"W_JustGuardDamageSpecial2_LefttoRight\")"
+      },
+      {
+        "fire_event": "W_JustGuardDamage_LefttoRight",
+        "anime_id_const": "ANIME_ID_JUSTGUARD_LEFT_TO_RIGHT",
+        "anime_id_value": 8401,
+        "line_number": 2738,
+        "code_context": "Fire(\"W_JustGuardDamage_LefttoRight\")"
+      },
+      {
+        "fire_event": "W_JustGuardDamageSpecial_RighttoLeft",
+        "anime_id_const": "ANIME_ID_SPECIALJUSTGUARD_RIGHT_TO_LEFT",
+        "anime_id_value": 8402,
+        "line_number": 2765,
+        "code_context": "Fire(\"W_JustGuardDamageSpecial_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_JustGuardDamageSpecial2_RighttoLeft",
+        "anime_id_const": "ANIME_ID_SPECIALJUSTGUARD2_RIGHT_TO_LEFT",
+        "anime_id_value": 8404,
+        "line_number": 2770,
+        "code_context": "Fire(\"W_JustGuardDamageSpecial2_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_JustGuardDamage_RighttoLeft",
+        "anime_id_const": "ANIME_ID_JUSTGUARD_RIGHT_TO_LEFT",
+        "anime_id_value": 8400,
+        "line_number": 2775,
+        "code_context": "Fire(\"W_JustGuardDamage_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_JustGuardDamageSpecial_LefttoRight",
+        "anime_id_const": "ANIME_ID_SPECIALJUSTGUARD_LEFT_TO_RIGHT",
+        "anime_id_value": 8403,
+        "line_number": 2804,
+        "code_context": "Fire(\"W_JustGuardDamageSpecial_LefttoRight\")"
+      },
+      {
+        "fire_event": "W_JustGuardDamageSpecial2_LefttoRight",
+        "anime_id_const": "ANIME_ID_SPECIALJUSTGUARD2_LEFT_TO_RIGHT",
+        "anime_id_value": 8405,
+        "line_number": 2809,
+        "code_context": "Fire(\"W_JustGuardDamageSpecial2_LefttoRight\")"
+      },
+      {
+        "fire_event": "W_JustGuardDamage_LefttoRight",
+        "anime_id_const": "ANIME_ID_JUSTGUARD_LEFT_TO_RIGHT",
+        "anime_id_value": 8401,
+        "line_number": 2814,
+        "code_context": "Fire(\"W_JustGuardDamage_LefttoRight\")"
+      }
+    ],
+    "格挡动画 (Guard Damage)": [
+      {
+        "fire_event": "W_GuardDamageSpecial_RighttoLeft",
+        "anime_id_const": "ANIME_ID_SPECIALGUARD_RIGHT_TO_LEFT",
+        "anime_id_value": 8502,
+        "line_number": 2709,
+        "code_context": "Fire(\"W_GuardDamageSpecial_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_GuardDamageSpecial2_RighttoLeft",
+        "anime_id_const": "ANIME_ID_SPECIALGUARD2_RIGHT_TO_LEFT",
+        "anime_id_value": 8504,
+        "line_number": 2714,
+        "code_context": "Fire(\"W_GuardDamageSpecial2_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_GuardDamageSmall_RighttoLeft",
+        "anime_id_const": "ANIME_ID_SMALL_GUARD_RIGHT_TO_LEFT",
+        "anime_id_value": 8500,
+        "line_number": 2719,
+        "code_context": "Fire(\"W_GuardDamageSmall_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_GuardDamageSpecial_LefttoRight",
+        "anime_id_const": "ANIME_ID_SPECIALGUARD_LEFT_TO_RIGHT",
+        "anime_id_value": 8503,
+        "line_number": 2743,
+        "code_context": "Fire(\"W_GuardDamageSpecial_LefttoRight\")"
+      },
+      {
+        "fire_event": "W_GuardDamageSpecial2_LefttoRight",
+        "anime_id_const": "ANIME_ID_SPECIALGUARD2_LEFT_TO_RIGHT",
+        "anime_id_value": 8505,
+        "line_number": 2748,
+        "code_context": "Fire(\"W_GuardDamageSpecial2_LefttoRight\")"
+      },
+      {
+        "fire_event": "W_GuardDamageSmall_LefttoRight",
+        "anime_id_const": "ANIME_ID_SMALL_GUARD_LEFT_TO_RIGHT",
+        "anime_id_value": 8501,
+        "line_number": 2753,
+        "code_context": "Fire(\"W_GuardDamageSmall_LefttoRight\")"
+      },
+      {
+        "fire_event": "W_GuardDamageSpecial_RighttoLeft",
+        "anime_id_const": "ANIME_ID_SPECIALGUARD_RIGHT_TO_LEFT",
+        "anime_id_value": 8502,
+        "line_number": 2780,
+        "code_context": "Fire(\"W_GuardDamageSpecial_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_GuardDamageSpecial2_RighttoLeft",
+        "anime_id_const": "ANIME_ID_SPECIALGUARD2_RIGHT_TO_LEFT",
+        "anime_id_value": 8504,
+        "line_number": 2785,
+        "code_context": "Fire(\"W_GuardDamageSpecial2_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_GuardDamageLarge_RighttoLeft",
+        "anime_id_const": "ANIME_ID_LARGE_GUARD_RIGHT_TO_LEFT",
+        "anime_id_value": 8510,
+        "line_number": 2795,
+        "code_context": "Fire(\"W_GuardDamageLarge_RighttoLeft\")"
+      },
+      {
+        "fire_event": "W_GuardDamageSpecial_LefttoRight",
+        "anime_id_const": "ANIME_ID_SPECIALGUARD_LEFT_TO_RIGHT",
+        "anime_id_value": 8503,
+        "line_number": 2819,
+        "code_context": "Fire(\"W_GuardDamageSpecial_LefttoRight\")"
+      },
+      {
+        "fire_event": "W_GuardDamageSpecial2_LefttoRight",
+        "anime_id_const": "ANIME_ID_SPECIALGUARD2_LEFT_TO_RIGHT",
+        "anime_id_value": 8505,
+        "line_number": 2824,
+        "code_context": "Fire(\"W_GuardDamageSpecial2_LefttoRight\")"
+      },
+      {
+        "fire_event": "W_GuardDamageLarge_LefttoRight",
+        "anime_id_const": "ANIME_ID_LARGE_GUARD_LEFT_TO_RIGHT",
+        "anime_id_value": 8511,
+        "line_number": 2834,
+        "code_context": "Fire(\"W_GuardDamageLarge_LefttoRight\")"
+      }
+    ],
+    "体干动画 (Trunk Collapse)": [
+      {
+        "fire_event": "W_TrunkCollapseLightningStart",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 2860,
+        "code_context": "Fire(\"W_TrunkCollapseLightningStart\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseBurst",
+        "anime_id_const": "ANIME_ID_TRUNK_COLLAPSE_BURST",
+        "anime_id_value": 8330,
+        "line_number": 2874,
+        "code_context": "Fire(\"W_TrunkCollapseBurst\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseBurst",
+        "anime_id_const": "ANIME_ID_TRUNK_COLLAPSE_BURST",
+        "anime_id_value": 8330,
+        "line_number": 2904,
+        "code_context": "Fire(\"W_TrunkCollapseBurst\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseAerial",
+        "anime_id_const": "ANIME_ID_TRUNK_COLLAPSE_AERIAL",
+        "anime_id_value": 8320,
+        "line_number": 2912,
+        "code_context": "Fire(\"W_TrunkCollapseAerial\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseBack",
+        "anime_id_const": "ANIME_ID_TRUNK_COLLAPSE_BACK",
+        "anime_id_value": 8301,
+        "line_number": 2917,
+        "code_context": "Fire(\"W_TrunkCollapseBack\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseFront",
+        "anime_id_const": "ANIME_ID_TRUNK_COLLAPSE_BACK",
+        "anime_id_value": 8301,
+        "line_number": 2919,
+        "code_context": "Fire(\"W_TrunkCollapseFront\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseFront",
+        "anime_id_const": "ANIME_ID_TRUNK_COLLAPSE_BACK",
+        "anime_id_value": 8301,
+        "line_number": 2924,
+        "code_context": "Fire(\"W_TrunkCollapseFront\")"
+      },
+      {
+        "fire_event": "W_LandTrunk",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3844,
+        "code_context": "Fire(\"W_LandTrunk\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseLarge",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8544,
+        "code_context": "Fire(\"W_TrunkCollapseLarge\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseLarge",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8562,
+        "code_context": "Fire(\"W_TrunkCollapseLarge\")"
+      },
+      {
+        "fire_event": "W_FallLoopTrunk",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8603,
+        "code_context": "Fire(\"W_FallLoopTrunk\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseLightningLoop",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8633,
+        "code_context": "Fire(\"W_TrunkCollapseLightningLoop\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseLightningLoop",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8651,
+        "code_context": "Fire(\"W_TrunkCollapseLightningLoop\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseLightningEnd",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8657,
+        "code_context": "Fire(\"W_TrunkCollapseLightningEnd\")"
+      },
+      {
+        "fire_event": "W_FallStartTrunk",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9135,
+        "code_context": "Fire(\"W_FallStartTrunk\")"
+      },
+      {
+        "fire_event": "W_FallStartTrunk",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9157,
+        "code_context": "Fire(\"W_FallStartTrunk\")"
+      },
+      {
+        "fire_event": "W_TrunkCollapseLarge",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 9865,
+        "code_context": "Fire(\"W_TrunkCollapseLarge\")"
+      }
+    ],
+    "受击动画 (Damage)": [
+      {
+        "fire_event": "W_DamageBlowBack",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 2938,
+        "code_context": "Fire(\"W_DamageBlowBack\")"
+      },
+      {
+        "fire_event": "W_DamageBlowFront",
+        "anime_id_const": "ANIME_ID_DAMAGE_BLOW",
+        "anime_id_value": 8120,
+        "line_number": 2945,
+        "code_context": "Fire(\"W_DamageBlowFront\")"
+      },
+      {
+        "fire_event": "W_DamageAerialBlow",
+        "anime_id_const": "ANIME_ID_DAMAGE_LARGE_BLOW_AERIAL",
+        "anime_id_value": 8150,
+        "line_number": 2964,
+        "code_context": "Fire(\"W_DamageAerialBlow\")"
+      },
+      {
+        "fire_event": "W_DamageLargeBlow",
+        "anime_id_const": "ANIME_ID_DAMAGE_LARGE_BLOW",
+        "anime_id_value": 8130,
+        "line_number": 2974,
+        "code_context": "Fire(\"W_DamageLargeBlow\")"
+      },
+      {
+        "fire_event": "W_DamageWeak",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3001,
+        "code_context": "Fire(\"W_DamageWeak\")"
+      },
+      {
+        "fire_event": "W_DamageFire",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3384,
+        "code_context": "Fire(\"W_DamageFire\")"
+      },
+      {
+        "fire_event": "W_DamageLightningStart",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3393,
+        "code_context": "Fire(\"W_DamageLightningStart\")"
+      },
+      {
+        "fire_event": "W_DamageWire0",
+        "anime_id_const": "ANIME_ID_HIDE_REACTION",
+        "anime_id_value": 20140,
+        "line_number": 3445,
+        "code_context": "Fire(\"W_DamageWire0\")"
+      },
+      {
+        "fire_event": "W_DamageWire1",
+        "anime_id_const": "ANIME_ID_HIDE_REACTION",
+        "anime_id_value": 20140,
+        "line_number": 3447,
+        "code_context": "Fire(\"W_DamageWire1\")"
+      },
+      {
+        "fire_event": "W_DamageWire2",
+        "anime_id_const": "ANIME_ID_HIDE_REACTION",
+        "anime_id_value": 20140,
+        "line_number": 3449,
+        "code_context": "Fire(\"W_DamageWire2\")"
+      },
+      {
+        "fire_event": "W_DamageWire3",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3451,
+        "code_context": "Fire(\"W_DamageWire3\")"
+      },
+      {
+        "fire_event": "W_DamageWire4",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3453,
+        "code_context": "Fire(\"W_DamageWire4\")"
+      },
+      {
+        "fire_event": "W_DamagePushFront",
+        "anime_id_const": "ANIME_ID_DAMAGE_PUSH",
+        "anime_id_value": 8050,
+        "line_number": 3508,
+        "code_context": "Fire(\"W_DamagePushFront\")"
+      },
+      {
+        "fire_event": "W_DamagePushBack",
+        "anime_id_const": "ANIME_ID_DAMAGE_PUSH",
+        "anime_id_value": 8050,
+        "line_number": 3518,
+        "code_context": "Fire(\"W_DamagePushBack\")"
+      },
+      {
+        "fire_event": "W_DamageAerialBack",
+        "anime_id_const": "ANIME_ID_DAMAGE_AERIAL_BACK",
+        "anime_id_value": 8141,
+        "line_number": 3537,
+        "code_context": "Fire(\"W_DamageAerialBack\")"
+      },
+      {
+        "fire_event": "W_DamageAerialFront",
+        "anime_id_const": "ANIME_ID_DAMAGE_AERIAL_FRONT",
+        "anime_id_value": 8140,
+        "line_number": 3547,
+        "code_context": "Fire(\"W_DamageAerialFront\")"
+      },
+      {
+        "fire_event": "W_DamageSmall",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3563,
+        "code_context": "Fire(\"W_DamageSmall\")"
+      },
+      {
+        "fire_event": "W_DamageMiddle",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3578,
+        "code_context": "Fire(\"W_DamageMiddle\")"
+      },
+      {
+        "fire_event": "W_DamageLarge",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3593,
+        "code_context": "Fire(\"W_DamageLarge\")"
+      },
+      {
+        "fire_event": "W_DamagePushFront",
+        "anime_id_const": "ANIME_ID_DAMAGE_PUSH",
+        "anime_id_value": 8050,
+        "line_number": 3606,
+        "code_context": "Fire(\"W_DamagePushFront\")"
+      },
+      {
+        "fire_event": "W_DamagePushBack",
+        "anime_id_const": "ANIME_ID_DAMAGE_PUSH",
+        "anime_id_value": 8050,
+        "line_number": 3616,
+        "code_context": "Fire(\"W_DamagePushBack\")"
+      },
+      {
+        "fire_event": "W_DamageFireBlend_Add",
+        "anime_id_const": "ANIME_ID_BLEND_DAMAGE_FIRE",
+        "anime_id_value": 9200,
+        "line_number": 3633,
+        "code_context": "Fire(\"W_DamageFireBlend_Add\")"
+      },
+      {
+        "fire_event": "W_DamageWire1",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 4304,
+        "code_context": "Fire(\"W_DamageWire1\")"
+      },
+      {
+        "fire_event": "W_DamageLightningLoop",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8373,
+        "code_context": "Fire(\"W_DamageLightningLoop\")"
+      },
+      {
+        "fire_event": "W_DamageLightningLoop",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8390,
+        "code_context": "Fire(\"W_DamageLightningLoop\")"
+      },
+      {
+        "fire_event": "W_DamageLightningEnd",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 8396,
+        "code_context": "Fire(\"W_DamageLightningEnd\")"
+      }
+    ],
+    "攻击动画 (Attack)": [
+      {
+        "fire_event": "W_AttackBoundEmptyStaminaEnemyAerial_Right",
+        "anime_id_const": "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_AERIAL_RIGHT",
+        "anime_id_value": 8660,
+        "line_number": 3069,
+        "code_context": "Fire(\"W_AttackBoundEmptyStaminaEnemyAerial_Right\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEmptyStaminaEnemyAerial_Left",
+        "anime_id_const": "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_AERIAL_LEFT",
+        "anime_id_value": 8661,
+        "line_number": 3074,
+        "code_context": "Fire(\"W_AttackBoundEmptyStaminaEnemyAerial_Left\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEmptyStaminaEnemy_Right",
+        "anime_id_const": "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_RIGHT",
+        "anime_id_value": 8650,
+        "line_number": 3083,
+        "code_context": "Fire(\"W_AttackBoundEmptyStaminaEnemy_Right\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEmptyStaminaEnemy_Left",
+        "anime_id_const": "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_LEFT",
+        "anime_id_value": 8651,
+        "line_number": 3090,
+        "code_context": "Fire(\"W_AttackBoundEmptyStaminaEnemy_Left\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEmptyStaminaEnemy_Right",
+        "anime_id_const": "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_RIGHT",
+        "anime_id_value": 8650,
+        "line_number": 3097,
+        "code_context": "Fire(\"W_AttackBoundEmptyStaminaEnemy_Right\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEmptyStaminaEnemy_Left",
+        "anime_id_const": "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_LEFT",
+        "anime_id_value": 8651,
+        "line_number": 3102,
+        "code_context": "Fire(\"W_AttackBoundEmptyStaminaEnemy_Left\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEmptyStaminaEnemy_Right",
+        "anime_id_const": "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_RIGHT",
+        "anime_id_value": 8650,
+        "line_number": 3109,
+        "code_context": "Fire(\"W_AttackBoundEmptyStaminaEnemy_Right\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEmptyStaminaEnemy_Left",
+        "anime_id_const": "ANIME_ID_EMPTY_STAMINA_ATTACK_BOUND_LEFT",
+        "anime_id_value": 8651,
+        "line_number": 3114,
+        "code_context": "Fire(\"W_AttackBoundEmptyStaminaEnemy_Left\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEnemy1_Right",
+        "anime_id_const": "ANIME_ID_ATTACK_BOUND_RIGHT",
+        "anime_id_value": 8600,
+        "line_number": 3127,
+        "code_context": "Fire(\"W_AttackBoundEnemy1_Right\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEnemy2_Right",
+        "anime_id_const": "ANIME_ID_ATTACK_BOUND_RIGHT_SPECIAL1",
+        "anime_id_value": 8602,
+        "line_number": 3131,
+        "code_context": "Fire(\"W_AttackBoundEnemy2_Right\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEnemy3_Right",
+        "anime_id_const": "ANIME_ID_ATTACK_BOUND_RIGHT_SPECIAL2",
+        "anime_id_value": 8604,
+        "line_number": 3135,
+        "code_context": "Fire(\"W_AttackBoundEnemy3_Right\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEnemy1_Left",
+        "anime_id_const": "ANIME_ID_ATTACK_BOUND_LEFT",
+        "anime_id_value": 8601,
+        "line_number": 3141,
+        "code_context": "Fire(\"W_AttackBoundEnemy1_Left\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEnemy2_Left",
+        "anime_id_const": "ANIME_ID_ATTACK_BOUND_LEFT_SPECIAL1",
+        "anime_id_value": 8603,
+        "line_number": 3145,
+        "code_context": "Fire(\"W_AttackBoundEnemy2_Left\")"
+      },
+      {
+        "fire_event": "W_AttackBoundEnemy3_Left",
+        "anime_id_const": "ANIME_ID_ATTACK_BOUND_LEFT_SPECIAL2",
+        "anime_id_value": 8605,
+        "line_number": 3149,
+        "code_context": "Fire(\"W_AttackBoundEnemy3_Left\")"
+      },
+      {
+        "fire_event": "W_AttackNoBoundEnemy1_Right",
+        "anime_id_const": "ANIME_ID_ATTACK_NO_BOUND_RIGHT",
+        "anime_id_value": 8700,
+        "line_number": 3165,
+        "code_context": "Fire(\"W_AttackNoBoundEnemy1_Right\")"
+      },
+      {
+        "fire_event": "W_AttackNoBoundEnemy2_Right",
+        "anime_id_const": "ANIME_ID_ATTACK_NO_BOUND_RIGHT_SPECIAL1",
+        "anime_id_value": 8702,
+        "line_number": 3169,
+        "code_context": "Fire(\"W_AttackNoBoundEnemy2_Right\")"
+      },
+      {
+        "fire_event": "W_AttackNoBoundEnemy3_Right",
+        "anime_id_const": "ANIME_ID_ATTACK_NO_BOUND_RIGHT_SPECIAL2",
+        "anime_id_value": 8704,
+        "line_number": 3173,
+        "code_context": "Fire(\"W_AttackNoBoundEnemy3_Right\")"
+      },
+      {
+        "fire_event": "W_AttackNoBoundEnemy1_Left",
+        "anime_id_const": "ANIME_ID_ATTACK_NO_BOUND_LEFT",
+        "anime_id_value": 8701,
+        "line_number": 3179,
+        "code_context": "Fire(\"W_AttackNoBoundEnemy1_Left\")"
+      },
+      {
+        "fire_event": "W_AttackNoBoundEnemy2_Left",
+        "anime_id_const": "ANIME_ID_ATTACK_NO_BOUND_LEFT_SPECIAL1",
+        "anime_id_value": 8703,
+        "line_number": 3183,
+        "code_context": "Fire(\"W_AttackNoBoundEnemy2_Left\")"
+      },
+      {
+        "fire_event": "W_AttackNoBoundEnemy3_Left",
+        "anime_id_const": "ANIME_ID_ATTACK_NO_BOUND_LEFT_SPECIAL2",
+        "anime_id_value": 8705,
+        "line_number": 3187,
+        "code_context": "Fire(\"W_AttackNoBoundEnemy3_Left\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3202",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3856,
+        "code_context": "Fire(\"W_JumpAttack3202\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3212",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3858,
+        "code_context": "Fire(\"W_JumpAttack3212\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3222",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3860,
+        "code_context": "Fire(\"W_JumpAttack3222\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3232",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3862,
+        "code_context": "Fire(\"W_JumpAttack3232\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3242",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3864,
+        "code_context": "Fire(\"W_JumpAttack3242\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3252",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3866,
+        "code_context": "Fire(\"W_JumpAttack3252\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3262",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3868,
+        "code_context": "Fire(\"W_JumpAttack3262\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3272",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3870,
+        "code_context": "Fire(\"W_JumpAttack3272\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3282",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3872,
+        "code_context": "Fire(\"W_JumpAttack3282\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3292",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 3874,
+        "code_context": "Fire(\"W_JumpAttack3292\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3201",
+        "anime_id_const": "ANIME_ID_JUMP_ATTACK_LOOP",
+        "anime_id_value": 3201,
+        "line_number": 7416,
+        "code_context": "Fire(\"W_JumpAttack3201\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3211",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7456,
+        "code_context": "Fire(\"W_JumpAttack3211\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3221",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7497,
+        "code_context": "Fire(\"W_JumpAttack3221\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3231",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7538,
+        "code_context": "Fire(\"W_JumpAttack3231\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3241",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7579,
+        "code_context": "Fire(\"W_JumpAttack3241\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3251",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7620,
+        "code_context": "Fire(\"W_JumpAttack3251\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3261",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7661,
+        "code_context": "Fire(\"W_JumpAttack3261\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3271",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7702,
+        "code_context": "Fire(\"W_JumpAttack3271\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3281",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7743,
+        "code_context": "Fire(\"W_JumpAttack3281\")"
+      },
+      {
+        "fire_event": "W_JumpAttack3291",
+        "anime_id_const": null,
+        "anime_id_value": null,
+        "line_number": 7784,
+        "code_context": "Fire(\"W_JumpAttack3291\")"
+      }
+    ]
+  }
+}
