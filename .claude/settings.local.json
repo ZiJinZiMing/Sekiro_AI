@@ -18,7 +18,12 @@
       "WebFetch(domain:sekiroshadowsdietwice.wiki.fextralife.com)",
       "WebSearch",
       "Bash(findstr:*)",
-      "Bash(fi)"
+      "Bash(fi)",
+      "Bash(dir:*)",
+      "Bash(powershell -Command \"$csv = Import-Csv ''D:\\\\Sekiro\\\\Sekiro_AI\\\\param\\\\param\\\\SpEffectParam.csv''; $csv | Where-Object { [int]$_behaviorRefId -ge 1000000 -and [int]$_behaviorRefId -le 1100000 } | Select-Object -First 10 ID, Name, behaviorRefId | Format-Table\")",
+      "Bash(python3:*)",
+      "Bash(while IFS=',' read -r id name rest)",
+      "Bash(do echo \"ID: $id, Name: $name\")"
     ],
     "deny": [],
     "ask": []

@@ -1016,6 +1016,84 @@ end
 -- 注意：env(3036, SP_EFFECT_REF_NO_ALL_REACTION) 会禁用大部分特殊反应
 -- ============================================================================
 function GetSpDamage()
+    --[[
+    功能：检测并返回当前受到的特殊伤害类型
+
+    返回值：特殊伤害类型标识符（SP_DAMAGE_*常量）
+
+    核心逻辑：
+    1. 初始化返回值为 SP_DAMAGE_NONE（无特殊伤害）
+    2. 依次检测多种特殊伤害类型，后检测的类型会覆盖前面的结果
+    3. 大部分检测需要满足"允许反应"前提条件（NO_ALL_REACTION == FALSE）
+    4. 钩锁伤害不受反应限制，始终优先检测
+
+    检测顺序及条件说明：
+
+    [1] 钩锁伤害（WIRE）
+        - 条件：钩锁攻击特效 且 启用任一钩锁伤害等级(0-4)
+        - 说明：忍义手钩锁攻击，不受NO_ALL_REACTION限制
+
+    [2] 近距投技反应（THROW_NEAR_REACTION）
+        - 条件：行为标识为近投 且 处于AI战斗状态
+
+    [3] 远距投技反应（THROW_FAR_REACTION）
+        - 条件：行为标识为远投 且 处于AI战斗状态
+
+    [4] 翻滚推击（PUSH）
+        - 条件：行为标识为翻滚 且 启用翻滚 且 未禁用翻滚
+
+    [5] 刺杀血液（ASSASSINATION_BLOOD）
+        - 条件：刺杀血液特效激活
+        - 说明：背刺、处决等刺杀攻击
+
+    [6] 爆发伤害（BURST）
+        - 条件：物理伤害类型为BURST 且 未禁用爆发反应 且
+                (爆发启用且暴击 或 爆发未启用且非暴击)
+        - 说明：破坏力攻击，根据暴击状态区分处理
+
+    [7] 灰袋攻击（ASH_BAG）
+        - 条件：灰袋攻击特效 且 未禁用灰袋反应
+
+    [8] 火焰伤害（FIRE）
+        - 条件：元素伤害为火焰 且 启用火焰动作 且 未禁用火焰恐惧反应
+
+    [9] 雷电伤害（LIGHTNING）
+        - 条件：(元素伤害为雷电 或 雷电伤害特效) 且
+                启用雷电伤害 且 未禁用雷电伤害
+
+    [10] 火焰恐惧（FIRE_FEAR）
+         - 条件：行为标识为火焰恐惧 且 未禁用火焰恐惧反应 且 启用火焰动作
+
+    [11] 指哨攻击（FINGER_WHISTLE）
+         - 条件：指哨特效 且 未禁用指哨反应
+         - 说明：忍义手指哨造成的惊吓效果
+
+    [12] 燃烧反应（BURNING）
+         - 条件：燃烧状态 且 存在火焰反应动画 且 未禁用火焰反应
+
+    [13] 毒素反应（POISON_REACTION）
+         - 条件：特殊毒素状态 且 女性特效 且 女性毒素特效
+         - 说明：仅对特定女性角色生效
+
+    [14] 隐藏动作（HIDE_ACTION）
+         - 条件：行为标识为旋转 且 隐藏动作特效
+
+    [15] 返回现实（BACK_REALITY）
+         - 条件：行为标识为返回现实 且 返回现实特效
+         - 说明：幻影消散返回现实
+
+    环境查询接口说明：
+    - env(3036, X)：特效状态查询（SpEffect Reference）
+    - env(334, X)：行为标识查询（Behavior Identifier）
+    - env(284)：物理伤害类型查询
+    - env(285)：元素伤害类型查询
+    - env(3041, X)：角色状态查询（Status）
+
+    重要提示：
+    - 由于采用顺序if而非if-elseif链，多个条件可能同时满足
+    - 最后满足条件的伤害类型会覆盖前面的结果，成为最终返回值
+    - NO_ALL_REACTION特效可阻止除钩锁外的所有特殊伤害反应
+    --]]
     local ret = SP_DAMAGE_NONE
     if env(3036, SP_EFFECT_REF_WIRE_ATTACK) == TRUE and (env(3036, SP_EFFECT_REF_ENABLE_WIRE_DAMAGE0) == TRUE or env(3036, SP_EFFECT_REF_ENABLE_WIRE_DAMAGE1) == TRUE or env(3036, SP_EFFECT_REF_ENABLE_WIRE_DAMAGE2) == TRUE or env(3036, SP_EFFECT_REF_ENABLE_WIRE_DAMAGE3) == TRUE or env(3036, SP_EFFECT_REF_ENABLE_WIRE_DAMAGE4) == TRUE) then
         ret = SP_DAMAGE_WIRE
